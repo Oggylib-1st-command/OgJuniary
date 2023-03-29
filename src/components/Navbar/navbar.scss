@@ -1,0 +1,127 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #FFFDF2;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+hr{
+  border: 1px solid #000000;
+  width: 100%;
+  margin: 0;
+}
+
+.menu{
+  margin: 0;
+  &__list{
+    background-color: #BBBBBB;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateX(300%);
+    position: absolute;
+    top:70px;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 100000;
+    outline: none;
+    &.menu__list--active{
+      transform: translateX(0%);
+      transition: all .3s;
+    }
+  }
+  &__list-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 7px 0 7px 15px;
+    transition: all .3s;
+    &:hover{
+      background-color: #7e7e7e;
+    }
+  }
+  &__list-link{
+    font-family: 'Montserrat',sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+  }
+  &__fullname{
+    font-family: 'Montserrat',sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+  }
+  &__list-img{
+    width: 40px;
+    height: 40px;
+    margin-right: 17px;
+    object-fit: cover;
+  }
+  &__btn{
+    margin: 25px 25px 23px auto;
+    margin-left: auto;
+    width: 26px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    order: 0;
+    padding: 0;
+    z-index: 666;
+    transition: all .3s;
+    cursor: pointer;
+    & span{
+      width: 100%;
+      margin-right: auto;
+      height: 3px;
+      border-radius: 2px;
+      background-color: #000000;
+      transition: transform 0.2s ease-in-out;
+    }
+    &::after,
+    &::before{
+      content: '';
+      position: absolute;
+      border-radius: 3px;
+      width: 100%;
+      height: 3px;
+      background-color: #000000;
+    }
+    &::after{
+      bottom: 0;
+      transform-origin: 0% 100%;
+      transition: transform 0.4s ease-in-out;
+      width: 100%;
+      left: 0;
+      border-radius: 2px;
+    }
+    &::before{
+      top: -1px;
+      border-radius: 2px;
+      transform-origin: 0% 0%;
+      transition: transform 0.4s ease-in-out;
+    }
+  }
+  &__btn--active{
+    & span{
+      transform: scaleY(0);
+    }
+    &::after{
+      transform: rotate(-46deg);
+    }
+    &::before{
+      transform: rotate(46deg);
+    }
+  }
+}
