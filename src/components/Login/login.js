@@ -1,21 +1,23 @@
 import './login.scss'
 import userIcon from './../../assets/icons/user-icon.svg'
-import password from './../../assets/icons/password-icon.svg'
+import passwordIcon from './../../assets/icons/password-icon.svg'
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import {useNavigate,} from 'react-router-dom';
 import axios from 'axios';
 
 
-function Login(props){
+function Login({setInfoUser}){
   const [ user, setUser ] = useState([]);
   const [ profile, setProfile ] = useState([]);
+  const [password,setPassword] = useState('');
+  const [email,setEmail] = useState('');
+  const navigate = useNavigate();
 
-  console.log(props);
   const login = useGoogleLogin({
        onSuccess: (codeResponse) => setUser(codeResponse),
        onError: (error) => console.log('Login Failed:', error)
    });
-
    useEffect(() => {
             if (user) {
               axios
@@ -30,14 +32,28 @@ function Login(props){
                   })
                   .catch((err) => console.log(err));
             }
-        },[user]
-    );
+        },[user]);
+    useEffect(()=>{
+      if(profile.length !== 0)
+      {
+        localStorage.setItem("profile",JSON.stringify(profile));
+        navigate('/catalog')
+      }
+    },[profile])
 
     const logOut = () => {
         googleLogout();
         setProfile(null);
     };
 
+
+    const handleForm=()=>{
+      if((email === 'login') && (password === 'password')){
+        navigate('/admin')
+      }else{
+        console.log('Error form');
+      }
+    }
   return(
   <div className="container">
     <div className="form__inner">
@@ -46,17 +62,17 @@ function Login(props){
         <label className="form__label">
           Username
           <img className="form__icon" src={userIcon} alt=""/>
-          <input className="form__input" type="text" placeholder="Username"/>
+          <input className="form__input" type="text" onChange={(e)=>setEmail(e.target.value)} placeholder="Username"/>
         </label>
         <label className="form__label">
           Password
-          <img className="form__icon" src={password} alt=""/>
-          <input className="form__input" type="password" placeholder="Password"/>
+          <img className="form__icon" src={passwordIcon} alt=""/>
+          <input className="form__input" type="password" onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
         </label>
-        <button className="form__singin-btn">Sign in</button>
+        <button className="form__singin-btn" onClick={handleForm}>Sign in</button>
         <p className="form__subtext">Or continue with</p>
-        <div className='btn__container'>{profile ? <button onClick={()=>login}>Sign in</button> : <h1>Hi ept</h1> }</div>
       </form>
+        <button className="form__google-btn" onClick={()=>login()}>Sign In</button>
     </div>
   </div>
   );

@@ -1,6 +1,8 @@
 .container{
   display: flex;
   justify-content: center;
+  background-color: #A4A4A4;
+  min-height: 100vh;
 }
 
 .form{
@@ -10,7 +12,7 @@
     margin: 20px;
   }
   &__signin{
-    background: #065b38;
+    background: #057260;
     border-radius: 59px;
     backdrop-filter: blur(40px);
     padding: 25px 45px;
@@ -127,10 +129,8 @@
     color: #B6B6B6;
   }
   &__google-btn{
-   background: linear-gradient(90deg, rgba(255,221,0,1) 0%, rgba(255,166,0,1) 34%, rgba(254,162,15,1) 65%, rgba(251,201,18,1) 100%);
-    background-blend-mode: overlay, normal;
-    backdrop-filter: blur(6.00262px);
-    border-radius: 8.85386px;
+    margin-top: 10px;
+    border-radius: 10px;
     outline: none;
     border-color: transparent;
     padding: 11px 0;
@@ -139,9 +139,10 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 27px;
-    color: #FFFFFF;
+    background-color: #065b38;
     margin-bottom: 18px;
     padding: 10px 0;
+    width: 100%;
     align-items: center;
     cursor: pointer;
     display: flex;

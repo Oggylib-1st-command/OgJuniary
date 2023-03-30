@@ -1,0 +1,17 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import React,{useState,useEffect} from 'react'
+import './auth.scss'
+
+import Login from './../../components/Login/login'
+
+function Auth({setInfoUser}){
+  return(
+    <div className='auth__inner'>
+      <GoogleOAuthProvider clientId="103408156486-oi1sggasovhdi35bc4av65rrlt2rteus.apps.googleusercontent.com">
+        <Login setInfoUser={setInfoUser}/>
+      </GoogleOAuthProvider>
+    </div>
+  )
+}
+
+export default Auth;
