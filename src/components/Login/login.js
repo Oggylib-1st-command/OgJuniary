@@ -1,13 +1,17 @@
-import './login.scss'
-import userIcon from './../../assets/icons/user-icon.svg'
-import passwordIcon from './../../assets/icons/password-icon.svg'
 import React, { useState, useEffect } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import {useNavigate,} from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import './login.scss'
 
 
-function Login({setInfoUser}){
+import userIcon from './../../assets/icons/user-icon.svg'
+import passwordIcon from './../../assets/icons/password-icon.svg'
+
+
+
+function Login(){
   const [ user, setUser ] = useState([]);
   const [ profile, setProfile ] = useState([]);
   const [password,setPassword] = useState('');
@@ -36,16 +40,12 @@ function Login({setInfoUser}){
     useEffect(()=>{
       if(profile.length !== 0)
       {
-        localStorage.setItem("profile",JSON.stringify(profile));
+        console.log(typeof profile);
+        Cookies.set("profile", JSON.stringify(profile), {
+        expires: 7,});
         navigate('/catalog')
       }
     },[profile])
-
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
-    };
-
 
     const handleForm=()=>{
       if((email === 'login') && (password === 'password')){
@@ -54,6 +54,7 @@ function Login({setInfoUser}){
         console.log('Error form');
       }
     }
+
   return(
   <div className="container">
     <div className="form__inner">

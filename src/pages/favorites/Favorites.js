@@ -8,7 +8,7 @@ function Favorites(){
   return(
     <div className='favorites__inner'>
       <Header/>
-      <p>This is Catalog</p>
+      <p>This is Favorites</p>
     </div>
   )
 }

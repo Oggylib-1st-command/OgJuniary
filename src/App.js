@@ -10,12 +10,11 @@ import Admin from './pages/admin/Admin'
 
 
 function App() {
-  const [infoUser,setInfoUser] = useState(true);
 
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/login" element={<Authorization setInfoUser={setInfoUser}/>}/>
+        <Route exact path="/login" element={<Authorization/>}/>
         <Route exact path="/" element={<Main/>} />
         <Route exact path="/catalog" element={<Catalog/>} />
         <Route exact path="/history" element={<History/>} />
