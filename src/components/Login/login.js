@@ -59,21 +59,19 @@ function Login(){
   <div className="container">
     <div className="form__inner">
       <form className="form__signin" action="">
-        <h2 className="form__title">Welcome Back!</h2>
+        <h2 className="form__title">АВТОРИЗАЦИЯ</h2>
         <label className="form__label">
-          Username
           <img className="form__icon" src={userIcon} alt=""/>
           <input className="form__input" type="text" onChange={(e)=>setEmail(e.target.value)} placeholder="Username"/>
         </label>
         <label className="form__label">
-          Password
           <img className="form__icon" src={passwordIcon} alt=""/>
           <input className="form__input" type="password" onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
         </label>
         <button className="form__singin-btn" onClick={handleForm}>Sign in</button>
         <p className="form__subtext">Or continue with</p>
       </form>
-        <button className="form__google-btn" onClick={()=>login()}>Sign In</button>
+        <button className="form__google-btn" onClick={()=>login()}>Sign In With Google</button>
     </div>
   </div>
   );

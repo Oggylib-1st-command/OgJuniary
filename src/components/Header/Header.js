@@ -7,7 +7,7 @@ import Navbar from '../Navbar/navbar';
 
 function Header(){
   
-  const[active,setActive] = useState(false);
+  const[active,setActive] = useState(true);
   const[text,setText] = useState("");
 
   function handleClick(e){
