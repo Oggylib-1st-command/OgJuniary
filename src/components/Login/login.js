@@ -19,41 +19,46 @@ function Login(){
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
-       onSuccess: (codeResponse) => setUser(codeResponse),
-       onError: (error) => console.log('Login Failed:', error)
-   });
-   useEffect(() => {
-            if (user) {
-              axios
-                  .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                      headers: {
-                          Authorization: `Bearer ${user.access_token}`,
-                          Accept: 'application/json'
-                      }
-                  })
-                  .then((res) => {
-                      setProfile(res.data);
-                  })
-                  .catch((err) => console.log(err));
-            }
-        },[user]);
-    useEffect(()=>{
-      if(profile.length !== 0)
-      {
-        console.log(typeof profile);
-        Cookies.set("profile", JSON.stringify(profile), {
-        expires: 7,});
-        navigate('/catalog')
-      }
-    },[profile])
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log('Login Failed:', error)
+  });
 
-    const handleForm=()=>{
-      if((email === 'login') && (password === 'password')){
-        navigate('/admin')
-      }else{
-        console.log('Error form');
-      }
+  // prettier
+  // eslint
+
+  useEffect(() => {
+    if (user) {
+      axios
+          .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+              headers: {
+                  Authorization: `Bearer ${user.access_token}`,
+                  Accept: 'application/json'
+              }
+          })
+          .then((res) => {
+              setProfile(res.data);
+          })
+          .catch((err) => console.log(err));
     }
+  },[user]);
+
+  useEffect(()=>{
+    if(profile.length !== 0)
+    {
+      console.log(typeof profile);
+      Cookies.set("profile", JSON.stringify(profile), {
+      expires: 7,});
+      navigate('/catalog')
+    }
+  },[profile])
+
+  const handleForm=()=>{
+    if((email === 'login') && (password === 'password')){
+      navigate('/admin')
+    }else{
+      console.log('Error form');
+    }
+  }
 
   return(
   <div className="container">

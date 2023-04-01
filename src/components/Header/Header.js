@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import './header.scss'
 
+import Logo from './../../assets/icons/Logo.png'
 import searchIcon from './../../assets/icons/search-icon.svg'
 import Navbar from '../Navbar/navbar';
 
@@ -18,7 +19,7 @@ function Header(){
   return(
     <div className='header__inner'>
       <Link className="header__logo-link" to="/">
-        <img className="header__logo" src={searchIcon} alt="logo icons" />
+        <img className="header__logo" src={Logo} alt="logo icons" />
       </Link>
       <p className="header__logo-text">Oggylib</p>
       <div className="header__form">
