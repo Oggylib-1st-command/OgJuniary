@@ -54,7 +54,7 @@
     & img{
       content: '';
       position: absolute;
-      top: 17px;
+      top: 10px;
       z-index: 10;
       left: 17px;
       width: 25px;
@@ -67,14 +67,14 @@
     backdrop-filter: blur(10px);
     border-radius: 8px;
     outline: none;
-    padding: 10px 20px 10px 58px;
+    padding: 10px 20px 10px 48px;
     border-color: transparent;
     font-family: 'Poppins',sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 21px;
-    color: #000000;
+    color: #FFFDF2;
     &::placeholder{
       color: #FFFDF2;
     }

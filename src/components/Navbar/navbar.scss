@@ -78,7 +78,7 @@ hr{
   &__btn{
     margin-left: auto;
     width: 26px;
-    height: 20px;
+    height: 21px;
     border: none;
     background-color: transparent;
     display: flex;
@@ -109,7 +109,7 @@ hr{
       background-color: #000000;
     }
     &::after{
-      bottom: 0;
+      bottom: 1px;
       transform-origin: 0% 100%;
       transition: transform 0.4s ease-in-out;
       width: 100%;
@@ -117,7 +117,7 @@ hr{
       border-radius: 2px;
     }
     &::before{
-      top: -1px;
+      top:1px;
       border-radius: 2px;
       transform-origin: 0% 0%;
       transition: transform 0.4s ease-in-out;
@@ -128,10 +128,10 @@ hr{
       transform: scaleY(0);
     }
     &::after{
-      transform: rotate(-46deg);
+      transform: rotate(-41deg);
     }
     &::before{
-      transform: rotate(46deg);
+      transform: rotate(41deg);
     }
   }
 }
