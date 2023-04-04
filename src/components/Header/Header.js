@@ -24,7 +24,7 @@ function Header(){
       <p className="header__logo-text">Oggylib</p>
       <div className="header__form">
         <input className={active ? "header__form-input": "header__form-input header__form-input--active"} 
-        onChange={(e)=>{setText(e.target.value)}} type="text" placeholder='поиск'/>
+        onChange={(e)=>{setText(e.target.value)}} value={text} type="text" placeholder='поиск'/>
         <img className="header__form-icon" onClick={handleClick} src={searchIcon} alt="search icon" />
       </div>
       <Navbar/>
