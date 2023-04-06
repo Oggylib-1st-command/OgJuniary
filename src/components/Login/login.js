@@ -67,14 +67,14 @@ function Login(){
         <h2 className="form__title">АВТОРИЗАЦИЯ</h2>
         <label className="form__label">
           <img className="form__icon" src={userIcon} alt=""/>
-          <input className="form__input" type="text" onChange={(e)=>setEmail(e.target.value)} placeholder="Username"/>
+          <input className="form__input" type="text" onChange={(e)=>setEmail(e.target.value)} placeholder="Введите email"/>
         </label>
         <label className="form__label">
           <img className="form__icon" src={passwordIcon} alt=""/>
-          <input className="form__input" type="password" onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+          <input className="form__input" type="password" onChange={(e)=>setPassword(e.target.value)} placeholder="Введите пароль"/>
         </label>
         <button className="form__singin-btn" onClick={handleForm}>Войти</button>
-        <p className="form__subtext">Or continue with</p>
+        <p className="form__subtext">или</p>
       </form>
         <button className="form__google-btn" onClick={()=>login()}>
           <img className="google-icon" src={googleIcon} alt="google icon"/>
