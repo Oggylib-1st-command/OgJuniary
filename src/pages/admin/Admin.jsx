@@ -1,6 +1,4 @@
 import './admin.scss'
-import React,{useState,useEffect} from 'react'
-
 
 function Admin(){
   

@@ -1,8 +1,8 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import React,{useState,useEffect} from 'react'
+
 import './auth.scss'
 
-import Login from './../../components/Login/login'
+import Login from '../../components/Login/login'
 
 function Auth(){
   return(

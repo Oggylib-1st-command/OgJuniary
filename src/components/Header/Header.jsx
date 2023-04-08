@@ -12,7 +12,6 @@ function Header(){
   const[text,setText] = useState("");
 
   function handleClick(e){
-    console.log(text);
     setText('')
     return setActive(!active)
   }
@@ -20,8 +19,8 @@ function Header(){
     <div className='header__inner'>
       <Link className="header__logo-link" to="/">
         <img className="header__logo" src={Logo} alt="logo icons" />
+        <p className="header__logo-text">Oggylib</p>
       </Link>
-      <p className="header__logo-text">Oggylib</p>
       <div className="header__form">
         <input className={active ? "header__form-input": "header__form-input header__form-input--active"} 
         onChange={(e)=>{setText(e.target.value)}} value={text} type="text" placeholder='поиск'/>

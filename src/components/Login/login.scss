@@ -1,8 +1,8 @@
 .container{
-  background-image: url('./../../assets/background/login-bg.png');
+  background-image: url('./../../assets/background/bg.png');
   background-position: top center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -13,19 +13,20 @@ hr{
 .menu{
   margin: 0;
   &__list{
+    content: '';
     background-color: #BBBBBB;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    transform: translateX(300%);
-    position: absolute;
+    transform: translateX(-300%);
     top:72px;
-    left: 0;
+    right: 0;
+    position: absolute;
     width: 100%;
     min-height: 100vh;
     z-index: 100000;
     outline: none;
-    &.menu__list--active{
+    &--active{
       transform: translateX(0%);
       transition: all .3s;
     }

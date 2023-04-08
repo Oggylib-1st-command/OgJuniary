@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import {useNavigate,} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {Link} from 'react-router-dom'
+
 import './login.scss'
 
 
@@ -26,7 +26,7 @@ function Login(){
   });
 
   useEffect(() => {
-    if (user) {
+    if(user.length !== 0) {
       axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
       headers: {
         Authorization: `Bearer ${user.access_token}`,
@@ -42,15 +42,16 @@ function Login(){
       console.log(typeof profile);
       Cookies.set("profile", JSON.stringify(profile), {
       expires: 7,});
-      navigate('/catalog')
+      navigate('/catalog',{replace:true})
     }
   },[profile])
 
-  const handleForm=()=>{
+  const handleForm=(elem)=>{
+    elem.preventDefault();
     if((email === 'login') && (password === 'password')){
       navigate('/admin')
     }else{
-      console.log('Error form');
+      alert('Ошибка логина или пароля');
     }
   }
 
@@ -73,7 +74,7 @@ function Login(){
           <img className="form__icon" src={passwordIcon} alt=""/>
           <input className="form__input" type="password" onChange={(e)=>setPassword(e.target.value)} placeholder="Введите пароль"/>
         </label>
-        <button className="form__singin-btn" onClick={handleForm}>Войти</button>
+        <button className="form__singin-btn" onClick={(e)=>handleForm(e)}>Войти</button>
         <p className="form__subtext">или</p>
       </form>
         <button className="form__google-btn" onClick={()=>login()}>

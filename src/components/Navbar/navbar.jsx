@@ -1,5 +1,5 @@
 import './navbar.scss'
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React,{useState,useEffect} from 'react'
 import Cookies from 'js-cookie';
 import { googleLogout } from '@react-oauth/google';
@@ -25,8 +25,7 @@ function Navbar(){
     };
   useEffect(()=>{
     const local = Cookies.get("profile")
-    console.log(local);
-    if(!autf && local)
+    if(local)
     {
       setInfo(JSON.parse(local));
       setAutf(true);
@@ -64,22 +63,22 @@ function Navbar(){
           <hr/>
           <li className='menu__list-item'>
             <img className="menu__list-img" src={User} alt=""/>
-            <Link className='menu__list-link' exact to="/">Главная</Link>
+            <NavLink className='menu__list-link' to="/" onClick={handleClick}>Главная</NavLink>
           </li>
           <hr/>
           <li className='menu__list-item'>
             <img className="menu__list-img" src={User} alt=""/>
-            <Link className='menu__list-link' exact to="/catalog">Каталог</Link>
+            <NavLink className='menu__list-link' to="/catalog" onClick={handleClick}>Каталог</NavLink>
           </li>
           <hr/>
           <li className='menu__list-item'>
             <img className="menu__list-img" src={User} alt=""/>
-            <Link className='menu__list-link' exact to="/history">История</Link>
+            <NavLink className='menu__list-link' to="/history" onClick={handleClick}>История</NavLink>
           </li>
           <hr/>
           <li className='menu__list-item'>
             <img className="menu__list-img" src={User} alt=""/>
-            <Link className='menu__list-link' exact to="/favorites">Взятые книги</Link>
+            <NavLink className='menu__list-link' to="/favorites" onClick={handleClick}>Взятые книги</NavLink>
           </li>
           <hr/>
         </ul>

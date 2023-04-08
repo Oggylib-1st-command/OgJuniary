@@ -1,25 +1,28 @@
 import './catalog.scss'
-import React,{useState,useEffect} from 'react'
-import Header from '../../components/Header/Header'
+
 import Card from '../../components/Card/Card'
 
 const arr=[
   {
+    id:1,
     author:'Лев Николаевич Толстой',
     title:'Война и мир',
     genre:'Вода, ужасы, комедия',
   },
   {
+    id:2,
     author:'Иван Васильевич',
     title:'Что-то с чем-то',
     genre:'Я хэ',
   },
   {
+    id:3,
     author:'Тетруашвили Елена Викторовна',
     title:'Вы все говно',
     genre:'Повседневность',
   },
   {
+    id:4,
     author:'kkkkkkk',
     title:'kkkkkkk',
     genre:'kkkkkkk',
@@ -28,7 +31,6 @@ const arr=[
 function Catalog(){
   return(
     <div className='catalog__inner'>
-      <Header/>
       <div className='catalog__content'>
         <div className="catalog__search">
           <div className="catalog__filtration">
@@ -42,7 +44,7 @@ function Catalog(){
         </div>
         {
           arr.map((obj)=>
-            <Card author={obj.author} title={obj.title} genre={obj.genre}/>
+            <Card key={obj.id} titleLink={obj.title.split(' ').join('')} author={obj.author} title={obj.title} genre={obj.genre}/>
           )
         }
       </div>
