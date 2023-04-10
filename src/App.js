@@ -35,7 +35,8 @@ function App() {
             <Route path="admin" element={<Admin/>} />
             <Route path="*" element={<NotFound/>}/>
           </Route>
-          <Route path="/login" element={<Authorization/>}/>
+          <Route path="/login" element={
+          <Authorization/>}/>
         </Routes>
       </AuthProvider>
     </div>

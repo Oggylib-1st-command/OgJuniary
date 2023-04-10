@@ -7,6 +7,7 @@ const RequireAuth = ({children})=>{
   const {user} = useAuth();
   const cookie =  Cookies.get("profile");
 
+
   if(!user & !cookie){
     return <Navigate to='/login' state={{from:location}}/>
   }

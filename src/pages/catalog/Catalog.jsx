@@ -15,7 +15,7 @@ function Catalog(){
         console.error(error);
       }
     }
-    getCardInfo();
+    //getCardInfo();
   },[])
   return(
     <div className='catalog__inner'>
