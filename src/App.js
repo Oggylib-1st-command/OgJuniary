@@ -9,24 +9,35 @@ import Admin from './pages/admin/Admin'
 import NotFound from "./pages/notfound/notfound";
 import {Layout} from "./components/Layout/Layout"
 import {Book} from "./pages/book/book"
+import { RequireAuth } from "./hoc/RequireAuth";
+import { AuthProvider } from "./hoc/AuthProvider";
 
 
 function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route index element={<Main/>} />
-          <Route path="catalog" element={<Catalog/>} />
-          <Route path="catalog/:id" element={<Book/>} />
-          <Route path="history" element={<History/>} />
-          <Route path="favorites" element={<Favorites/>} />
-          <Route path="admin" element={<Admin/>} />
-          <Route path="*" element={<NotFound/>}/>
-        </Route>
-        <Route path="/login" element={<Authorization/>}/>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={
+          <RequireAuth>
+            <Layout/>
+          </RequireAuth>
+          }>
+            <Route index element={
+              <Main/>
+            } 
+            />
+            <Route path="catalog" element={<Catalog/>} />
+            <Route path="catalog/:id" element={<Book/>} />
+            <Route path="history" element={<History/>} />
+            <Route path="favorites" element={<Favorites/>} />
+            <Route path="admin" element={<Admin/>} />
+            <Route path="*" element={<NotFound/>}/>
+          </Route>
+          <Route path="/login" element={<Authorization/>}/>
+        </Routes>
+      </AuthProvider>
     </div>
   );
 }

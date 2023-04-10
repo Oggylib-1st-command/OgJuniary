@@ -1,40 +1,28 @@
 import './catalog.scss'
-
+import { useState,useEffect } from 'react'
+import axios from 'axios';
 import Card from '../../components/Card/Card'
 
-const arr=[
-  {
-    id:1,
-    author:'Лев Николаевич Толстой',
-    title:'Война и мир',
-    genre:'Вода, ужасы, комедия',
-  },
-  {
-    id:2,
-    author:'Иван Васильевич',
-    title:'Что-то с чем-то',
-    genre:'Я хэ',
-  },
-  {
-    id:3,
-    author:'Тетруашвили Елена Викторовна',
-    title:'Вы все говно',
-    genre:'Повседневность',
-  },
-  {
-    id:4,
-    author:'kkkkkkk',
-    title:'kkkkkkk',
-    genre:'kkkkkkk',
-  }
-]
+
 function Catalog(){
+  const [info,setInfo] = useState([]);
+  useEffect(()=>{
+    const getCardInfo = async()=>{
+      const request = await axios.get('http://localhost:8000/');
+      try{
+        setInfo(request.data);
+      }catch(error){
+        console.error(error);
+      }
+    }
+    getCardInfo();
+  },[])
   return(
     <div className='catalog__inner'>
       <div className='catalog__content'>
         <div className="catalog__search">
           <div className="catalog__filtration">
-            Ждесь будет много гемороя
+           Ждесь будет много гемороя
             </div>
           <select className="catalog__sort">
             <option>По новизне</option>
@@ -43,7 +31,7 @@ function Catalog(){
           </select>
         </div>
         {
-          arr.map((obj)=>
+          info.map((obj)=>
             <Card key={obj.id} titleLink={obj.title.split(' ').join('')} author={obj.author} title={obj.title} genre={obj.genre}/>
           )
         }

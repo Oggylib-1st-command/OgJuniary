@@ -1,9 +1,9 @@
 import './navbar.scss'
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import React,{useState,useEffect} from 'react'
 import Cookies from 'js-cookie';
 import { googleLogout } from '@react-oauth/google';
-
+import { useAuth } from '../useAuth';
 
 import User from './../../assets/icons/user-avatar.png'
 import search from './../../assets/icons/search-icon.svg'
@@ -13,7 +13,8 @@ function Navbar(){
   const[active,setActive] = useState(true);
   const[autf,setAutf] = useState(false);
   const[info,setInfo] = useState([]);
-
+  const {signout} = useAuth();
+  const navigate = useNavigate();
   const handleClick = ()=>{
     setActive(current => !current)
   }
@@ -21,7 +22,8 @@ function Navbar(){
         googleLogout();
         Cookies.remove('profile')
         setAutf(false);
-        setInfo(null)
+        setInfo(null);
+        signout(()=>navigate('/login',{replace:true}));
     };
   useEffect(()=>{
     const local = Cookies.get("profile")

@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate, Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -11,6 +11,7 @@ import userIcon from './../../assets/icons/user-icon.svg'
 import passwordIcon from './../../assets/icons/password-icon.svg'
 import googleIcon from './../../assets/icons/icon-google.svg'
 import Logo from './../../assets/icons/Logo.png'
+import { useAuth } from '../useAuth';
 
 
 function Login(){
@@ -19,37 +20,47 @@ function Login(){
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const {signin} = useAuth();
+  
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log('Login Failed:', error)
   });
 
   useEffect(() => {
-    if(user.length !== 0) {
-      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-      headers: {
-        Authorization: `Bearer ${user.access_token}`,
-        Accept: 'application/json'
-      }}).then((res) => { setProfile(res.data);})
-      .catch((err) => console.log(err));
+    const getInfo = async() =>{
+      try{
+        if(user.length !== 0) {
+        const request = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+          Accept: 'application/json'
+        }});
+        setProfile(request.data);
+        }
+      }
+      catch(err){
+        console.error(err);
+      }
     }
+    getInfo();
   },[user]);
 
   useEffect(()=>{
     if(profile.length !== 0)
     {
-      console.log(typeof profile);
       Cookies.set("profile", JSON.stringify(profile), {
       expires: 7,});
-      navigate('/catalog',{replace:true})
+      signin(user,()=>navigate('/catalog',{replace:true}));
     }
   },[profile])
 
   const handleForm=(elem)=>{
     elem.preventDefault();
     if((email === 'login') && (password === 'password')){
-      navigate('/admin')
+      navigate('/admin',{replace:true})
     }else{
       alert('Ошибка логина или пароля');
     }
