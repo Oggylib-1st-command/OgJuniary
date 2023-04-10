@@ -5,10 +5,9 @@ import Cookies from 'js-cookie';
 const RequireAuth = ({children})=>{
   const location = useLocation();
   const {user} = useAuth();
-  const cooki =  Cookies.get("profile");
+  const cookie =  Cookies.get("profile");
 
-  console.log(cooki);
-  if(!user & !cooki){
+  if(!user & !cookie){
     return <Navigate to='/login' state={{from:location}}/>
   }
   return children;
