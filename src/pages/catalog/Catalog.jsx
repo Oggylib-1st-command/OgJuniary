@@ -98,7 +98,7 @@ function Catalog(){
         }
         <Paggination
           bookPerPage = {bookperpage}
-          totalBook = {info1.length }
+          totalBook = {4}
           paginate = {paginate}
         />
 
