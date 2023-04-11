@@ -1,13 +1,13 @@
 .container{
-  background-image: url('./../../assets/background/bg.png');
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-image: url('./../../assets/background/bg.png');
+  // background-position: top center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  background-color:#D6CCBE;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #dadada;
   &__inner{
     display: flex;
     justify-content: space-between;

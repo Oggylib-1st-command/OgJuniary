@@ -21,9 +21,9 @@ function Catalog(){
     <div className='catalog__inner'>
       <div className='catalog__content'>
         <div className="catalog__search">
-          <div className="catalog__filtration">
-           Ждесь будет много гемороя
-            </div>
+          <button className="catalog__filtration">
+            Фильтрация
+          </button>
           <select className="catalog__sort">
             <option>По новизне</option>
             <option>По популярности</option>
