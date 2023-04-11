@@ -1,12 +1,13 @@
 import './card.scss'
 import { Link } from 'react-router-dom';
+import Cvetok from './../../assets/background/1.jpg'
+
 
 function Card(props){  
   return(
     <div className="card">
       <div className='card__inner'>
-        {/* <img className="card__img" src="" alt="background card book"/> */}
-        <div className="card__img"></div>
+        <img className="card__img" src={Cvetok} alt="background card book"/>
         <div className='card__info'>
           <ul className="card__list">
             <Link className="card__list-item" to={`/catalog/${props.titleLink}`}>{props.author}</Link>

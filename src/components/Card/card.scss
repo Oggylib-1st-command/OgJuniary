@@ -10,7 +10,10 @@
   }
   &__img{
     background-color: #fff;
-    max-width: 200px;
+    max-width: 180px;
+    object-fit: cover;
+    object-position: top center;
+
     width: 100%;
     height: auto;
     margin-right: 19px;
@@ -31,7 +34,7 @@
     width: 100%;
   }
   &__list-item{
-    color: #FFFFFF;
+    color: black;
   }
   &__list-item + .card__list-item{
     margin-top: 30px;
