@@ -51,7 +51,7 @@ function Catalog(){
 
   const lastBookIndex = currentpage * bookperpage
   const firstbookIndex = lastBookIndex - bookperpage
-  const currentBook = book.slice(firstbookIndex, lastBookIndex)
+  const currentBook = info1.slice(firstbookIndex, lastBookIndex)
 
   const paginate = pageNumber => setCurrentpage(pageNumber)
   const nextPage = () => setCurrentpage(prev => prev+1)
@@ -92,7 +92,7 @@ function Catalog(){
           </select>
         </div>
         {
-          info1.map((obj)=>
+          currentBook.map((obj)=>
             <Card key={obj.id} titleLink={obj.title.split(' ').join('')} author={obj.author} title={obj.title} genre={obj.genre}/>
           )
         }
@@ -102,8 +102,8 @@ function Catalog(){
           paginate = {paginate}
         />
 
-        <button className="btn btn-primary" onClick={prevPage}>Prev Page</button>
-        <button className="btn btn-primary" onClick={nextPage}>Next Page</button>
+        <button className="btn btn-primaryprev" onClick={prevPage} disabled={currentpage===1}>Prev Page</button>
+        <button className="btn btn-primarynext" onClick={nextPage} disabled={currentpage===Math.ceil(info1.length/bookperpage)}>Next Page</button>
       </div>
     </div> 
   )
