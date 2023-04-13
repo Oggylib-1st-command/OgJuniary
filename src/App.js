@@ -24,17 +24,16 @@ function App() {
             <Layout/>
           </RequireAuth>
           }>
-            <Route index element={
-              <Main/>
-            } 
-            />
+            <Route index element={<Main/>} />
             <Route path="catalog" element={<Catalog/>} />
             <Route path="catalog/:id" element={<Book/>} />
             <Route path="history" element={<History/>} />
             <Route path="favorites" element={<Favorites/>} />
-            <Route path="admin" element={<Admin/>} />
             <Route path="*" element={<NotFound/>}/>
           </Route>
+          <Route path="/admin" element={
+              <Admin/>
+          } />
           <Route path="/login" element={
           <Authorization/>}/>
         </Routes>

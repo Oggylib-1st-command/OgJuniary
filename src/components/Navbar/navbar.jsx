@@ -4,7 +4,6 @@ import React,{useState,useEffect} from 'react'
 import Cookies from 'js-cookie';
 import { googleLogout } from '@react-oauth/google';
 import { useAuth } from '../useAuth';
-
 import User from './../../assets/icons/user-avatar.png'
 import search from './../../assets/icons/search-icon.svg'
 

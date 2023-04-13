@@ -52,15 +52,16 @@ function Login(){
     {
       Cookies.set("profile", JSON.stringify(profile), {
       expires: 7,});
-      console.log(fromPage);
-      signin(user,()=>navigate(fromPage,{replace:true}));
+      signin(user,()=>navigate(fromPage,{replace:true}),false);
     }
   },[profile])
 
   const handleForm=(elem)=>{
     elem.preventDefault();
-    if((form.email === 'login') && (form.password === 'password')){
-      signin(user,()=>navigate('/admin',{replace:true}));
+    if((form.email === '1') && (form.password === '1')){
+      signin(user,()=>navigate('/admin',{replace:true}),true);
+      Cookies.set("admin", true, {
+      expires: -1,});
     }else{
       alert('Ошибка логина или пароля');
     }
@@ -69,7 +70,7 @@ function Login(){
   return(
   <div className="container">
     <div className="container__inner">
-      <Link className="header__logo-link" to="/">
+      <Link className="header__logo-link" to="/login">
         <img className="header__logo" src={Logo} alt="logo icons" />
       </Link>
       <p className="header__logo-text">Oggylib</p>

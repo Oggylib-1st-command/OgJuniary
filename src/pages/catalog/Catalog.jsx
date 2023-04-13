@@ -34,8 +34,8 @@ const info1 =[
 function Catalog(){
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentpage, setCurrentpage] = useState(1);
-  const [bookperpage] = useState(2);
+  const [currentpage, setCurrentpage] = useState(5);
+  const [bookperpage] = useState(1);
 
   useEffect (() =>{
     const getBook = async () => {
@@ -98,7 +98,7 @@ function Catalog(){
         }
         <Paggination
           bookPerPage = {bookperpage}
-          totalBook = {4}
+          totalBook = {info1.length}
           paginate = {paginate}
         />
 
