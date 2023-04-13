@@ -4,38 +4,11 @@ import axios from 'axios';
 import Card from '../../components/Card/Card'
 import Paggination from '../Paggination'
 
-const info1 =[
-  {
-    id:1,
-    author:'AAAAA',
-    title:'AAAAAA',
-    genre:'AAAAAA',
-  },
-  {
-    id:2,
-    author:'BBBBBB',
-    title:'BBBBBB',
-    genre:'BBBBBB',
-  },
-  {
-    id:3,
-    author:'CCCCCCC',
-    title:'CCCCCCC',
-    genre:'CCCCCCC',
-  },
-  {
-    id:4,
-    author:'DDDDDD',
-    title:'DDDDDDD',
-    genre:'DDDDDD',
-  }
-]
-
 function Catalog(){
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentpage, setCurrentpage] = useState(5);
-  const [bookperpage] = useState(1);
+  const [currentpage, setCurrentpage] = useState(1);
+  const [bookperpage] = useState(10);
 
   useEffect (() =>{
     const getBook = async () => {
@@ -51,7 +24,7 @@ function Catalog(){
 
   const lastBookIndex = currentpage * bookperpage
   const firstbookIndex = lastBookIndex - bookperpage
-  const currentBook = info1.slice(firstbookIndex, lastBookIndex)
+  const currentBook = book.slice(firstbookIndex, lastBookIndex)
 
   const paginate = pageNumber => setCurrentpage(pageNumber)
   const nextPage = () => setCurrentpage(prev => prev+1)
@@ -63,16 +36,6 @@ function Catalog(){
     return(
     <div className='catalog__inner'>
       <div className='catalog__content'>
-        <div className="catalog__search">
-          <div className="catalog__filtration">
-           Ждесь будет много гемороя
-            </div>
-          <select className="catalog__sort">
-            <option>По новизне</option>
-            <option>По популярности</option>
-            <option>По алфавиту</option>
-          </select>
-        </div>
         <h2>Loading...</h2>
       </div>
     </div> 
@@ -98,12 +61,12 @@ function Catalog(){
         }
         <Paggination
           bookPerPage = {bookperpage}
-          totalBook = {info1.length}
+          totalBook = {book.length}
           paginate = {paginate}
         />
 
         <button className="btn btn-primaryprev" onClick={prevPage} disabled={currentpage===1}>Prev Page</button>
-        <button className="btn btn-primarynext" onClick={nextPage} disabled={currentpage===Math.ceil(info1.length/bookperpage)}>Next Page</button>
+        <button className="btn btn-primarynext" onClick={nextPage} disabled={currentpage===Math.ceil(book.length/bookperpage)}>Next Page</button>
       </div>
     </div> 
   )
