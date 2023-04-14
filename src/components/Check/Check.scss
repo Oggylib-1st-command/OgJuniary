@@ -1,0 +1,26 @@
+.filter__label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  div {
+    margin-left: 10px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+.filter__input {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 0.15rem solid #b5b5b9;
+  margin-right: 5px;
+  transition: all 0.3s;
+  cursor: pointer;
+  &--active {
+    background-image: url("./../../assets/icons/Check.svg");
+    background-size: cover;
+    border-color: #b6dfec;
+  }
+}
