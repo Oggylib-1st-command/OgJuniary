@@ -31,7 +31,7 @@ function Catalog() {
       setLoading(false);
     };
 
-    //getBook();
+    getBook();
   }, []);
 
   const lastBookIndex = currentpage * bookperpage;
@@ -103,14 +103,14 @@ function Catalog() {
         <button
           className="btn btn-primaryprev"
           onClick={prevPage}
-          disabled={currentpage === 1}
+          disabled={currentpage === 1 || book.length === 0}
         >
           Prev Page
         </button>
         <button
           className="btn btn-primarynext"
           onClick={nextPage}
-          disabled={currentpage === Math.ceil(book.length / bookperpage)}
+          disabled={currentpage === Math.ceil(book.length / bookperpage) || book.length === 0}
         >
           Next Page
         </button>
