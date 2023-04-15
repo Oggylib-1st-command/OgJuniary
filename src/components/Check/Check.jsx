@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Check.scss";
-import { useState } from "react";
 
 export const Check = ({ genre }) => {
   const [active, setActive] = useState(true);
@@ -16,14 +16,10 @@ export const Check = ({ genre }) => {
   };
   return (
     <label className="filter__label">
-      <div
-        className={
-          active ? "filter__input" : "filter__input filter__input--active"
-        }
-        onClick={(e) => handleCheck(e)}
-      />
-
-      <div>{genre}</div>
+      <Link className="filter__genre-link" to="#">
+        {genre}
+      </Link>
+      <span>0</span>
     </label>
   );
 };

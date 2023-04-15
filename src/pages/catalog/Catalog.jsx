@@ -3,25 +3,40 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card";
 import Paggination from "../Paggination";
-import { Check } from "../../components/Check/Check";
+import { Filter } from "../../components/Filtration/Filtration";
+import { Link } from "react-router-dom";
 
-const genre = [
-  "aaaaa",
-  "bbbbb",
-  "ccccc",
-  "ddddd",
-  "eeeee",
-  "mmmmm",
-  "ggggg",
-  "kkkkk",
+const genreMain = [
+  {
+    id: "1",
+    viewTitle: "aaaaa",
+  },
+  {
+    id: "2",
+    viewTitle: "bbbbbb",
+  },
+  {
+    id: "3",
+    viewTitle: "cccccc",
+  },
+  {
+    id: "4",
+    viewTitle: "ddddddd",
+  },
+  {
+    id: "5",
+    viewTitle: "eeeeeee",
+  },
+  {
+    id: "6",
+    viewTitle: "fffffff",
+  },
 ];
-
 function Catalog() {
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentpage, setCurrentpage] = useState(1);
   const [bookperpage] = useState(10);
-  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     const getBook = async () => {
@@ -58,24 +73,41 @@ function Catalog() {
           <button className="catalog__filtration" type="submit">
             <p className="filter__text">Каталог</p>
             <div className="filter__info">
-              <h4 className="filter__title">ОКНО ПОСМОТРИМ ЧЕГО ПОТОМ</h4>
+              <h3 className="filter__genre">Жанры</h3>
+              <Link to="#" className="filter__link">
+                <svg
+                  width="26px"
+                  height="26px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <g id="Menu / Close_LG">
+                      {" "}
+                      <path
+                        id="Vector"
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>{" "}
+                    </g>{" "}
+                  </g>
+                </svg>
+              </Link>
               <ul className="filter__list">
-                <li className="filter__list-item">
-                  <h3 className="filter__list-title">ЖАНР</h3>
-                  <div className="filter__checkbox">
-                    {showMore
-                      ? genre.map((target) => <Check genre={target} />)
-                      : genre
-                          .slice(0, 4)
-                          .map((target) => <Check genre={target} />)}
-                  </div>
-                  <p
-                    className="show__btn"
-                    onClick={() => setShowMore(!showMore)}
-                  >
-                    {showMore ? "Скрыть" : "Показать ещё"}
-                  </p>
-                </li>
+                {genreMain.map((target) => (
+                  <Filter key={target.id} title={target.viewTitle} />
+                ))}
               </ul>
             </div>
           </button>
