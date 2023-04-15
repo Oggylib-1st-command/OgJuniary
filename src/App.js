@@ -6,6 +6,7 @@ import History from "./pages/history/History";
 import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
 import Admin from "./pages/admin/Admin";
+import { TakenBook } from "./pages/takenBook/TakenBook";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
 import { Book } from "./pages/book/book";
@@ -30,6 +31,7 @@ function App() {
             <Route path="catalog/:id" element={<Book />} />
             <Route path="history" element={<History />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="takenbook" element={<TakenBook />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/admin" element={<Admin />} />

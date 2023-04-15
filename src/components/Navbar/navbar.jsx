@@ -42,18 +42,20 @@ function Navbar() {
           <li className="menu__list-item">
             {autf ? (
               <div>
-                <img
-                  className="menu__list-img"
-                  src={info.picture}
-                  alt="icons avatar"
-                />
+                <div>
+                  <img
+                    className="menu__list-img user-img"
+                    src={info.picture}
+                    alt="icons avatar"
+                  />
+                </div>
                 <div className="menu__list-info">
                   <p className="menu__fullname">{info.name}</p>
                   <p className="menu__email">{info.email}</p>
+                  <p className="menu__logout" onClick={logout}>
+                    Выйти из аккаунта
+                  </p>
                 </div>
-                <button className="menu__logout" onClick={logout}>
-                  Log Out
-                </button>
               </div>
             ) : (
               <div>
@@ -71,14 +73,26 @@ function Navbar() {
           </li>
           <hr />
           <li className="menu__list-item">
-            <img className="menu__list-img" src={getImageKey("User")} alt="" />
-            <NavLink className="menu__list-link" to="/" onClick={handleClick}>
-              Главная
+            <img
+              className="menu__list-img"
+              src={getImageKey("HeartIcon")}
+              alt=""
+            />
+            <NavLink
+              className="menu__list-link"
+              to="/favorites"
+              onClick={handleClick}
+            >
+              Избранное
             </NavLink>
           </li>
           <hr />
           <li className="menu__list-item">
-            <img className="menu__list-img" src={getImageKey("User")} alt="" />
+            <img
+              className="menu__list-img"
+              src={getImageKey("CatalogIcon")}
+              alt=""
+            />
             <NavLink
               className="menu__list-link"
               to="/catalog"
@@ -89,7 +103,11 @@ function Navbar() {
           </li>
           <hr />
           <li className="menu__list-item">
-            <img className="menu__list-img" src={getImageKey("User")} alt="" />
+            <img
+              className="menu__list-img"
+              src={getImageKey("HistoryIcon")}
+              alt=""
+            />
             <NavLink
               className="menu__list-link"
               to="/history"
@@ -100,10 +118,14 @@ function Navbar() {
           </li>
           <hr />
           <li className="menu__list-item">
-            <img className="menu__list-img" src={getImageKey("User")} alt="" />
+            <img
+              className="menu__list-img"
+              src={getImageKey("TakenBookIcon")}
+              alt=""
+            />
             <NavLink
               className="menu__list-link"
-              to="/favorites"
+              to="/takenbook"
               onClick={handleClick}
             >
               Взятые книги

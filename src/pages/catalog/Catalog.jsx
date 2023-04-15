@@ -34,38 +34,38 @@ const genreMain = [
 ];
 function Catalog() {
   const [book, setBook] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [currentpage, setCurrentpage] = useState(1);
   const [bookperpage] = useState(10);
 
   useEffect(() => {
     const getBook = async () => {
-      setLoading(true);
+      //setLoading(true);
       const res = await axios.get("http://localhost:8000");
       setBook(res.data);
-      setLoading(false);
+      //setLoading(false);
     };
 
     getBook();
   }, []);
 
-  const lastBookIndex = currentpage * bookperpage;
-  const firstbookIndex = lastBookIndex - bookperpage;
-  const currentBook = book.slice(firstbookIndex, lastBookIndex);
+  const lastBookIndex = currentpage * bookperpage; //последний индекс страницы
+  const firstbookIndex = lastBookIndex - bookperpage; //первый индекс страницы
+  const currentBook = book.slice(firstbookIndex, lastBookIndex); //текущий индекс страницы
 
   const paginate = (pageNumber) => setCurrentpage(pageNumber);
-  const nextPage = () => setCurrentpage((prev) => prev + 1);
-  const prevPage = () => setCurrentpage((prev) => prev - 1);
+  // const nextPage = () => setCurrentpage((prev) => prev + 1);
+  // const prevPage = () => setCurrentpage((prev) => prev - 1);
 
-  if (loading) {
-    return (
-      <div className="catalog__inner">
-        <div className="catalog__content">
-          <h2>Loading...</h2>
-        </div>
-      </div>
-    );
-  }
+  // if (!loading) {
+  //   return (
+  //     <div className="catalog__inner">
+  //       <div className="catalog__content">
+  //         <h2>Loading...</h2>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   return (
     <div className="catalog__inner">
       <div className="catalog__content">
@@ -132,7 +132,7 @@ function Catalog() {
           paginate={paginate}
         />
 
-        <button
+        {/* <button
           className="btn btn-primaryprev"
           onClick={prevPage}
           disabled={currentpage === 1 || book.length === 0}
@@ -142,10 +142,13 @@ function Catalog() {
         <button
           className="btn btn-primarynext"
           onClick={nextPage}
-          disabled={currentpage === Math.ceil(book.length / bookperpage) || book.length === 0}
+          disabled={
+            currentpage === Math.ceil(book.length / bookperpage) ||
+            book.length === 0
+          }
         >
           Next Page
-        </button>
+        </button> */}
       </div>
     </div>
   );
