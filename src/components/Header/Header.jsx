@@ -7,7 +7,7 @@ import Navbar from "../Navbar/navbar";
 function Header() {
   const [active, setActive] = useState(true);
   const [text, setText] = useState("");
-
+  const [show, setShow] = useState(true);
   function handleClick(e) {
     setText("");
     return setActive(!active);
@@ -19,8 +19,11 @@ function Header() {
           className="header__logo"
           src={getImageKey("Logo")}
           alt="logo icons"
+          onClick={() => setShow(true)}
         />
-        <p className="header__logo-text">Oggylib</p>
+        <p className="header__logo-text" onClick={() => setShow(true)}>
+          Oggylib
+        </p>
       </Link>
       <div className="header__form">
         <input
@@ -43,7 +46,7 @@ function Header() {
           alt="search icon"
         />
       </div>
-      <Navbar />
+      <Navbar show={show} setShow={setShow} />
     </div>
   );
 }

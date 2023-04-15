@@ -6,21 +6,20 @@ import { googleLogout } from "@react-oauth/google";
 import { useAuth } from "../useAuth";
 import getImageKey from "../getImageKey";
 
-function Navbar() {
-  const [active, setActive] = useState(true);
+function Navbar({ show, setShow }) {
   const [autf, setAutf] = useState(false);
   const [info, setInfo] = useState([]);
   const { signout } = useAuth();
   const navigate = useNavigate();
-  const handleClick = () => {
-    setActive((current) => !current);
-  };
   const logout = () => {
     googleLogout();
     Cookies.remove("profile");
     setAutf(false);
     setInfo([]);
     signout(() => navigate("/login", { replace: true }));
+  };
+  const handleClick = () => {
+    setShow((current) => !current);
   };
   useEffect(() => {
     const local = Cookies.get("profile");
@@ -32,13 +31,13 @@ function Navbar() {
   return (
     <div className="wrapper">
       <button
-        className={active ? "menu__btn" : "menu__btn menu__btn--active"}
+        className={show ? "menu__btn" : "menu__btn menu__btn--active"}
         onClick={handleClick}
       >
         <span></span>
       </button>
       <nav className="menu">
-        <ul className={active ? "menu__list" : "menu__list menu__list--active"}>
+        <ul className={show ? "menu__list" : "menu__list menu__list--active"}>
           <li className="menu__list-item">
             {autf ? (
               <div>

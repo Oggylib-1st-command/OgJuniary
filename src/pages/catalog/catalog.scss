@@ -1,7 +1,7 @@
 .catalog {
   &__content {
     padding-top: 6px;
-    background: #d6ccbe;
+    background: #dbdbdb;
     min-height: 100vh;
   }
   &__search {
@@ -29,8 +29,8 @@
       left: 0;
     }
   }
-  & &__sort {
-    .options {
+  &__sort {
+    .option {
       background: rgba(106, 106, 106, 0.95);
       border-radius: 10px;
     }

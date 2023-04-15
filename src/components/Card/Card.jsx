@@ -13,13 +13,13 @@ function Card(props) {
         <div className="card__info">
           <ul className="card__list">
             <Link
-              className="card__list-item"
+              className="card__list-item card-title"
               to={`/catalog/${props.titleLink}`}
             >
-              {props.author}
+              {props.title}
             </Link>
-            <li className="card__list-item">{props.title}</li>
-            <li className="card__list-item">{props.genre}</li>
+            <li className="card__list-item card-author">{props.author}</li>
+            <li className="card__list-item card-genre">{props.genre}</li>
           </ul>
           <div className="card__response">
             <button className="card__btn" type="submit">

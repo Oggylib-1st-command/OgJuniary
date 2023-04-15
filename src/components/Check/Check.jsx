@@ -11,7 +11,6 @@ export const Check = ({ genre }) => {
     }
   }, []);
   const handleCheck = (elem) => {
-    const arr = [];
     setActive((even) => !even);
   };
   return (
