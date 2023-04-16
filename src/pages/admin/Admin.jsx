@@ -1,7 +1,8 @@
 import "./admin.scss";
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/useAuth";
 import Cookies from "js-cookie";
 import getImageKey from "./../../components/getImageKey";
@@ -68,9 +69,7 @@ function Admin() {
             />
             <input className="search__input" type="text" placeholder="Поиск" />
           </label>
-          <button className="search__add-books">
-            <Link>Добавить книгу</Link>
-          </button>
+          <button className="search__add-books">Добавить книгу</button>
         </div>
 
         <div className="list__inner">
