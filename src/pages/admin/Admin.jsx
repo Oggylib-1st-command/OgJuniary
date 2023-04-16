@@ -33,7 +33,7 @@ function Admin(){
           </Link>
 
           <p className="header__logo-text">Oggylib</p>
-          <a className="header__admin-books" onClick={() => {AdmBooks(true); AdmUsers(false)}} disable>Книги</a>
+          <a className="header__admin-books">Книги</a>
           <a className="header__admin-users" onClick={() => {AdmBooks(false); AdmUsers(true);}}>Пользователи</a>
           <button className='menu__logout' onClick={logout}>Log Out</button> 
         </div>
@@ -84,7 +84,7 @@ function Admin(){
           </Link>
           <p className="header__logo-text">Oggylib</p>
           <a className="header__admin-books" onClick={() => {AdmUsers(false); AdmBooks(true);}}>Книги</a>
-          <a className="header__admin-users" onClick={() => {AdmUsers(true); AdmBooks(false);}} disable>Пользователи</a>
+          <a className="header__admin-users" >Пользователи</a>
           <button className='menu__logout' onClick={logout}>Log Out</button>
         </div>
         <p>ADMIN USERS</p>
