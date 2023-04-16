@@ -7,10 +7,12 @@ import getImageKey from "../getImageKey";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-function Login() {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
-  const [form, setForm] = useState({ password: "", email: "" });
+import './login.scss'
+
+function Login(){
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+  const [ form, setForm ] = useState({password:'',email:''})
 
   const navigate = useNavigate();
   const { signin } = useAuth();

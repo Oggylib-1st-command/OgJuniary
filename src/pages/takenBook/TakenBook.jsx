@@ -1,4 +1,4 @@
-import "./TakenBook.scss";
+import "./takenBook.scss";
 export const TakenBook = () => {
   return (
     <div>
