@@ -1,6 +1,6 @@
-import userIcon from "./../assets/icons/user-icon.svg";
-import passwordIcon from "./../assets/icons/password-icon.svg";
-import googleIcon from "./../assets/icons/icon-google.svg";
+import userIcon from "./../assets/icons/Login/user-icon.svg";
+import passwordIcon from "./../assets/icons/Login/password-icon.svg";
+import googleIcon from "./../assets/icons/Login/icon-google.svg";
 import Logo from "./../assets/icons/Logo.png";
 import searchIcon from "./../assets/icons/Navbar/search-icon.svg";
 
@@ -12,6 +12,8 @@ import TakenBookIcon from "./../assets/icons/Navbar/TakenBook-black.svg";
 
 import IconCatalog from "./../assets/icons/icon-catalog.svg";
 import IconSort from "./../assets/icons/icon-sort.svg";
+
+import NotFound from "./../assets/icons/404.svg";
 
 const images = {
   userIcon,
@@ -25,7 +27,8 @@ const images = {
   HistoryIcon,
   TakenBookIcon,
   IconCatalog,
-  IconSort
+  IconSort,
+  NotFound,
 };
 
 function getImageKey(key) {
