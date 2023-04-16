@@ -7,10 +7,20 @@ import getImageKey from "../getImageKey";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-function Login() {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
-  const [form, setForm] = useState({ password: "", email: "" });
+import './login.scss'
+import Header from './../Header/Header.jsx'
+
+import userIcon from './../../assets/icons/user-icon.svg'
+import passwordIcon from './../../assets/icons/password-icon.svg'
+import googleIcon from './../../assets/icons/icon-google.svg'
+import Logo from './../../assets/icons/Logo.png'
+import { useAuth } from '../useAuth';
+
+
+function Login(){
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+  const [ form, setForm ] = useState({password:'',email:''})
 
   const navigate = useNavigate();
   const { signin } = useAuth();
