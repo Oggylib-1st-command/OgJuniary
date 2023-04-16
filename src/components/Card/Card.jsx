@@ -5,11 +5,13 @@ function Card(props) {
   return (
     <div className="card">
       <div className="card__inner">
-        <img
-          className="card__img"
-          src="https://i.postimg.cc/GpSKbfZs/1.jpg"
-          alt="background card book"
-        />
+        <Link to={`/catalog/${props.titleLink}`}>
+          <img
+              className="card__img"
+              src={props.image}
+              alt="background card book"
+            />
+        </Link>
         <div className="card__info">
           <ul className="card__list">
             <Link
@@ -19,7 +21,7 @@ function Card(props) {
               {props.title}
             </Link>
             <li className="card__list-item card-author">{props.author}</li>
-            <li className="card__list-item card-genre">{props.genre}</li>
+            {/* <li className="card__list-item card-genre">{props.genre}</li> */}
           </ul>
           <div className="card__response">
             <button className="card__btn" type="submit">

@@ -13,17 +13,13 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    object-position: top center;
-
-    width: 100%;
-    height: auto;
-    margin-right: 19px;
   }
   &__info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: auto;
+    margin-left: 10px;
   }
   &__list {
     display: flex;
@@ -37,8 +33,10 @@
   &__list-item {
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 18px;
+    max-width: 190px;
+    text-overflow: ellipsis;
   }
   &-title {
     color: #000000;
@@ -47,7 +45,7 @@
     color: #646464;
   }
   &__list-item + .card__list-item {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   &__response {
     display: flex;
@@ -61,7 +59,7 @@
     height: 36px;
     margin-left: 10px;
     transition: all 0.3s;
-    &:focus {
+    &:hover {
       background-image: url("./../../assets/icons/Card/Heart-Card-active.svg");
       background-size: contain;
     }

@@ -12,6 +12,7 @@ import { Layout } from "./components/Layout/Layout";
 import { Book } from "./pages/book/book";
 import { RequireAuth } from "./hoc/RequireAuth";
 import { AuthProvider } from "./hoc/AuthProvider";
+import Paggination from "./pages/Paggination";
 
 function App() {
   return (

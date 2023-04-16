@@ -1,5 +1,5 @@
 import "./catalog.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card";
 import Paggination from "../Paggination";
@@ -34,16 +34,16 @@ const genreMain = [
 ];
 function Catalog() {
   const [book, setBook] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [currentpage, setCurrentpage] = useState(1);
   const [bookperpage] = useState(10);
 
   useEffect(() => {
     const getBook = async () => {
-      //setLoading(true);
-      const res = await axios.get("http://localhost:8000");
+      setLoading(true);
+      const res = await axios.get("http://localhost:8000/book/");
       setBook(res.data);
-      //setLoading(false);
+      setLoading(false);
     };
 
     getBook();
@@ -54,18 +54,28 @@ function Catalog() {
   const currentBook = book.slice(firstbookIndex, lastBookIndex); //текущий индекс страницы
 
   const paginate = (pageNumber) => setCurrentpage(pageNumber);
-  // const nextPage = () => setCurrentpage((prev) => prev + 1);
-  // const prevPage = () => setCurrentpage((prev) => prev - 1);
+  const nextPage = () => setCurrentpage((prev) => prev + 1);
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+  const prevPage = () => setCurrentpage((prev) => prev - 1);
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 
-  // if (!loading) {
-  //   return (
-  //     <div className="catalog__inner">
-  //       <div className="catalog__content">
-  //         <h2>Loading...</h2>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="catalog__inner">
+        <div className="catalog__content">
+          <h2>Loading...</h2>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="catalog__inner">
       <div className="catalog__content">
@@ -121,9 +131,10 @@ function Catalog() {
           <Card
             key={obj.id}
             titleLink={obj.title.split(" ").join("")}
+            image={obj.image}
             author={obj.author}
             title={obj.title}
-            genre={obj.genre}
+            genre={obj.genres.join(", ")}
           />
         ))}
         <Paggination
@@ -132,7 +143,7 @@ function Catalog() {
           paginate={paginate}
         />
 
-        {/* <button
+        <button
           className="btn btn-primaryprev"
           onClick={prevPage}
           disabled={currentpage === 1 || book.length === 0}
@@ -148,7 +159,7 @@ function Catalog() {
           }
         >
           Next Page
-        </button> */}
+        </button>
       </div>
     </div>
   );
