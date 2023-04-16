@@ -69,7 +69,7 @@ function Admin() {
             <input className="search__input" type="text" placeholder="Поиск" />
           </label>
           <button className="search__add-books">
-            <Link to="/admin/add">Добавить книгу</Link>
+            <Link>Добавить книгу</Link>
           </button>
         </div>
 
