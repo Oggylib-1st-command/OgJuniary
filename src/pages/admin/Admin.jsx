@@ -37,7 +37,6 @@ function Admin() {
               AdmBooks(false);
               AdmUsers(true);
             }}
-            href="#"
           >
             Пользователи
           </a>
