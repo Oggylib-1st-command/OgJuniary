@@ -1,14 +1,11 @@
 import "./admin.scss";
 
 import { useState } from 'react'
-import Logo from './../../assets/icons/Logo.png'
 import {Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/useAuth';
 import Cookies from 'js-cookie';
-import SearchLogo from './../../assets/icons/search-icon.svg'
-import SortLogo from './../../assets/icons/icon-sort.svg'
-import CatalogLogo from './../../assets/icons/icon-catalog.svg'
+import getImageKey from './../../components/getImageKey';
 
 
 
@@ -29,7 +26,7 @@ function Admin(){
         <div className="container__inner">
 
           <Link className="header__logo-link" to="/admin">
-            <img className="header__logo" src={Logo} alt="logo icons" />
+            <img className="header__logo" src={getImageKey('Logo')} alt="logo icons" />
           </Link>
 
           <p className="header__logo-text">Oggylib</p>
@@ -42,23 +39,18 @@ function Admin(){
 
             <div className='sort__inner'>
               <div className="sort__catalog">
-                <img src={CatalogLogo}/>
+                <img src={getImageKey('IconCatalog')} alt=""/>
                 <p>Каталог</p>
               </div>
               <div className='sort__sort-block'>
                 <select className="sort__sorter">
-                  <option hidden>Сортировка</option>
-                  <option>По популярности</option>
-                  <option>По новизне</option>
-                  <option>От А до Я</option>
-                  <option>От Я до А</option>
                 </select>
-                <img className='sort__sort-logo' src={SortLogo}/>
+                <img className='sort__sort-logo' src={getImageKey('IconSort')} alt=""/>
               </div>
             </div>
           </div>
           <label className="search__pos">
-            <img className='search__logo' src={SearchLogo}/>
+            <img className='search__logo' src={getImageKey('searchIcon')} alt=""/>
             <input className='search__input' type="text" placeholder='Поиск'/>
           </label>
           <button className='search__add-books'>Добавить книгу</button>
@@ -80,7 +72,7 @@ function Admin(){
       <div className='admin__inner'>
         <div className="container__inner">
           <Link className="header__logo-link" to="/admin">
-            <img className="header__logo" src={Logo} alt="logo icons" />
+            <img className="header__logo" src={getImageKey('Logo')} alt="logo icons" />
           </Link>
           <p className="header__logo-text">Oggylib</p>
           <a className="header__admin-books" onClick={() => {AdmUsers(false); AdmBooks(true);}}>Книги</a>

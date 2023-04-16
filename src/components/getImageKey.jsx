@@ -10,6 +10,9 @@ import CatalogIcon from "./../assets/icons/Navbar/Catalog-black.svg";
 import HistoryIcon from "./../assets/icons/Navbar/History-black.svg";
 import TakenBookIcon from "./../assets/icons/Navbar/TakenBook-black.svg";
 
+import IconCatalog from "./../assets/icons/icon-catalog.svg";
+import IconSort from "./../assets/icons/icon-sort.svg";
+
 const images = {
   userIcon,
   passwordIcon,
@@ -21,6 +24,8 @@ const images = {
   CatalogIcon,
   HistoryIcon,
   TakenBookIcon,
+  IconCatalog,
+  IconSort
 };
 
 function getImageKey(key) {
