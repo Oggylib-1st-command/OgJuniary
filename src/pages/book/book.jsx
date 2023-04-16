@@ -1,13 +1,9 @@
-import './book.scss'
+import "./book.scss";
 import { useParams } from "react-router-dom";
 
-const Book=()=>{
-  const {id} = useParams();
-  return(
-    <div>
-      {id}
-    </div>
-  )
-}
+const Book = () => {
+  const { id } = useParams();
+  return <div>{id}</div>;
+};
 
-export {Book}
+export { Book };

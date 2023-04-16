@@ -1,4 +1,4 @@
-import './admin.scss'
+import "./admin.scss";
 
 import { useState } from 'react'
 import Logo from './../../assets/icons/Logo.png'
@@ -16,7 +16,7 @@ function Admin(){
   const [book, AdmBooks] = useState(true);
   const [users, AdmUsers] = useState(false);
   const navigate = useNavigate();
-  const {signout} = useAuth();
+  const { signout } = useAuth();
   const logout = () => {
     Cookies.remove('admin')
     signout(()=>navigate('/login',{replace:true}));

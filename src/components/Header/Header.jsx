@@ -1,34 +1,54 @@
-import React,{useState,useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import './header.scss'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./header.scss";
+import getImageKey from "../getImageKey";
+import Navbar from "../Navbar/navbar";
 
-import Logo from './../../assets/icons/Logo.png'
-import searchIcon from './../../assets/icons/search-icon.svg'
-import Navbar from '../Navbar/navbar';
-
-function Header(){
-  
-  const[active,setActive] = useState(true);
-  const[text,setText] = useState("");
-
-  function handleClick(e){
-    setText('')
-    return setActive(!active)
+function Header() {
+  const [active, setActive] = useState(true);
+  const [text, setText] = useState("");
+  const [show, setShow] = useState(true);
+  function handleClick(e) {
+    setText("");
+    return setActive(!active);
   }
-  return(
-    <div className='header__inner'>
+  return (
+    <div className="header__inner">
       <Link className="header__logo-link" to="/">
-        <img className="header__logo" src={Logo} alt="logo icons" />
-        <p className="header__logo-text">Oggylib</p>
+        <img
+          className="header__logo"
+          src={getImageKey("Logo")}
+          alt="logo icons"
+          onClick={() => setShow(true)}
+        />
+        <p className="header__logo-text" onClick={() => setShow(true)}>
+          Oggylib
+        </p>
       </Link>
       <div className="header__form">
-        <input className={active ? "header__form-input": "header__form-input header__form-input--active"} 
-        onChange={(e)=>{setText(e.target.value)}} value={text} type="text" placeholder='поиск'/>
-        <img className="header__form-icon" onClick={handleClick} src={searchIcon} alt="search icon" />
+        <input
+          className={
+            active
+              ? "header__form-input"
+              : "header__form-input header__form-input--active"
+          }
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          value={text}
+          type="text"
+          placeholder="поиск"
+        />
+        <img
+          className="header__form-icon"
+          onClick={handleClick}
+          src={getImageKey("searchIcon")}
+          alt="search icon"
+        />
       </div>
-      <Navbar/>
+      <Navbar show={show} setShow={setShow} />
     </div>
-  )
+  );
 }
 
 export default Header;
