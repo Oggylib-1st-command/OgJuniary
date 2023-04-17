@@ -30,8 +30,8 @@ function Admin() {
           </Link>
 
           <p className="header__logo-text">Oggylib</p>
-          <a className="header__admin-books">Книги</a>
-          <a
+          <Link className="header__admin-books">Книги</Link>
+          <Link
             className="header__admin-users"
             onClick={() => {
               AdmBooks(false);
@@ -39,7 +39,7 @@ function Admin() {
             }}
           >
             Пользователи
-          </a>
+          </Link>
           <button className="menu__logout" onClick={logout}>
             Log Out
           </button>
@@ -93,7 +93,7 @@ function Admin() {
             />
           </Link>
           <p className="header__logo-text">Oggylib</p>
-          <a
+          <Link
             className="header__admin-books"
             onClick={() => {
               AdmUsers(false);
@@ -101,8 +101,8 @@ function Admin() {
             }}
           >
             Книги
-          </a>
-          <a className="header__admin-users">Пользователи</a>
+          </Link>
+          <Link className="header__admin-users">Пользователи</Link>
           <button className="menu__logout" onClick={logout}>
             Log Out
           </button>

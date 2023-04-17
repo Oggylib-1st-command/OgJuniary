@@ -13,6 +13,8 @@ import TakenBookIcon from "./../assets/icons/main/Navbar/TakenBook-black.svg";
 import IconCatalog from "./../assets/icons/admin/icon-catalog.svg";
 import IconSort from "./../assets/icons/admin/icon-sort.svg";
 
+import NotFound from "./../assets/icons/404.svg";
+
 const images = {
   userIcon,
   passwordIcon,
@@ -26,6 +28,7 @@ const images = {
   TakenBookIcon,
   IconCatalog,
   IconSort,
+  NotFound,
 };
 
 function getImageKey(key) {
