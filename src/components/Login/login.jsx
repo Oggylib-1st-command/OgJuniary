@@ -7,12 +7,13 @@ import getImageKey from "../getImageKey";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-import './login.scss'
+import "./login.scss";
 
-function Login(){
-  const [ user, setUser ] = useState([]);
-  const [ profile, setProfile ] = useState([]);
-  const [ form, setForm ] = useState({password:'',email:''})
+function Login() {
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+  const [form, setForm] = useState({ password: "", email: "" });
+  const [error, setError] = useState(true);
 
   const navigate = useNavigate();
   const { signin } = useAuth();
@@ -55,14 +56,17 @@ function Login(){
   }, [profile]);
 
   const handleForm = (elem) => {
-    elem.preventDefault();
     if (form.email === "1" && form.password === "1") {
       signin(user, () => navigate("/admin", { replace: true }));
       Cookies.set("admin", true, {
         expires: -1,
       });
     } else {
-      alert("Ошибка логина или пароля");
+      elem.preventDefault();
+      setError((current) => !current);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
@@ -84,7 +88,7 @@ function Login(){
           <label className="form__label">
             <img className="form__icon" src={getImageKey("userIcon")} alt="" />
             <input
-              className="form__input"
+              className={error ? "form__input" : "form__input form--active"}
               type="text"
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, email: e.target.value }))
@@ -94,12 +98,12 @@ function Login(){
           </label>
           <label className="form__label">
             <img
-              className="form__icon"
+              className={"form__icon"}
               src={getImageKey("passwordIcon")}
               alt=""
             />
             <input
-              className="form__input"
+              className={error ? "form__input" : "form__input form--active"}
               type="password"
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, password: e.target.value }))
@@ -107,6 +111,13 @@ function Login(){
               placeholder="Введите пароль"
             />
           </label>
+          <p
+            className={
+              error ? "form__error" : "form__error form__error--active"
+            }
+          >
+            Неправильный логин или пароль
+          </p>
           <button className="form__singin-btn" onClick={(e) => handleForm(e)}>
             Войти
           </button>

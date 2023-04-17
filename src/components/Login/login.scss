@@ -67,6 +67,19 @@
       height: 25px;
     }
   }
+  &__error {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #ffffff;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    display: none;
+    &--active {
+      display: block;
+    }
+  }
   &__input {
     background: #d9d9d9;
     border-radius: 10px;
@@ -113,6 +126,10 @@
       width: 110px;
     }
   }
+  &--active {
+    animation: border-pulsate 2.5s ease-in-out;
+  }
+
   &__singin-btn {
     background: #fff343;
     border-radius: 15px;
@@ -178,4 +195,16 @@
 .btn__container {
   display: flex;
   justify-content: center;
+}
+
+@keyframes border-pulsate {
+  0% {
+    border-color: #ed3737;
+  }
+  50% {
+    border-color: #e35555;
+  }
+  100% {
+    border-color: #df3f3f;
+  }
 }
