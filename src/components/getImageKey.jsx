@@ -1,17 +1,17 @@
-import userIcon from "./../assets/icons/user-icon.svg";
-import passwordIcon from "./../assets/icons/password-icon.svg";
-import googleIcon from "./../assets/icons/icon-google.svg";
-import Logo from "./../assets/icons/Logo.png";
-import searchIcon from "./../assets/icons/Navbar/search-icon.svg";
+import userIcon from "./../assets/icons/main/user-icon.svg";
+import passwordIcon from "./../assets/icons/main/password-icon.svg";
+import googleIcon from "./../assets/icons/main/icon-google.svg";
+import Logo from "./../assets/icons/main/Logo.png";
+import searchIcon from "./../assets/icons/main/Navbar/search-icon.svg";
 
-import UserIcon from "./../assets/icons/Navbar/user-avatar.svg";
-import HeartIcon from "./../assets/icons/Navbar/Heart-black.svg";
-import CatalogIcon from "./../assets/icons/Navbar/Catalog-black.svg";
-import HistoryIcon from "./../assets/icons/Navbar/History-black.svg";
-import TakenBookIcon from "./../assets/icons/Navbar/TakenBook-black.svg";
+import UserIcon from "./../assets/icons/main/Navbar/user-avatar.svg";
+import HeartIcon from "./../assets/icons/main/Navbar/Heart-black.svg";
+import CatalogIcon from "./../assets/icons/main/Navbar/Catalog-black.svg";
+import HistoryIcon from "./../assets/icons/main/Navbar/History-black.svg";
+import TakenBookIcon from "./../assets/icons/main/Navbar/TakenBook-black.svg";
 
-import IconCatalog from "./../assets/icons/icon-catalog.svg";
-import IconSort from "./../assets/icons/icon-sort.svg";
+import IconCatalog from "./../assets/icons/admin/icon-catalog.svg";
+import IconSort from "./../assets/icons/admin/icon-sort.svg";
 
 const images = {
   userIcon,
@@ -25,7 +25,7 @@ const images = {
   HistoryIcon,
   TakenBookIcon,
   IconCatalog,
-  IconSort
+  IconSort,
 };
 
 function getImageKey(key) {

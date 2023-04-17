@@ -53,14 +53,14 @@
     margin: 20px 0 10px;
   }
   &__heart {
-    background-image: url("./../../assets/icons/Card/Heart-Card.svg");
+    background-image: url("./../../assets/icons/main/Card/Heart-Card.svg");
     background-size: contain;
     width: 36px;
     height: 36px;
     margin-left: 10px;
     transition: all 0.3s;
     &:hover {
-      background-image: url("./../../assets/icons/Card/Heart-Card-active.svg");
+      background-image: url("./../../assets/icons/main/Card/Heart-Card-active.svg");
       background-size: contain;
     }
   }
