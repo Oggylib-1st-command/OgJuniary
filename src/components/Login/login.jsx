@@ -64,9 +64,10 @@ function Login() {
     } else {
       elem.preventDefault();
       setError((current) => !current);
+      setForm((prevState) => ({ email: "", password: "" }));
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 150000);
     }
   };
 
@@ -90,6 +91,7 @@ function Login() {
             <input
               className={error ? "form__input" : "form__input form--active"}
               type="text"
+              value={form.email}
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, email: e.target.value }))
               }
@@ -105,6 +107,7 @@ function Login() {
             <input
               className={error ? "form__input" : "form__input form--active"}
               type="password"
+              value={form.password}
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, password: e.target.value }))
               }

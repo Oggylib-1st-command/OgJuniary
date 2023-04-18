@@ -1,18 +1,12 @@
 .filter {
   &__list-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  &__list-title {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    cursor: pointer;
+    display: grid;
+    align-items: start;
   }
   &__checkbox {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    align-items: start;
+    width: 100%;
   }
 }
 

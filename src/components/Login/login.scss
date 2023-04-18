@@ -17,7 +17,7 @@
     min-width: 303px;
     max-width: 412px;
     width: 90%;
-    margin: 100px 0 50px;
+    margin: 90px 0 50px;
     background: rgba(106, 106, 106, 0.8);
     border-radius: 10px;
     padding: 25px 20px;
@@ -73,8 +73,7 @@
     font-size: 13px;
     line-height: 16px;
     color: #ffffff;
-    margin: 0 auto;
-    margin-bottom: 5px;
+    margin: -15px auto 20px;
     display: none;
     &--active {
       display: block;
@@ -127,7 +126,7 @@
     }
   }
   &--active {
-    animation: border-pulsate 2.5s ease-in-out;
+    animation: border-pulsate 5s ease-in-out;
   }
 
   &__singin-btn {
@@ -149,8 +148,7 @@
   }
   &__subtext {
     max-width: 303px;
-    margin: 10px auto;
-    margin-bottom: 18px;
+    margin: 15px auto;
     font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 700;

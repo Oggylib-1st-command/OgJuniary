@@ -9,27 +9,7 @@ import { Link } from "react-router-dom";
 const genreMain = [
   {
     id: "1",
-    viewTitle: "aaaaa",
-  },
-  {
-    id: "2",
-    viewTitle: "bbbbbb",
-  },
-  {
-    id: "3",
-    viewTitle: "cccccc",
-  },
-  {
-    id: "4",
-    viewTitle: "ddddddd",
-  },
-  {
-    id: "5",
-    viewTitle: "eeeeeee",
-  },
-  {
-    id: "6",
-    viewTitle: "fffffff",
+    viewTitle: "Все книги",
   },
 ];
 function Catalog() {
@@ -67,7 +47,7 @@ function Catalog() {
     behavior: "smooth",
   });
 
-  if (loading) {
+  if (!loading) {
     return (
       <div className="catalog__inner">
         <div className="catalog__content">
@@ -114,11 +94,9 @@ function Catalog() {
                   </g>
                 </svg>
               </Link>
-              <ul className="filter__list">
-                {genreMain.map((target) => (
-                  <Filter key={target.id} title={target.viewTitle} />
-                ))}
-              </ul>
+              {genreMain.map((target) => (
+                <Filter key={target.id} title={target.viewTitle} />
+              ))}
             </div>
           </button>
           <select className="catalog__sort">

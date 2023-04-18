@@ -5,35 +5,38 @@ import { useState } from "react";
 const genre = [
   {
     id: "1",
-    view: "aaaaa",
+    view: "Все книги",
   },
   {
     id: "2",
-    view: "bbbbbb",
+    view: "Фантастика",
   },
   {
     id: "3",
-    view: "cccccc",
+    view: "Детективы",
   },
   {
     id: "4",
-    view: "ddddddd",
+    view: "Фэнтези",
   },
   {
     id: "5",
-    view: "eeeeeee",
+    view: "Личная эффективность",
   },
   {
     id: "6",
-    view: "fffffff",
+    view: "Личная эффективность",
+  },
+  {
+    id: "7",
+    view: "Личная эффективность ",
   },
 ];
 
 export const Filter = ({ title }) => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <li className="filter__list-item">
-      <h4 className="filter__list-title">{title}</h4>
+    <div className="filter__list-item">
       <div className="filter__checkbox">
         {showMore
           ? genre.map((target) => <Check key={target.id} genre={target.view} />)
@@ -44,6 +47,6 @@ export const Filter = ({ title }) => {
       <p className="show__btn" onClick={() => setShowMore(!showMore)}>
         {showMore ? "Скрыть" : "Показать ещё"}
       </p>
-    </li>
+    </div>
   );
 };

@@ -14,11 +14,11 @@ export const Check = ({ genre }) => {
     setActive((even) => !even);
   };
   return (
-    <label className="filter__label">
+    <div className="filter__label">
       <Link className="filter__genre-link" to="#">
         {genre}
       </Link>
       <span>0</span>
-    </label>
+    </div>
   );
 };

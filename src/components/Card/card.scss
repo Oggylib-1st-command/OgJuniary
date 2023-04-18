@@ -9,8 +9,7 @@
     justify-content: space-between;
   }
   &__img {
-    max-width: 200px;
-    width: 100%;
+    width: 160px;
     height: auto;
     object-fit: contain;
   }
@@ -57,7 +56,7 @@
     background-size: contain;
     width: 36px;
     height: 36px;
-    margin-left: 10px;
+    margin-right: 10px;
     transition: all 0.3s;
     &:hover {
       background-image: url("./../../assets/icons/main/Card/Heart-Card-active.svg");
