@@ -1,5 +1,5 @@
 import "./Search.scss";
-
+import { Link } from "react-router-dom";
 import getImageKey from "./../../getImageKey";
 
 function Search() {
@@ -25,7 +25,11 @@ function Search() {
         <img className="search__logo" src={getImageKey("searchIcon")} alt="" />
         <input className="search__input" type="text" placeholder="Поиск" />
       </label>
-      <button className="search__add-books">Добавить книгу</button>
+      <button className="search__add-books">
+        <Link to="add" className="search__add-link">
+          Добавить книгу
+        </Link>
+      </button>
     </div>
   );
 }

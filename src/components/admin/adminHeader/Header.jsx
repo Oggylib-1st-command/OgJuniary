@@ -15,7 +15,7 @@ function Header() {
   };
   return (
     <div className="container__inner">
-      <Link className="header__logo-link" to="/admin">
+      <Link className="header__logo-link" to="/admin/catalog">
         <img
           className="header__logo"
           src={getImageKey("Logo")}

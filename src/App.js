@@ -6,14 +6,14 @@ import History from "./pages/history/History";
 import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
 import CatalogAdmin from "./pages/admin/adminCatalog/adminCatalog";
-import UsersAdmin from "./pages/admin/adminUsers/adminUsers"
+import UsersAdmin from "./pages/admin/adminUsers/adminUsers";
+import { AdminAddBook } from "./pages/admin/adminAddBooks/AdminAddBooks";
 import { TakenBook } from "./pages/takenBook/TakenBook";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
 import { Book } from "./pages/book/book";
 import { RequireAuth } from "./hoc/RequireAuth";
 import { AuthProvider } from "./hoc/AuthProvider";
-import Paggination from "./pages/Paggination";
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
           </Route>
           <Route path="/admin/catalog" element={<CatalogAdmin />} />
           <Route path="/admin/users" element={<UsersAdmin />} />
+          <Route path="/admin/catalog/add" element={<AdminAddBook />} />
           <Route path="/login" element={<Authorization />} />
         </Routes>
       </AuthProvider>
