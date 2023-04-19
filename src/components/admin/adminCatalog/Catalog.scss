@@ -1,9 +1,9 @@
 .admin-catalog{
     &__inner{
+    display: flex;
     background-color: white;
-    max-width: 1358px;
     max-height: 1890px;
-    width: 100%px;
+    width: 95vw;
     height: 1890px;
     margin: 61px auto;
     }
