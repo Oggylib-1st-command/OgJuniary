@@ -5,7 +5,8 @@ import Catalog from "./pages/catalog/Catalog";
 import History from "./pages/history/History";
 import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
-import Admin from "./pages/admin/Admin";
+import CatalogAdmin from "./pages/admin/adminCatalog/adminCatalog";
+import UsersAdmin from "./pages/admin/adminUsers/adminUsers"
 import { TakenBook } from "./pages/takenBook/TakenBook";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
@@ -35,7 +36,8 @@ function App() {
             <Route path="takenbook" element={<TakenBook />} />
             <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/catalog" element={<CatalogAdmin />} />
+          <Route path="/admin/users" element={<UsersAdmin />} />
           <Route path="/login" element={<Authorization />} />
         </Routes>
       </AuthProvider>

@@ -57,7 +57,7 @@ function Login() {
 
   const handleForm = (elem) => {
     if (form.email === "1" && form.password === "1") {
-      signin(user, () => navigate("/admin", { replace: true }));
+      signin(user, () => navigate("/admin/catalog", { replace: true }));
       Cookies.set("admin", true, {
         expires: -1,
       });
