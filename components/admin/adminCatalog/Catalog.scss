@@ -1,0 +1,10 @@
+.admin-catalog {
+  &__inner {
+    display: flex;
+    background-color: white;
+    max-height: 1890px;
+    width: 95vw;
+    height: 1890px;
+    margin: 40px auto;
+  }
+}
