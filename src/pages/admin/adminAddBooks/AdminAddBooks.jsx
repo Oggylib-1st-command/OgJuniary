@@ -2,18 +2,56 @@ import Header from "../../../components/admin/adminHeader/Header";
 import { Link, useNavigate } from "react-router-dom";
 import getImageKey from "./../../../components/getImageKey";
 import { MultiSelect } from "primereact/multiselect";
+import GeneratorQr from "../../../components/Generator-qr/generator";
 import "./adminAddBooks.scss";
 import { useState, useEffect } from "react";
 
 export const AdminAddBook = () => {
-  const [selectedGenres, setSelectedGenres] = useState();
+  const [options, setOptions] = useState({
+    selectedGenres: [],
+    fileDataURL: "",
+    title: "",
+    author: "",
+    year: "",
+    description: "",
+  });
+  const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
   const handleCancel = () => {
-    window.location.reload();
+    navigate(-1);
+  };
+  const loadImg = (e) => {
+    const selectImg = e.target.files[0];
+    setSelectImg(selectImg);
+  };
+  const handleSaveForm = (e) => {
+    e.preventDefault();
+    console.log(options);
   };
   useEffect(() => {
-    console.log(selectedGenres);
-  }, [selectedGenres]);
+    let fileReader,
+      isCancel = false;
+    if (selectImg) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setOptions((prevState) => ({
+            ...options,
+            fileDataURL: result,
+          }));
+        }
+      };
+      fileReader.readAsDataURL(selectImg);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [selectImg]);
+
   const genres = [
     { name: "Приключение", id: "1" },
     { name: "История", id: "2" },
@@ -43,26 +81,55 @@ export const AdminAddBook = () => {
         <div className="add__info">
           <div className="add__wrap">
             <div className="add__download">
-              <canvas className="add__download-canvas"></canvas>
+              {options.fileDataURL ? (
+                <img className="add__download-img" src={options.fileDataURL} />
+              ) : (
+                <canvas className="add__download-canvas" />
+              )}
               <button className="add__download-btn">
-                <input type="file" className="input__file" />
+                <input
+                  type="file"
+                  onChange={(e) => loadImg(e)}
+                  accept=".png, .jpg, jpeg*"
+                  className="input__file"
+                />
                 Загрузить фото
               </button>
             </div>
             <div className="add__creation">
               <form className="add__creation-form">
-                <input type="text" className="add__creation-title" required />
-                <label htmlFor="add__creation-author" className="label__author">
+                <input
+                  className="add__creation-title"
+                  type="text"
+                  value={options.title}
+                  onChange={(e) =>
+                    setOptions(() => ({ ...options, title: e.target.value }))
+                  }
+                  required
+                />
+                <label className="label__author" htmlFor="add__creation-author">
                   Автор:
                   <input
                     type="text"
                     className="add__creation-author"
+                    value={options.author}
+                    onChange={(e) =>
+                      setOptions(() => ({ ...options, author: e.target.value }))
+                    }
                     required
                   />
                 </label>
                 <label htmlFor="add__creation-year" className="label__year">
                   Год издания:
-                  <input type="text" className="add__creation-year" required />
+                  <input
+                    className="add__creation-year"
+                    type="text"
+                    value={options.year}
+                    onChange={(e) =>
+                      setOptions(() => ({ ...options, year: e.target.value }))
+                    }
+                    required
+                  />
                 </label>
                 <div className="add__creation-rating">
                   Здесь будет рейтинг, а пока нам плевать на ваше мнение
@@ -70,16 +137,19 @@ export const AdminAddBook = () => {
                 <label className="label__genre">
                   Жанры:
                   <MultiSelect
-                    value={selectedGenres}
-                    onChange={(e) => setSelectedGenres(e.value)}
+                    value={options.selectedGenres}
+                    onChange={(e) =>
+                      setOptions({ ...options, selectedGenres: e.target.value })
+                    }
                     options={genres}
                     optionLabel="name"
                     filter
                     placeholder="Выберите жанры"
                     maxSelectedLabels={10}
-                    removeIcon={true}
+                    removeIcon={false}
+                    closeIcon={false}
                     display="chip"
-                    className="w-full md:w-30rem multiselect"
+                    className="w-full md:w-31rem multiselect"
                   />
                 </label>
                 <label htmlFor="add__creation-description">
@@ -87,11 +157,23 @@ export const AdminAddBook = () => {
                   <textarea
                     type="text"
                     className="add__creation-description"
+                    value={options.description}
+                    onChange={(e) =>
+                      setOptions(() => ({
+                        ...options,
+                        description: e.target.value,
+                      }))
+                    }
                     required
                   />
                 </label>
                 <div className="add__creation-btn">
-                  <button className="add__save">Сохранить </button>
+                  <button
+                    className="add__save"
+                    onClick={(e) => handleSaveForm(e)}
+                  >
+                    Сохранить
+                  </button>
                   <button className="add__cancel" onClick={handleCancel}>
                     Отменить
                   </button>
@@ -101,6 +183,7 @@ export const AdminAddBook = () => {
           </div>
         </div>
       </div>
+      <GeneratorQr />
     </div>
   );
 };

@@ -44,12 +44,17 @@
     flex-direction: column;
     align-items: center;
   }
-  &__download-canvas {
+  &__download-canvas,
+  &__download-img {
     background: #d9d9d9;
     max-width: 400px;
     width: 100%;
     height: 600px;
     margin-bottom: 14px;
+  }
+  &__download-img {
+    background-color: transparent;
+    object-fit: contain;
   }
   &__download-btn,
   &__save,
@@ -176,6 +181,8 @@
 }
 .label__genre {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 .multiselect {
   margin-left: 10px;
