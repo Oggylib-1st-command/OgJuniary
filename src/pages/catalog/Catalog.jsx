@@ -1,8 +1,8 @@
 import "./catalog.scss";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card";
-import Paggination from "../Paggination";
+import Paggination from "./../../components/Paggination/Paggination";
 import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
 

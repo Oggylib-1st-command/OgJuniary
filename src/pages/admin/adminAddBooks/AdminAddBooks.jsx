@@ -2,7 +2,6 @@ import Header from "../../../components/admin/adminHeader/Header";
 import { Link, useNavigate } from "react-router-dom";
 import getImageKey from "./../../../components/getImageKey";
 import { MultiSelect } from "primereact/multiselect";
-import GeneratorQr from "../../../components/Generator-qr/generator";
 import "./adminAddBooks.scss";
 import { useState, useEffect } from "react";
 
@@ -183,7 +182,6 @@ export const AdminAddBook = () => {
           </div>
         </div>
       </div>
-      <GeneratorQr />
     </div>
   );
 };

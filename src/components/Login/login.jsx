@@ -1,50 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../useAuth";
-import "./login.scss";
 import getImageKey from "../getImageKey";
 import Cookies from "js-cookie";
-import axios from "axios";
+import { useLogin } from "../../pages/api";
 
 import "./login.scss";
 
 function Login() {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
   const [form, setForm] = useState({ password: "", email: "" });
   const [error, setError] = useState(true);
-
   const navigate = useNavigate();
-  const { signin } = useAuth();
-  const { fromPage } = useAuth();
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
-  });
-
-  useEffect(() => {
-    const getInfo = async () => {
-      try {
-        if (user.length !== 0) {
-          const request = await axios.get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-            {
-              headers: {
-                Authorization: `Bearer ${user.access_token}`,
-                Accept: "application/json",
-              },
-            }
-          );
-          setProfile(request.data);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getInfo();
-  }, [user]);
+  const { login, user, profile } = useLogin();
+  const { signin, fromPage } = useAuth();
 
   useEffect(() => {
     if (profile.length !== 0) {
@@ -59,7 +28,7 @@ function Login() {
     if (form.email === "1" && form.password === "1") {
       signin(user, () => navigate("/admin/catalog", { replace: true }));
       Cookies.set("admin", true, {
-        expires: -1,
+        expires: 7,
       });
     } else {
       elem.preventDefault();
