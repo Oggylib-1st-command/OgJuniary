@@ -1,7 +1,9 @@
 .admin-catalog {
   &__inner {
-    display: flex;
-    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(5, 275px);
+    justify-content: center;
+    grid-template-rows: repeat(5, 480px);
     max-height: 1890px;
     width: 95vw;
     height: 1890px;
