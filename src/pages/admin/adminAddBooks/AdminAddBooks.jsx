@@ -4,16 +4,26 @@ import getImageKey from "./../../../components/getImageKey";
 import { MultiSelect } from "primereact/multiselect";
 import "./adminAddBooks.scss";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
+import GeneratorQr from "../../../components/Generator-qr/generator";
 export const AdminAddBook = () => {
   const [options, setOptions] = useState({
-    selectedGenres: [],
-    fileDataURL: "",
+    genres: [""],
+    image: "",
     title: "",
     author: "",
     year: "",
     description: "",
   });
+  const [genre, setGenre] = useState();
+  useEffect(() => {
+    const getBook = async () => {
+      const genna = await axios.get("http://localhost:8000/genre/");
+      setGenre(genna.data);
+    };
+
+    getBook();
+  }, [genre]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
   const handleCancel = () => {
@@ -25,8 +35,18 @@ export const AdminAddBook = () => {
   };
   const handleSaveForm = (e) => {
     e.preventDefault();
+    const postBook = async () => {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/books/",
+        options
+      );
+      console.log(response.data);
+    };
+
+    postBook();
     console.log(options);
   };
+
   useEffect(() => {
     let fileReader,
       isCancel = false;
@@ -37,7 +57,7 @@ export const AdminAddBook = () => {
         if (result && !isCancel) {
           setOptions((prevState) => ({
             ...options,
-            fileDataURL: result,
+            image: result,
           }));
         }
       };
@@ -51,13 +71,7 @@ export const AdminAddBook = () => {
     };
   }, [selectImg]);
 
-  const genres = [
-    { name: "Приключение", id: "1" },
-    { name: "История", id: "2" },
-    { name: "Бизнес", id: "3" },
-    { name: "Менеджмент", id: "4" },
-    { name: "Политика", id: "5" },
-  ];
+  const genres = genre;
   return (
     <div>
       <Header />
@@ -80,8 +94,8 @@ export const AdminAddBook = () => {
         <div className="add__info">
           <div className="add__wrap">
             <div className="add__download">
-              {options.fileDataURL ? (
-                <img className="add__download-img" src={options.fileDataURL} />
+              {options.image ? (
+                <img className="add__download-img" src={options.image} />
               ) : (
                 <canvas className="add__download-canvas" />
               )}
@@ -182,6 +196,7 @@ export const AdminAddBook = () => {
           </div>
         </div>
       </div>
+      <GeneratorQr />
     </div>
   );
 };

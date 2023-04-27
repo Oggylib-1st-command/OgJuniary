@@ -6,7 +6,7 @@ import "./generator.scss";
 
 function GeneratorQr() {
   const [textQr, setTextQr] = useState(
-    "https://www.youtube.com/watch?v=3dYRN1rtncA"
+    "https://github.com/Oggylib-1st-command/OgJuniary/tree/GeneratorQr"
   );
   const saveQr = (e) => {
     toImg(".GeneratorQr", "name", {

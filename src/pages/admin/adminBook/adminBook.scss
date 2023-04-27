@@ -13,6 +13,8 @@
     max-width: 1400px;
     width: 100%;
     min-height: 100vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &__wrap {
     background: #ffffff;
@@ -25,6 +27,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   &__canvas {
     background: #d9d9d9;
@@ -32,6 +36,9 @@
     width: 400px;
     height: 600px;
     margin-bottom: 14px;
+    &-img {
+      object-fit: cover;
+    }
   }
   &__but {
     display: flex;

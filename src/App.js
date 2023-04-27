@@ -40,7 +40,7 @@ function App() {
           <Route path="/admin/catalog" element={<CatalogAdmin />} />
           <Route path="/admin/users" element={<UsersAdmin />} />
           <Route path="/admin/catalog/add" element={<AdminAddBook />} />
-          <Route path="/admin/catalog/book" element={<AdminBook />} />
+          <Route path="/admin/catalog/:id" element={<AdminBook />} />
           <Route path="/login" element={<Authorization />} />
         </Routes>
       </AuthProvider>
