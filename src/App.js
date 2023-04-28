@@ -35,8 +35,8 @@ function App() {
             <Route path="history" element={<History />} />
             <Route path="favorites" element={<Favorites />} />
             <Route path="takenbook" element={<TakenBook />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
           <Route path="/admin/catalog" element={<CatalogAdmin />} />
           <Route path="/admin/users" element={<UsersAdmin />} />
           <Route path="/admin/catalog/add" element={<AdminAddBook />} />

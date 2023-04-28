@@ -16,8 +16,6 @@ import IconEdit from "./../assets/icons/admin/edit.svg";
 import IconTrash from "./../assets/icons/admin/trash.svg";
 import IconQR from "./../assets/icons/admin/QR.svg";
 
-import NotFound from "./../assets/icons/404.svg";
-
 const images = {
   userIcon,
   passwordIcon,
@@ -34,7 +32,6 @@ const images = {
   IconTrash,
   IconQR,
   IconSort,
-  NotFound,
 };
 
 function getImageKey(key) {
