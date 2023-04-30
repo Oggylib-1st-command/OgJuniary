@@ -1,5 +1,6 @@
 .book {
   &__content {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,9 +19,9 @@
   }
   &__wrap {
     background: #ffffff;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
-    margin: 0 auto;
+    // margin: 0 auto;
     height: auto;
     padding: 48px 0 75px 45px;
     position: relative;

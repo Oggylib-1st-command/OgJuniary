@@ -1,17 +1,34 @@
 import "./adminBook.scss";
+import { useState, useEffect } from "react";
 import Header from "../../../components/admin/adminHeader/Header";
 import Search from "../../../components/admin/adminSearch/Search";
 import getImageKey from "../../../components/getImageKey";
+import QrPop from "../QrPopUp/QrPopUp";
+import DeleetePop from "../DeletePopUpBook/DeletePopUpBook";
 import { Navigate, useParams } from "react-router-dom";
 import { useInfoBookId } from "../../api";
 
 function AdminBook() {
   const { id } = useParams();
   //const { book } = useInfoBookId(id);
+
+  const [isQrOpen, setIsQrOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const toggleQrPopup = () => {
+    setIsQrOpen(!isQrOpen);
+  };
+
+  const toggleDeletePopup = () => {
+    setIsDeleteOpen(!isDeleteOpen);
+  };
+
   return (
     <div>
       <Header />
       <Search />
+      <QrPop isActive={isQrOpen} handleClose={toggleQrPopup} />
+      <DeleetePop isActive={isDeleteOpen} handleClose={toggleDeletePopup} />
       <div className="book__content">
         <div className="book__info">
           <div className="book__wrap">
@@ -23,6 +40,7 @@ function AdminBook() {
                 className="book__but__trash"
                 src={getImageKey("IconTrash")}
                 alt=""
+                onClick={toggleDeletePopup}
               />
               <img
                 className="book__but__edit"
@@ -33,6 +51,7 @@ function AdminBook() {
                 className="book__but__QR"
                 src={getImageKey("IconQR")}
                 alt=""
+                onClick={toggleQrPopup}
               />
             </div>
             <div className="book__text">
