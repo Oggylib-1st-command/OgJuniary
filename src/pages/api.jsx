@@ -45,25 +45,30 @@ export const useInfoBookId = (id) => {
 
   useEffect(() => {
     const getBook = async () => {
-      const bookInfo = axios.get(`http://localhost:8000/book/${id}`);
-      setBook(bookInfo.data);
+      if (id) {
+        const bookInfo = await axios.get(`http://localhost:8000/book/${id}/`);
+        setBook(bookInfo.data);
+      } else {
+        const res = await axios.get("http://localhost:8000/book/");
+        setBook(res.data);
+      }
     };
     getBook();
   }, []);
   return { book };
 };
 
-export const useInfoBook = () => {
-  const [book, setBook] = useState([]);
+// export const useInfoBook = () => {
+//   const [book, setBook] = useState([]);
 
-  useEffect(() => {
-    const getBook = async () => {
-      const res = await axios.get("http://localhost:8000/book/");
-      setBook(res.data);
-    };
+//   useEffect(() => {
+//     const getBook = async () => {
+//       const res = await axios.get("http://localhost:8000/book/");
+//       setBook(res.data);
+//     };
 
-    getBook();
-  }, []);
+//     getBook();
+//   }, []);
 
-  return { book };
-};
+//   return { book };
+// };

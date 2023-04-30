@@ -2,7 +2,7 @@ import "./catalog.scss";
 import Card from "../../components/Card/Card";
 import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
-import { useInfoBook } from "../api";
+import { useInfoBookId } from "../api";
 
 const genreMain = [
   {
@@ -11,7 +11,7 @@ const genreMain = [
   },
 ];
 function Catalog() {
-  //const { book } = useInfoBook();
+  //const { book } = useInfoBookId();
 
   return (
     <div className="catalog__inner">
