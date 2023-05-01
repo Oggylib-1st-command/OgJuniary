@@ -15,15 +15,17 @@ export const Reviews = ({ state, setComment, comment }) => {
           //precision={0.5}
           size="large"
         />
+      </div>
+      <label className="reviews-form__label">
+        Комментарий:
         <textarea
-          cols="25"
-          rows="10"
           value={comment.text}
           onChange={(newValue) =>
             setComment({ ...comment, text: newValue.target.value })
           }
+          maxLength={150}
         ></textarea>
-      </div>
+      </label>
     </form>
   );
 };

@@ -49,6 +49,24 @@ const Book = () => {
             size="large"
           />
         </div>
+        <table className="book__table">
+          <tbody className="table__list">
+            <tr className="table__list-item">
+              <td className="table__list-options">Жанры:</td>
+              <td className="table__list-info">
+                {/* {book.genres.map((el) => el.name + ",")} */}
+              </td>
+            </tr>
+            <tr className="table__list-item">
+              <td className="table__list-options">Язык:</td>
+              <td className="table__list-info">{book.languagle}</td>
+            </tr>
+            <tr className="table__list-item">
+              <td className="table__list-options">Год издания:</td>
+              <td className="table__list-info">{book.year}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div className="user-book__reviews">
         <button className="reviews__btn" onClick={() => setActive(!active)}>
@@ -60,6 +78,7 @@ const Book = () => {
           ) : (
             active
           )}
+          <hr />
           <ReviewsCard />
         </div>
       </div>
