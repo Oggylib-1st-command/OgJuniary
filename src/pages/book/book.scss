@@ -121,7 +121,9 @@
 
 .reviews {
   &__btn {
-    padding: 6px 99px;
+    padding: 6px 69px;
+    max-width: 360px;
+    width: 100%;
     background: #fff343;
     border-radius: 5px;
     border-color: transparent;
@@ -136,6 +138,14 @@
     &:hover {
       transition: all 0.3s;
       opacity: 0.8;
+    }
+  }
+  &__info {
+    width: 100px;
+    height: 100px;
+    background-color: #fff343;
+    &:active {
+      background-color: #959595;
     }
   }
 }

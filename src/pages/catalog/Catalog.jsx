@@ -2,7 +2,7 @@ import "./catalog.scss";
 import Card from "../../components/Card/Card";
 import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
-import { useInfoBookId } from "../api";
+import { useInfoBook } from "../api";
 
 const genreMain = [
   {
@@ -11,7 +11,7 @@ const genreMain = [
   },
 ];
 function Catalog() {
-  //const { book } = useInfoBookId();
+  const { book } = useInfoBook();
 
   return (
     <div className="catalog__inner">
@@ -62,7 +62,7 @@ function Catalog() {
             <option>По алфавиту</option>
           </select>
         </div>
-        {/* {book.map((obj) => (
+        {book.map((obj) => (
           <Card
             key={obj.id}
             id={obj.id}
@@ -72,7 +72,7 @@ function Catalog() {
             title={obj.title}
             genre={obj.genres.join(", ")}
           />
-        ))} */}
+        ))}
       </div>
     </div>
   );

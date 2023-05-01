@@ -1,8 +1,6 @@
 import "./Catalog.scss";
-// import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-import { useInfoBookId } from "../../../pages/api";
+import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
+import { useInfoBook } from "../../../pages/api";
 
 function Catalog() {
   //const [book, setBook] = useState([]);
@@ -17,11 +15,12 @@ function Catalog() {
 
   //   getBook();
   // }, []);
-  const { book } = useInfoBookId();
+
+  const { book } = useInfoBook();
 
   return (
     <div className="admin-catalog__inner">
-      {/* {book.map((target) => (
+      {book.map((target) => (
         <BookCardCatalog
           key={target.id}
           id={target.id}
@@ -29,7 +28,7 @@ function Catalog() {
           author={target.author}
           image={target.image}
         />
-      ))} */}
+      ))}
     </div>
   );
 }
