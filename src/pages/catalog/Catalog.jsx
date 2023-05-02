@@ -11,7 +11,7 @@ const genreMain = [
   },
 ];
 function Catalog() {
-  //const { book } = useInfoBook();
+  const { book } = useInfoBook();
 
   return (
     <div className="catalog__inner">
@@ -62,7 +62,7 @@ function Catalog() {
             <option>По алфавиту</option>
           </select>
         </div>
-        {/* {book.map((obj) => (
+        {book.map((obj) => (
           <Card
             key={obj.id}
             id={obj.id}
@@ -72,7 +72,7 @@ function Catalog() {
             title={obj.title}
             genre={obj.genres.join(", ")}
           />
-        ))} */}
+        ))}
       </div>
     </div>
   );

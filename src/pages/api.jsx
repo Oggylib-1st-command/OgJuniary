@@ -45,8 +45,13 @@ export const useInfoBookId = (id) => {
 
   useEffect(() => {
     const getBook = async () => {
-      const bookInfo = axios.get(`http://localhost:8000/book/${id}`);
-      setBook(bookInfo.data);
+      if (id) {
+        const bookInfo = await axios.get(`http://localhost:8000/book/${id}/`);
+        setBook(bookInfo.data);
+      } else {
+        const res = await axios.get("http://localhost:8000/book/");
+        setBook(res.data);
+      }
     };
     getBook();
   }, []);

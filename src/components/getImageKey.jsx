@@ -15,7 +15,9 @@ import IconSort from "./../assets/icons/admin/icon-sort.svg";
 import IconEdit from "./../assets/icons/admin/edit.svg";
 import IconTrash from "./../assets/icons/admin/trash.svg";
 import IconQR from "./../assets/icons/admin/QR.svg";
+import Download from "./../assets/icons/admin/download.svg";
 import IconCloseX from "./../assets/icons/admin/close_x.svg";
+
 
 const images = {
   userIcon,
@@ -33,6 +35,7 @@ const images = {
   IconTrash,
   IconQR,
   IconSort,
+  Download,
   IconCloseX,
 };
 

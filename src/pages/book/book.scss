@@ -1,3 +1,9 @@
+hr {
+  margin-top: 11px;
+  width: 100%;
+  border-color: white;
+}
+
 .user-book {
   display: flex;
   flex-direction: column;
@@ -13,10 +19,11 @@
   }
   &__reviews {
     display: flex;
-    align-items: center;
+    margin: 0 auto;
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
+    max-width: 360px;
   }
 }
 
@@ -102,13 +109,26 @@
     line-height: 20px;
     color: #000000;
   }
+  &__table {
+    background: rgba(106, 106, 106, 0.95);
+    border-radius: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+    max-width: 360px;
+    width: 100%;
+    margin-bottom: 13px;
+  }
 }
 
 .book__rating {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 26px 0 22px 0;
+  margin: 20px 0 14px 0;
   &-title {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
@@ -121,7 +141,9 @@
 
 .reviews {
   &__btn {
-    padding: 6px 99px;
+    padding: 6px 69px;
+    max-width: 360px;
+    width: 100%;
     background: #fff343;
     border-radius: 5px;
     border-color: transparent;
@@ -137,5 +159,33 @@
       transition: all 0.3s;
       opacity: 0.8;
     }
+  }
+  &__info {
+    width: 100%;
+  }
+}
+
+table,
+th,
+td {
+  border: 1px solid #d9d9d9;
+  border-collapse: collapse;
+}
+
+.table {
+  &__list-item {
+    height: 50px;
+  }
+  &__list-options {
+    padding: 6px 0 7px 6px;
+    font-weight: 700;
+  }
+  &__list-info {
+    padding: 5px;
+    max-width: 175px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
