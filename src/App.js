@@ -7,7 +7,7 @@ import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
 import CatalogAdmin from "./pages/admin/adminCatalog/adminCatalog";
 import UsersAdmin from "./pages/admin/adminUsers/adminUsers";
-import AdminBook from "./pages/admin/adminBook/AdminBook";
+import AdminBook from "./pages/admin/adminBook/adminBook";
 import { AdminAddBook } from "./pages/admin/adminAddBooks/AdminAddBooks";
 import { TakenBook } from "./pages/takenBook/TakenBook";
 import NotFound from "./pages/notfound/notfound";
