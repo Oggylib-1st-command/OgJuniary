@@ -31,7 +31,7 @@ function Search() {
       </div>
       <div className="admin__info">
         <button className="search__add-books">
-          <Link to="add" className="search__add-link">
+          <Link to="/admin/catalog/add" className="search__add-link">
             Добавить книгу
           </Link>
         </button>
