@@ -11,6 +11,7 @@ import HistoryIcon from "./../assets/icons/main/Navbar/History-black.svg";
 import TakenBookIcon from "./../assets/icons/main/Navbar/TakenBook-black.svg";
 
 import IconCatalog from "./../assets/icons/admin/icon-catalog.svg";
+import User from "./../assets/icons/admin/user.svg";
 import IconSort from "./../assets/icons/admin/icon-sort.svg";
 import IconEdit from "./../assets/icons/admin/edit.svg";
 import IconTrash from "./../assets/icons/admin/trash.svg";
@@ -34,6 +35,7 @@ const images = {
   IconQR,
   IconSort,
   Download,
+  User,
 };
 
 function getImageKey(key) {

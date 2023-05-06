@@ -8,7 +8,7 @@ import Authorization from "./pages/authorization/Auth";
 import CatalogAdmin from "./pages/admin/adminCatalog/adminCatalog";
 import UsersAdmin from "./pages/admin/adminUsers/adminUsers";
 import AdminBook from "./pages/admin/adminBook/AdminBook";
-import { AdminAddBook } from "./pages/admin/adminAddBooks/AdminAddBooks";
+import { AdminAdd } from "./pages/admin/adminAdd/AdminAdd";
 import { TakenBook } from "./pages/takenBook/TakenBook";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
@@ -37,10 +37,10 @@ function App() {
             <Route path="takenbook" element={<TakenBook />} />
           </Route>
           <Route path="*" element={<NotFound />} />
-          <Route path="/admin/catalog" element={<CatalogAdmin />} />
+          <Route path="admin/catalog" element={<CatalogAdmin />} />
+          <Route path="admin/catalog/add" element={<AdminAdd />} />
+          <Route path="admin/catalog/:id" element={<AdminBook />} />
           <Route path="/admin/users" element={<UsersAdmin />} />
-          <Route path="/admin/catalog/add" element={<AdminAddBook />} />
-          <Route path="/admin/catalog/:id" element={<AdminBook />} />
           <Route path="/login" element={<Authorization />} />
         </Routes>
       </AuthProvider>
