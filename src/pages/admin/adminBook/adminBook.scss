@@ -50,13 +50,19 @@
     margin-top: 18px;
     margin-right: 20px;
     &__QR {
+        width: 55px;
+        height: 55px;
       cursor: pointer;
     }
     &__trash {
+    width: 55px;
+    height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
     &__edit {
+        width: 55px;
+        height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
