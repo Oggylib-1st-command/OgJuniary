@@ -51,6 +51,10 @@
     outline: none;
     width: 360px;
     margin-left: 10px;
+    &:focus {
+      transition: all 0.3s;
+      border-color: rgb(247, 247, 6);
+    }
   }
   &__btns {
     max-width: 434px;
