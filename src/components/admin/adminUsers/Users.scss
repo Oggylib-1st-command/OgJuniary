@@ -5,4 +5,14 @@
     align-items: center;
     margin: 26px 0 30px 41px;
   }
+  &-content {
+    position: relative;
+  }
+}
+.search__add-books {
+  font-size: 18px;
+}
+
+.disactive {
+  pointer-events: none;
 }
