@@ -4,12 +4,6 @@
   justify-content: center;
 }
 
-hr {
-  border: 1px solid #a8a8a8;
-  width: 100%;
-  margin: 0;
-}
-
 .menu {
   margin: 0;
   &__list {
@@ -47,6 +41,11 @@ hr {
     & div {
       display: flex;
     }
+  }
+  & hr {
+    border: 1px solid #a8a8a8;
+    width: 100%;
+    margin: 0;
   }
   &__list-info {
     display: flex;

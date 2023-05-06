@@ -1,25 +1,8 @@
 import "./adminUsersCard.scss";
-import { useState, useEffect } from "react";
 import getImageKey from "./../../../components/getImageKey";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
-export const AdminUsersCard = () => {
-  const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentpage, setCurrentpage] = useState(1);
-  const [bookperpage] = useState(10);
-
-  useEffect(() => {
-    const getUser = async () => {
-      setLoading(false);
-      // const res = await axios.get("http://localhost:8000/users/");
-      // setUser(res.data);
-      setLoading(true);
-    };
-    getUser();
-  }, []);
-
+export const AdminUsersCard = ({ handleDelete }) => {
   return (
     <div className="users__content-card">
       <div className="users__info">
@@ -53,6 +36,7 @@ export const AdminUsersCard = () => {
           className="users__options-delete"
           src={getImageKey("IconTrash")}
           alt="delete icon"
+          onClick={handleDelete}
         />
       </div>
     </div>
