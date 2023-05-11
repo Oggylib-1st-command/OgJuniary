@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 34px 25px 0 25px;
+    margin: 24px 25px 0 25px;
     min-height: 100vh;
   }
   &__info {
@@ -49,19 +49,19 @@
     margin-top: 18px;
     margin-right: 20px;
     &__QR {
-        width: 55px;
-        height: 55px;
+      width: 55px;
+      height: 55px;
       cursor: pointer;
     }
     &__trash {
-    width: 55px;
-    height: 55px;
+      width: 55px;
+      height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
     &__edit {
-        width: 55px;
-        height: 55px;
+      width: 55px;
+      height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
@@ -75,6 +75,20 @@
         font-weight: 700;
         font-size: 24px;
         line-height: 29px;
+    }
+    &__pagination{
+      display: flex;
+      margin-bottom: 50px;
+      margin-left: 48px + 450px - 171px;
+    }
+    &__without{
+      margin-top: 10px;
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: #9D9D9D;
     }
   }
 }
@@ -124,8 +138,13 @@
     font-style: bold;
     font-weight: 700;
     font-size: 18px;
+    max-width: 780px;
     line-height: 22px;
     color: #000000;
+    & p {
+      padding-left: 10px;
+      font-weight: 400;
+    }
   }
 
   &-description {
@@ -141,4 +160,10 @@
     line-height: 22px;
     color: #000000;
   }
+}
+
+.paggination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

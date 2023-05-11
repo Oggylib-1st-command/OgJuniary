@@ -25,11 +25,13 @@ function Users() {
   const [userDelete, setUserDelete] = useState(false);
   const [userAdd, setUserAdd] = useState(false);
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation();
     setUserDelete(!userDelete);
-    console.log("delete");
+    console.log("delet");
   };
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.stopPropagation();
     setUserAdd(!userAdd);
     console.log("add");
   };
@@ -52,7 +54,7 @@ function Users() {
           <option value="">Лапшин лучше</option>
         </select>
         <div className="admin__info">
-          <button className="search__add-books" onClick={handleAdd}>
+          <button className="search__add-books" onClick={(e) => handleAdd(e)}>
             Добавить пользователя
           </button>
           <p className="menu__logout admin__logout" onClick={logout}>
