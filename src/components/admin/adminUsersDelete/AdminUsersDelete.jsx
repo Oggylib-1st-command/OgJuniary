@@ -9,7 +9,10 @@ export const AdminUsersDelete = ({ handleDelete }) => {
         </h3>
         <div className="users-delete__btns">
           <button className="users-delete__yes-btn">ДА</button>
-          <button className="users-delete__no-btn" onClick={handleDelete}>
+          <button
+            className="users-delete__no-btn"
+            onClick={(e) => handleDelete(e)}
+          >
             НЕТ
           </button>
         </div>

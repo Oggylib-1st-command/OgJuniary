@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 34px 25px 0 25px;
+    margin: 24px 25px 0 25px;
     min-height: 100vh;
   }
   &__info {
@@ -50,13 +50,19 @@
     margin-top: 18px;
     margin-right: 20px;
     &__QR {
+      width: 55px;
+      height: 55px;
       cursor: pointer;
     }
     &__trash {
+      width: 55px;
+      height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
     &__edit {
+      width: 55px;
+      height: 55px;
       margin-left: 40px;
       cursor: pointer;
     }
@@ -84,8 +90,7 @@
   &-year,
   &-author {
     max-width: 570px;
-    margin-bottom: 13px;
-    max-width: 150px;
+    margin-bottom: 15px;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -103,14 +108,20 @@
   }
 
   &-genre {
+    display: flex;
     height: 48px;
     margin-bottom: 20px;
     font-family: "Montserrat", sans-serif;
     font-style: bold;
     font-weight: 700;
     font-size: 18px;
+    max-width: 780px;
     line-height: 22px;
     color: #000000;
+    & p {
+      padding-left: 10px;
+      font-weight: 400;
+    }
   }
 
   &-description {

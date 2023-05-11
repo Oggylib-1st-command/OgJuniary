@@ -20,18 +20,18 @@ export const AdminAddBook = () => {
   const [languagles, setLanguagles] = useState("");
   const [selectImg, setSelectImg] = useState(null);
 
-  // useEffect(() => {
-  //   const getBook = async () => {
-  //     const genna = await axios.get("http://localhost:8000/genre/");
-  //     setGenre(genna.data);
-  //   };
-  //   const getLanguagle = async () => {
-  //     const lang = await axios.get("http://localhost:8000/languagle/");
-  //     setLanguagles(lang.data);
-  //   };
-  //   getBook();
-  //   getLanguagle();
-  // }, [genre, languagles]);
+  useEffect(() => {
+    const getBook = async () => {
+      const genna = await axios.get("http://localhost:8000/genre/");
+      setGenre(genna.data);
+    };
+    const getLanguagle = async () => {
+      const lang = await axios.get("http://localhost:8000/language/");
+      setLanguagles(lang.data);
+    };
+    getBook();
+    getLanguagle();
+  }, []);
 
   const navigate = useNavigate();
   const handleCancel = () => {
@@ -66,13 +66,16 @@ export const AdminAddBook = () => {
   }, [selectImg]);
   const handleSaveForm = (e) => {
     e.preventDefault();
-    console.log(options.genres);
+    const update = options.genres.map((el) => "" + el.name);
+    console.log(update);
+    Object.assign(options.genres, update);
     const postBook = async () => {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/books/",
         options
       );
       console.log(response);
+      navigate(-1);
     };
     postBook();
   };

@@ -60,7 +60,10 @@
   }
 
   &__logo {
+    width: 30px;
+    height: 30px;
     position: absolute;
+    top: 3px;
     right: 10px;
   }
 }

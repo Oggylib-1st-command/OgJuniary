@@ -51,6 +51,8 @@
     display: flex;
     align-items: center;
     background-color: #ffffff;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
     padding: 2px 5px 2px 2px;
     p {
@@ -69,9 +71,9 @@
     pointer-events: none;
   }
   &__sorter {
-    width: 27px;
+    width: 24px;
     border-color: transparent;
-    height: 27px;
+    height: 24px;
     margin-right: 5px;
     background: #ffffff;
     border-radius: 5px;
