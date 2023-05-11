@@ -4,9 +4,11 @@ import Header from "../../../components/admin/adminHeader/Header";
 import Search from "../../../components/admin/adminSearch/Search";
 import getImageKey from "../../../components/getImageKey";
 import { useParams } from "react-router-dom";
-import QrPop from "../QrPopUp/QrPopUp";
-import DeleetePop from "../DeletePopUpBook/DeletePopUpBook";
-import { useInfoBookId } from "./../../../api/api";
+import QrPop from "../../../components/admin/QrPopUp/QrPopUp";
+import DeletePop from "../../../components/admin/DeletePopUpBook/DeletePopUpBook";
+import { useInfoBookId } from "../../api";
+import CommentCard from "../../../components/admin/commentcard/commentcard";
+import { Rating } from "@mui/material";
 
 function AdminBook() {
   const { id } = useParams();
@@ -26,7 +28,7 @@ function AdminBook() {
       <Header />
       <Search />
       <QrPop isActive={isQrOpen} handleClose={toggleQrPopup} />
-      <DeleetePop
+      <DeletePop
         isActive={isDeleteOpen}
         handleClose={toggleDeletePopup}
         id={id}
@@ -35,11 +37,7 @@ function AdminBook() {
         <div className="book__info">
           <div className="book__wrap">
             <div className="book__canvas">
-              <img
-                className="book__canvas-img"
-                src={book.image}
-                alt="book image"
-              />
+              <img className="book__canvas-img" src={book.image} alt="book" />
             </div>
             <div className="book__but">
               <img
@@ -68,6 +66,7 @@ function AdminBook() {
               <div className="book__text-rating">
                 Здесь будет рейтинг, а пока нам плевать на ваше мнение
               </div>
+              <div className="book__text-language">Язык: {book.language}</div>
               <div className="book__text-genre">
                 Жанры:
                 <p>{book.genres + " "}</p>
@@ -76,6 +75,12 @@ function AdminBook() {
                 Описание книги: {book.description}
               </div>
             </div>
+          </div>
+          <div className="book__comment">
+            <p className="book__comment__text"> Отзывы </p>
+            <CommentCard></CommentCard>
+            <CommentCard></CommentCard>
+            <CommentCard></CommentCard>
           </div>
         </div>
       </div>
