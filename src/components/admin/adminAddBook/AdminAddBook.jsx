@@ -3,19 +3,12 @@ import { MultiSelect } from "primereact/multiselect";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import "./adminAddBook.scss";
 
 export const AdminAddBook = () => {
-  const [options, setOptions] = useState({
-    genres: [],
-    image: "",
-    title: "",
-    author: "",
-    year: "",
-    languagle: "",
-    description: "",
-  });
+  const [options, setOptions] = useState(null);
   const [genre, setGenre] = useState("");
   const [languagles, setLanguagles] = useState("");
   const [selectImg, setSelectImg] = useState(null);
@@ -79,6 +72,7 @@ export const AdminAddBook = () => {
     };
     postBook();
   };
+
   return (
     <div className="add__wrap">
       <div className="add__download">

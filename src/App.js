@@ -6,6 +6,7 @@ import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
 import { AdminAdd } from "./pages/admin/adminAdd/AdminAdd";
 import { TakenBook } from "./pages/takenBook/TakenBook";
+import { AdminEdit } from "./pages/admin/adminEdit/AdminEdit";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
 import { RequireAuth } from "./hoc/RequireAuth";
@@ -69,6 +70,14 @@ function App() {
             element={
               <Suspense fallback={<p>...Loading</p>}>
                 <AdminBook />
+              </Suspense>
+            }
+          />
+          <Route
+            path="admin/catalog/:id/edit"
+            element={
+              <Suspense fallback={<p>...Loading</p>}>
+                <AdminEdit />
               </Suspense>
             }
           />

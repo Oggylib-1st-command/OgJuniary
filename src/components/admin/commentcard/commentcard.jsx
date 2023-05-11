@@ -1,24 +1,27 @@
 import "./commentcard.scss";
-import getImageKey from "../../../components/getImageKey";
 import { Rating } from "@mui/material";
+import { useState } from "react";
+import cn from "classnames";
 
-function CommentCard() {
+function CommentCard(props) {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
   return (
     <div className="comment__content">
       <div className="comment__head">
         <img
           className="comment__UserIcon"
-          src={getImageKey("UserIcon")}
+          src={props.img}
           alt={"UserIcon"}
         ></img>
         <div classname="comment__info">
-          <p className="comment__info__name">Vasilyi Vaska</p>
-          <p className="comment__info__data">27 april 2023</p>
+          <p className="comment__info__name">{props.name}</p>
+          <p className="comment__info__data">{props.data}</p>
         </div>
         <div className="comment__rating">
           <Rating
             name="half-rating-read"
-            defaultValue={2.5}
+            defaultValue={props.rating}
             precision={0.5}
             size="large"
             readOnly
@@ -26,17 +29,20 @@ function CommentCard() {
         </div>
       </div>
       <div className="comment__text">
-        <p className="comment__text__title">
-          Книга – настоящий хит. В России еще не было настолько нужной и
-          актуальной книги для менеджеров, написанной российским менеджером. В
-          этой книге Вы найдете абсолютный позитив и прямое руководство к
-          действию. Это книга для всех, кто сомневался, что в Москве можно
-          добиться успеха без связей, без престижного образования, без лжи, Это
-          книга для всех, кто сомневался, что в Москве можно добиться успеха без
-          связей, без престижного образования, без лжи, лизоблюдства и
-          подсиживания коллег Книга – настоящий хит.
-        </p>
-        <button className="comment__text__but">Развернуть</button>
+        <div
+          className={cn({
+            comment__text__title__expanded: isDescriptionExpanded,
+            comment__text__title__hidden: !isDescriptionExpanded,
+          })}
+        >
+          {props.text}
+        </div>
+        <button
+          className="comment__text__but"
+          onClick={() => setIsDescriptionExpanded((prevState) => !prevState)}
+        >
+          {isDescriptionExpanded ? "Свернуть" : "Развернуть"}
+        </button>
       </div>
     </div>
   );
