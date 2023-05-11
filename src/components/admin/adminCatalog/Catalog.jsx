@@ -1,6 +1,6 @@
 import "./Catalog.scss";
 import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
-import { useInfoBook } from "../../../pages/api";
+import { useInfoBook } from "./../../../api/api";
 
 function Catalog() {
   const { book } = useInfoBook();

@@ -5,7 +5,7 @@ function BookCardCatalog({ id, title, author, image }) {
   return (
     <div className="book-card__inner">
       <div className="book-card__image-block">
-        <Link to={`catalog/${id}`}>
+        <Link to={`${id}`}>
           <img src={image} alt="image book" className="book-card__image" />
         </Link>
       </div>
