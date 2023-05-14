@@ -2,14 +2,29 @@ import "./adminUsersCard.scss";
 import getImageKey from "./../../../components/getImageKey";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
-export const AdminUsersCard = ({ handleDelete }) => {
+export const AdminUsersCard = ({
+  handleDelete,
+  userName,
+  surname,
+  mail,
+  id,
+}) => {
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState("Василий");
+  const [newInfo, setNewInfo] = useState({ name: "", surname: "", mail: "" });
   const handleEdit = () => {
+    //const info = axios.get()
+    // setNewInfo({
+    //   ...newInfo,
+    //   name: info.data.name,
+    //   surname: info.data.surname,
+    //   mail: info.data.mail,
+    // });
     setEdit(!edit);
   };
   const chooseName = () => {
+    console.log(newInfo);
     setEdit(!edit);
   };
   return (
@@ -27,14 +42,26 @@ export const AdminUsersCard = ({ handleDelete }) => {
                 <input
                   className="users__info-input"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={newInfo.name}
+                  onChange={(e) =>
+                    setNewInfo(() => ({ ...newInfo, name: e.target.value }))
+                  }
+                />
+                <input
+                  className="users__info-input"
+                  type="text"
+                  value={newInfo.surname}
+                  onChange={(e) =>
+                    setNewInfo(() => ({ ...newInfo, surname: e.target.value }))
+                  }
                 />
               </div>
               <input
                 className="users__info-input"
-                type="email"
-                value={"Vasiliyvaska@yandex.ru"}
+                value={newInfo.mail}
+                onChange={(e) =>
+                  setNewInfo(() => ({ ...newInfo, mail: e.target.value }))
+                }
               />
             </div>
           </div>
@@ -57,10 +84,10 @@ export const AdminUsersCard = ({ handleDelete }) => {
             />
             <div className="users__info-text">
               <div className="fullname">
-                <span>{name}</span>
-                <span>Васька</span>
+                <span>{userName}</span>
+                <span>{surname}</span>
               </div>
-              <span>Vasiliyvaska@yandex.ru</span>
+              <span>{mail}</span>
             </div>
           </div>
           <div className="users__choosen">

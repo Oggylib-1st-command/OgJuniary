@@ -1,39 +1,35 @@
 import "./Users.scss";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "./../../useAuth";
 import { AdminUsersCard } from "../adminUsersCard/AdminUsersCard";
 import Cookies from "js-cookie";
 import { AdminUsersDelete } from "../adminUsersDelete/AdminUsersDelete";
 import { AdminUsersAdd } from "../adminUsersAdd/AdminUsersAdd";
+import axios from "axios";
+
+const user = [{ id: 1, name: "AAAAA", surname: "BBBBBB", mail: "SSSSSS" }];
 
 function Users() {
-  // const [user, setUser] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [currentpage, setCurrentpage] = useState(1);
-  // const [bookperpage] = useState(10);
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     setLoading(false);
-  //     // const res = await axios.get("http://localhost:8000/users/");
-  //     // setUser(res.data);
-  //     setLoading(true);
-  //   };
-  //   getUser();
-  // }, []);
+  //const [user, setUser] = useState([]);
   const [userDelete, setUserDelete] = useState(false);
   const [userAdd, setUserAdd] = useState(false);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axios.get("http://localhost:8000/users/");
+      //setUser(res.data);
+    };
+    getUser();
+  }, []);
 
   const handleDelete = (e) => {
     e.stopPropagation();
     setUserDelete(!userDelete);
-    console.log("delet");
   };
   const handleAdd = (e) => {
-    e.stopPropagation();
+    //e.stopPropagation();
     setUserAdd(!userAdd);
-    console.log("add");
   };
   const navigate = useNavigate();
   const { signout } = useAuth();
@@ -65,11 +61,16 @@ function Users() {
       <div className="admin__users-content">
         {userDelete && <AdminUsersDelete handleDelete={handleDelete} />}
         {userAdd && <AdminUsersAdd handleAdd={handleAdd} />}
-        <AdminUsersCard handleDelete={handleDelete} />
-        <AdminUsersCard handleDelete={handleDelete} />
-        <AdminUsersCard handleDelete={handleDelete} />
-        <AdminUsersCard handleDelete={handleDelete} />
-        <AdminUsersCard handleDelete={handleDelete} />
+        {user.map((e) => (
+          <AdminUsersCard
+            key={e.id}
+            id={e.id}
+            handleDelete={handleDelete}
+            userName={e.name}
+            surname={e.surname}
+            mail={e.mail}
+          />
+        ))}
       </div>
     </div>
   );
