@@ -26,7 +26,11 @@ function AdminBook() {
       <Header />
       <Search />
       <QrPop isActive={isQrOpen} handleClose={toggleQrPopup} />
-      <DeleetePop isActive={isDeleteOpen} handleClose={toggleDeletePopup} />
+      <DeleetePop
+        isActive={isDeleteOpen}
+        handleClose={toggleDeletePopup}
+        id={id}
+      />
       <div className="book__content">
         <div className="book__info">
           <div className="book__wrap">
