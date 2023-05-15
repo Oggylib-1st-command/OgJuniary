@@ -8,7 +8,15 @@ import { useLocation } from "react-router-dom";
 import "./adminAddBook.scss";
 
 export const AdminAddBook = () => {
-  const [options, setOptions] = useState(null);
+  const [options, setOptions] = useState({
+    genres: [],
+    image: "",
+    title: "",
+    author: "",
+    year: "",
+    language: "",
+    description: "",
+  });
   const [genre, setGenre] = useState("");
   const [languagles, setLanguagles] = useState("");
   const [selectImg, setSelectImg] = useState(null);
