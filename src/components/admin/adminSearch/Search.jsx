@@ -2,9 +2,12 @@ import "./Search.scss";
 import { Link, useNavigate } from "react-router-dom";
 import getImageKey from "./../../getImageKey";
 import { useAuth } from "./../../useAuth";
+import { useState } from "react";
 import Cookies from "js-cookie";
+import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 
 function Search() {
+  const [genresActive, setGenresActive] = useState(false);
   const navigate = useNavigate();
   const { signout } = useAuth();
   const logout = () => {
@@ -13,12 +16,9 @@ function Search() {
   };
   return (
     <div className="search__inner">
+      <GenresCatalog active={genresActive} setActive={setGenresActive} />
       <div>
         <div className="sort__inner">
-          <div className="sort__catalog">
-            <img src={getImageKey("IconCatalog")} alt="" />
-            <p>Каталог</p>
-          </div>
           <div className="sort__sort-block">
             <select className="sort__sorter"></select>
             <img
@@ -26,6 +26,11 @@ function Search() {
               src={getImageKey("IconSort")}
               alt=""
             />
+            <p>Сортировка</p>
+          </div>
+          <div className="sort__catalog" onClick={() => setGenresActive(true)}>
+            <img src={getImageKey("IconCatalog")} alt="" />
+            <p>Каталог</p>
           </div>
         </div>
       </div>
