@@ -8,17 +8,15 @@ import { AdminUsersDelete } from "../adminUsersDelete/AdminUsersDelete";
 import { AdminUsersAdd } from "../adminUsersAdd/AdminUsersAdd";
 import axios from "axios";
 
-const user = [{ id: 1, name: "AAAAA", surname: "BBBBBB", mail: "SSSSSS" }];
-
 function Users() {
-  //const [user, setUser] = useState([]);
+  const [user, setUser] = useState([]);
   const [userDelete, setUserDelete] = useState(false);
   const [userAdd, setUserAdd] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
       const res = await axios.get("http://localhost:8000/users/");
-      //setUser(res.data);
+      setUser(res.data);
     };
     getUser();
   }, []);
@@ -28,7 +26,6 @@ function Users() {
     setUserDelete(!userDelete);
   };
   const handleAdd = (e) => {
-    //e.stopPropagation();
     setUserAdd(!userAdd);
   };
   const navigate = useNavigate();
@@ -45,9 +42,8 @@ function Users() {
     >
       <div className="admin__users-top">
         <select className="admin__users-sort">
-          <option value="">Тетруха топ</option>
-          <option value="">Но</option>
-          <option value="">Лапшин лучше</option>
+          <option value="">Сортировка: От А до Я</option>
+          <option value="">Сортировка: От Я до А</option>
         </select>
         <div className="admin__info">
           <button className="search__add-books" onClick={(e) => handleAdd(e)}>
