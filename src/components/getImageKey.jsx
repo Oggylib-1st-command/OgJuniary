@@ -18,6 +18,7 @@ import IconTrash from "./../assets/icons/admin/delete-bin-line.svg";
 import IconQR from "./../assets/icons/admin/qr-code-line.svg";
 import Download from "./../assets/icons/admin/camera-off-line.svg";
 import IconCloseX from "./../assets/icons/admin/close_x.svg";
+import SortArrow from "./../assets/icons/admin/sort-arrow.svg";
 
 const images = {
   userIcon,
@@ -38,6 +39,7 @@ const images = {
   Download,
   User,
   IconCloseX,
+  SortArrow,
 };
 
 function getImageKey(key) {

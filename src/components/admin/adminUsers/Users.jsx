@@ -53,8 +53,8 @@ function Users() {
           <option value="">Но</option>
           <option value="">Лапшин лучше</option>
         </select>
-        <div className="admin__info">
-          <button className="search__add-books" onClick={(e) => handleAdd(e)}>
+        <div className="admin__users-info">
+          <button className="admin__add-users" onClick={(e) => handleAdd(e)}>
             Добавить пользователя
           </button>
           <p className="menu__logout admin__logout" onClick={logout}>

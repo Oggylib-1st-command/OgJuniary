@@ -17,6 +17,8 @@
     "gapi": "^0.0.3",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
+    "math": "^0.0.3",
+    "mathjs": "^11.8.0",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primereact": "^9.3.0",

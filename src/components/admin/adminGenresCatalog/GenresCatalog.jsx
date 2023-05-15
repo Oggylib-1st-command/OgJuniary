@@ -7,7 +7,6 @@ import BlockGenres from "../adminBlockGenres/BlockGenres";
 
 const GenresCatalog = ({ active, setActive }) => {
   const { genre } = useInfoGenre();
-  console.log(genre);
   return (
     <div
       className={
@@ -21,14 +20,17 @@ const GenresCatalog = ({ active, setActive }) => {
       <div className="genres__inner">
         <div className="genres__head">
           <div className="exit" onClick={() => setActive(false)}>
-            <img className="exit__iconL" src={getImageKey("IconCloseXL")} />
-            <img className="exit_iconR" src={getImageKey("IconCloseXR")} />
+            <img className="exit__iconL" src={getImageKey("IconCloseX")} />
           </div>
         </div>
         <div className="genres__genre">
           <div className="genres__list">
             {genre.map((target) => (
-              <BlockGenres id={target.id} genre={target.name} />
+              <BlockGenres
+                id={target.id}
+                genre={target.name}
+                clas={"genres__block"}
+              />
             ))}
           </div>
         </div>

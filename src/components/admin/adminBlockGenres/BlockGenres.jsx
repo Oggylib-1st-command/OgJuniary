@@ -1,8 +1,8 @@
 import "./BlockGenres.scss";
 
-export default function BlockGenres({ id, genre }) {
+export default function BlockGenres({ id, genre, clas }) {
   return (
-    <div className="block__inner">
+    <div className={clas}>
       <span>{genre}</span>
     </div>
   );

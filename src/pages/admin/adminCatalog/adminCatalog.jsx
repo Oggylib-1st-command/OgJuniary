@@ -5,7 +5,7 @@ import Search from "../../../components/admin/adminSearch/Search";
 function adminCatalog() {
   return (
     <div>
-      <Header />
+      <Header HeaderChoiceUser={false} HeaderChoiceBook={true} />
       <Search />
       <Catalog />
     </div>
