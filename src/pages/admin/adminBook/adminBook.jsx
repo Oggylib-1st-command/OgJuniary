@@ -47,7 +47,7 @@ function AdminBook() {
   return (
     <div>
       <Header />
-      <Search />
+      <Search catalog={true} sort={false} button={true} exit={true} />
       <QrPop isActive={isQrOpen} handleClose={toggleQrPopup} />
       <DeletePop
         isActive={isDeleteOpen}
