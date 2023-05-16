@@ -6,7 +6,7 @@ import getImageKey from "../../../components/getImageKey";
 import { useParams } from "react-router-dom";
 import QrPop from "../QrPopUp/QrPopUp";
 import DeleetePop from "../DeletePopUpBook/DeletePopUpBook";
-import { useInfoBookId } from "./../../../api/api";
+import { useInfoBookId } from "./../../api";
 
 function AdminBook() {
   const { id } = useParams();

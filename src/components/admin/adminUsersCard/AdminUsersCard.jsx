@@ -12,20 +12,24 @@ export const AdminUsersCard = ({
   id,
 }) => {
   const [edit, setEdit] = useState(false);
-  const [newInfo, setNewInfo] = useState({ name: "", surname: "", mail: "" });
-  const handleEdit = () => {
-    //const info = axios.get()
-    // setNewInfo({
-    //   ...newInfo,
-    //   name: info.data.name,
-    //   surname: info.data.surname,
-    //   mail: info.data.mail,
-    // });
+  const [newInfo, setNewInfo] = useState({ name: "", surname: "", email: "" });
+  const handleEdit = async () => {
+    const info = await axios.get(`http://localhost:8000/api/users/${id}`);
+    console.log(info.data[""]);
+    setNewInfo({
+      ...newInfo,
+      name: info.data[""].name,
+      surname: info.data[""].surname,
+      email: info.data[""].email,
+    });
     setEdit(!edit);
   };
-  const chooseName = () => {
+  const chooseName = async () => {
+    console.log(id);
+    await axios.patch(`http://localhost:8000/api/users/${id}`, newInfo);
     console.log(newInfo);
     setEdit(!edit);
+    window.location.reload();
   };
   return (
     <div className="users__content-card">
@@ -58,9 +62,9 @@ export const AdminUsersCard = ({
               </div>
               <input
                 className="users__info-input"
-                value={newInfo.mail}
+                value={newInfo.email}
                 onChange={(e) =>
-                  setNewInfo(() => ({ ...newInfo, mail: e.target.value }))
+                  setNewInfo(() => ({ ...newInfo, email: e.target.value }))
                 }
               />
             </div>
@@ -108,7 +112,7 @@ export const AdminUsersCard = ({
               className="users__options-delete"
               src={getImageKey("IconTrash")}
               alt="delete icon"
-              onClick={handleDelete}
+              onClick={() => handleDelete(id)}
             />
           </div>
         </>

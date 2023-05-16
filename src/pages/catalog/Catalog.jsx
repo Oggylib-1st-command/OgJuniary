@@ -2,7 +2,7 @@ import "./catalog.scss";
 import Card from "../../components/Card/Card";
 import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
-import { useInfoBook } from "./../../api/api";
+import { useInfoBook } from "./../api";
 
 const genreMain = [
   {

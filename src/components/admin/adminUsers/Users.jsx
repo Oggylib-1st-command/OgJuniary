@@ -12,17 +12,19 @@ function Users() {
   const [user, setUser] = useState([]);
   const [userDelete, setUserDelete] = useState(false);
   const [userAdd, setUserAdd] = useState(false);
-
+  const [userId, setUserId] = useState();
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("http://localhost:8000/users/");
-      setUser(res.data);
+      const res = await axios.get("http://localhost:8000/api/users/");
+      console.log(res);
+      setUser(res.data.users);
     };
     getUser();
   }, []);
 
-  const handleDelete = (e) => {
-    e.stopPropagation();
+  const handleDelete = (id) => {
+    setUserId(id);
+    console.log(userId);
     setUserDelete(!userDelete);
   };
   const handleAdd = (e) => {
@@ -42,8 +44,9 @@ function Users() {
     >
       <div className="admin__users-top">
         <select className="admin__users-sort">
-          <option value="">Сортировка: От А до Я</option>
-          <option value="">Сортировка: От Я до А</option>
+          <option value="">Тетруха топ</option>
+          <option value="">Но</option>
+          <option value="">Лапшин лучше</option>
         </select>
         <div className="admin__info">
           <button className="search__add-books" onClick={(e) => handleAdd(e)}>
@@ -55,7 +58,9 @@ function Users() {
         </div>
       </div>
       <div className="admin__users-content">
-        {userDelete && <AdminUsersDelete handleDelete={handleDelete} />}
+        {userDelete && (
+          <AdminUsersDelete handleDelete={handleDelete} id={userId} />
+        )}
         {userAdd && <AdminUsersAdd handleAdd={handleAdd} />}
         {user.map((e) => (
           <AdminUsersCard
@@ -64,7 +69,7 @@ function Users() {
             handleDelete={handleDelete}
             userName={e.name}
             surname={e.surname}
-            mail={e.mail}
+            mail={e.email}
           />
         ))}
       </div>
