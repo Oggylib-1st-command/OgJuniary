@@ -51,9 +51,6 @@ function Users() {
           <button className="admin__add-users" onClick={(e) => handleAdd(e)}>
             Добавить пользователя
           </button>
-          <p className="menu__logout admin__logout" onClick={logout}>
-            Выйти из аккаунта
-          </p>
         </div>
       </div>
       <div className="admin__users-content">

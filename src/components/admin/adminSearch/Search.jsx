@@ -1,20 +1,12 @@
 import "./Search.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import getImageKey from "./../../getImageKey";
-import { useAuth } from "./../../useAuth";
 import { useState } from "react";
-import Cookies from "js-cookie";
 import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 
 function Search({ sort, catalog, button, exit }) {
   const [genresActive, setGenresActive] = useState(false);
   const [activeSortMenu, setActiveSortMenu] = useState(false);
-  const navigate = useNavigate();
-  const { signout } = useAuth();
-  const logout = () => {
-    Cookies.remove("admin");
-    signout(() => navigate("/login", { replace: true }));
-  };
   return (
     <div className="search__container">
       <div className="search__inner">
@@ -79,14 +71,6 @@ function Search({ sort, catalog, button, exit }) {
               Добавить книгу
             </Link>
           </button>
-          <p
-            className={
-              exit ? "menu__logout admin__logout" : "admin__logout-disable"
-            }
-            onClick={logout}
-          >
-            Выйти из аккаунта
-          </p>
         </div>
       </div>
     </div>
