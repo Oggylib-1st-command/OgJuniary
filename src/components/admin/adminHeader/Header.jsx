@@ -60,8 +60,8 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
           Книги
         </Link>
       </label>
-      <div onClick={logout}>
-        <p className="menu__logout admin__logout">ВЫХОД</p>
+      <div className="admin-header__exit" onClick={logout}>
+        <img src={getImageKey("HeaderExit")} alt="" />
       </div>
     </div>
   );
