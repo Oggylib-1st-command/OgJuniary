@@ -7,6 +7,7 @@ import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 function Search({ sort, catalog, button, exit }) {
   const [genresActive, setGenresActive] = useState(false);
   const [activeSortMenu, setActiveSortMenu] = useState(false);
+  const [typeSort, setTypeSort] = useState("От А до Я");
   return (
     <div className="search__container">
       <div className="search__inner">
@@ -28,7 +29,7 @@ function Search({ sort, catalog, button, exit }) {
                   alt=""
                 />
                 <div className="sort__sorter"></div>
-                <p className="sort__sort-text">Сортировка: От А до Я</p>
+                <p className="sort__sort-text">Сортировка: {typeSort}</p>
                 <img
                   className="sort__sort-more"
                   src={getImageKey("SortArrow")}
@@ -43,8 +44,22 @@ function Search({ sort, catalog, button, exit }) {
                 }
               >
                 <ul className="sort__sort-menu-inner">
-                  <li>По алфавиту: От А до Я</li>
-                  <li>По алфавиту: От Я до А</li>
+                  <li
+                    onClick={() => {
+                      setTypeSort("От А до Я");
+                      setActiveSortMenu(false);
+                    }}
+                  >
+                    По алфавиту: От А до Я
+                  </li>
+                  <li
+                    onClick={() => {
+                      setTypeSort("От Я до А");
+                      setActiveSortMenu(false);
+                    }}
+                  >
+                    По алфавиту: От Я до А
+                  </li>
                 </ul>
               </div>
             </div>
