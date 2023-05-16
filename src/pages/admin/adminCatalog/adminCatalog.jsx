@@ -6,7 +6,7 @@ function adminCatalog() {
   return (
     <div>
       <Header HeaderChoiceUser={false} HeaderChoiceBook={true} />
-      <Search />
+      <Search catalog={true} sort={true} button={true} exit={true} />
       <Catalog />
     </div>
   );

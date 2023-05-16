@@ -1,5 +1,5 @@
 import "./adminBook.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../../../components/admin/adminHeader/Header";
 import Search from "../../../components/admin/adminSearch/Search";
 import getImageKey from "../../../components/getImageKey";
@@ -24,7 +24,7 @@ function AdminBook() {
   return (
     <div>
       <Header />
-      <Search />
+      <Search catalog={true} sort={false} button={true} exit={true} />
       <QrPop isActive={isQrOpen} handleClose={toggleQrPopup} />
       <DeleetePop isActive={isDeleteOpen} handleClose={toggleDeletePopup} />
       <div className="book__content">

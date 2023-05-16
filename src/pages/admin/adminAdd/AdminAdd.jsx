@@ -7,8 +7,8 @@ export const AdminAdd = () => {
   return (
     <div>
       <Header />
+      <Search catalog={false} sort={false} button={false} exit={true} />
       <div className="add__content">
-        <Search />
         <div className="add__info">
           <AdminAddBook />
         </div>
