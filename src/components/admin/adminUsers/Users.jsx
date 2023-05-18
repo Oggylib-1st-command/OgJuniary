@@ -44,12 +44,11 @@ function Users() {
     >
       <div className="admin__users-top">
         <select className="admin__users-sort">
-          <option value="">Тетруха топ</option>
-          <option value="">Но</option>
-          <option value="">Лапшин лучше</option>
+          <option value="">Сортировка: От А до Я</option>
+          <option value="">Сортировка: От Я до А</option>
         </select>
         <div className="admin__info">
-          <button className="search__add-books" onClick={(e) => handleAdd(e)}>
+          <button className="admin__add-users" onClick={(e) => handleAdd(e)}>
             Добавить пользователя
           </button>
           <p className="menu__logout admin__logout" onClick={logout}>

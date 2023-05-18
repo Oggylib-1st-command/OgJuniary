@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
-import { useInfoBookId } from "./../api";
+import { useInfoBookId } from "./../../api/api";
 import { useParams } from "react-router-dom";
 import { ReviewsCard } from "./../../components/ReviewsCard/ReviewsCard";
 import { Reviews } from "./../../components/Reviews/Reviews";
