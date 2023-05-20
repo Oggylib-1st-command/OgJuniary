@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import getImageKey from "./../../getImageKey";
 import { useState } from "react";
 import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
+import cn from "classnames";
 
-function Search({ sort, catalog, button, exit }) {
+function Search({ sort, catalog, button }) {
   const [genresActive, setGenresActive] = useState(false);
   const [activeSortMenu, setActiveSortMenu] = useState(false);
   const [typeSort, setTypeSort] = useState("От А до Я");
@@ -37,11 +38,10 @@ function Search({ sort, catalog, button, exit }) {
                 />
               </div>
               <div
-                className={
-                  activeSortMenu
-                    ? "sort__sort-menu-active"
-                    : "sort__sort-menu-disactive"
-                }
+                className={cn({
+                  sort__menu__active: activeSortMenu,
+                  sort__menu__disable: !activeSortMenu,
+                })}
               >
                 <ul className="sort__sort-menu-inner">
                   <li
