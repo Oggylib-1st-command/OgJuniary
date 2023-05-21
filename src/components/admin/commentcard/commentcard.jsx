@@ -37,12 +37,15 @@ function CommentCard(props) {
         >
           {props.text}
         </div>
+      </div>
+      <div className="comment__but">
         <button
-          className="comment__text__but"
+          className="comment__but__expand"
           onClick={() => setIsDescriptionExpanded((prevState) => !prevState)}
         >
           {isDescriptionExpanded ? "Свернуть" : "Развернуть"}
         </button>
+        <button className="comment__but__delete">Удалить отзыв</button>
       </div>
     </div>
   );

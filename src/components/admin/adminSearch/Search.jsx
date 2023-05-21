@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import getImageKey from "./../../getImageKey";
 import { useAuth } from "./../../useAuth";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { removeBook } from "../../../store/books/Slice";
 
 function Search() {
+  const dispath = useDispatch();
   const navigate = useNavigate();
   const { signout } = useAuth();
   const logout = () => {
@@ -31,7 +34,11 @@ function Search() {
       </div>
       <div className="admin__info">
         <button className="search__add-books">
-          <Link to="/admin/catalog/add" className="search__add-link">
+          <Link
+            to="/admin/catalog/add"
+            className="search__add-link"
+            onClick={dispath(removeBook)}
+          >
             Добавить книгу
           </Link>
         </button>

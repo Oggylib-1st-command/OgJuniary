@@ -8,7 +8,6 @@ export const AdminAdd = () => {
     <div>
       <Header />
       <div className="add__content">
-        <Search />
         <div className="add__info">
           <AdminAddBook />
         </div>
