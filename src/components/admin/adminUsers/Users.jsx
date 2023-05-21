@@ -47,13 +47,10 @@ function Users() {
           <option value="">Сортировка: От А до Я</option>
           <option value="">Сортировка: От Я до А</option>
         </select>
-        <div className="admin__info">
-          <button className="search__add-books" onClick={(e) => handleAdd(e)}>
+        <div className="admin__users-info">
+          <button className="admin__add-users" onClick={(e) => handleAdd(e)}>
             Добавить пользователя
           </button>
-          <p className="menu__logout admin__logout" onClick={logout}>
-            Выйти из аккаунта
-          </p>
         </div>
       </div>
       <div className="admin__users-content">
