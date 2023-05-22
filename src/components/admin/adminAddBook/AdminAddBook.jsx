@@ -1,5 +1,4 @@
 import getImageKey from "./../../../components/getImageKey";
-import { MultiSelect } from "primereact/multiselect";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,7 +6,6 @@ import "./adminAddBook.scss";
 import { useSelector } from "react-redux";
 import { getCurrentBook } from "../../../store/books/selectors";
 import Select from "react-select";
-import { type } from "@testing-library/user-event/dist/type";
 
 export const AdminAddBook = () => {
   const book = useSelector((state) => state.books.book);
@@ -16,9 +14,33 @@ export const AdminAddBook = () => {
   const defaultGenre = [];
   const defaultLanguage = { value: "", label: "" };
   const [options, setOptions] = useState(book);
-  const [genres, setGenre] = useState([]);
+  const [allGenres, setGenre] = useState([]);
   const [languagles, setLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
+  const navigate = useNavigate();
+  allGenres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    genresForSelect.push(obj);
+  });
+
+  languagles.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    languagesForSelect.push(obj);
+  });
+
+  book.genres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el;
+    obj.label = el;
+    defaultGenre.push(obj);
+  });
+
+  defaultLanguage.value = book.languagle;
+  defaultLanguage.label = book.languagle;
 
   genres.map((el, index) => {
     const obj = { value: "", label: "" };
@@ -57,9 +79,8 @@ export const AdminAddBook = () => {
     getLanguagle();
   }, []);
 
-  const navigate = useNavigate();
   const handleCancel = () => {
-    navigate(-1);
+    navigate(`/admin/catalog/${book.id}`);
   };
 
   const loadImg = (e) => {
@@ -93,18 +114,29 @@ export const AdminAddBook = () => {
 
   const handleSaveForm = (e) => {
     e.preventDefault();
-    const update = options.genres.map((el) => "" + el.name);
-    console.log(update);
-    Object.assign(options.genres, update);
-    const postBook = async () => {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/books/",
-        options
-      );
-      console.log(response);
-      navigate(-1);
-    };
-    postBook();
+    if (options.id === 0) {
+      console.log(options);
+      const postBook = async () => {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/books/",
+          options
+        );
+        console.log(response);
+        navigate(-1);
+      };
+      postBook();
+    } else {
+      console.log(options);
+      const patchBook = async () => {
+        const response = await axios.patch(
+          `http://127.0.0.1:8000/books/${book.id}/`,
+          options
+        );
+        console.log(response);
+        navigate(`/admin/catalog/${book.id}`);
+      };
+      patchBook();
+    }
   };
 
   return (
@@ -175,15 +207,10 @@ export const AdminAddBook = () => {
           <label className="label__languagle">
             Язык:
             <Select
-              defaultValue={
-                languagesForSelect[languagesForSelect.indexOf(book.languagle)]
-              }
-              optionLabel="name"
+              defaultValue={defaultLanguage}
               placeholder="Выберите язык"
-              name="colors"
               options={languagesForSelect}
               className="w-180 md:w-31rem multiselect"
-              classNamePrefix="language"
               onChange={(e) => setOptions({ ...options, languagle: e.value })}
             />
           </label>
@@ -191,15 +218,18 @@ export const AdminAddBook = () => {
             Жанры:
             <Select
               closeMenuOnSelect={false}
-              defaultValue={null}
+              defaultValue={defaultGenre}
               isMulti
-              optionLabel="name"
               placeholder="Выберите жанры"
-              name="colors"
               options={genresForSelect}
               className="w-full md:w-31rem multiselect"
-              classNamePrefix="genres"
-              onChange={(e) => setOptions({ ...options, genres: e.value })}
+              onChange={(e) => {
+                console.log(e);
+                setOptions({
+                  ...options,
+                  genres: e.map((elem) => elem.value),
+                });
+              }}
             />
           </label>
           <label htmlFor="add__creation-description">

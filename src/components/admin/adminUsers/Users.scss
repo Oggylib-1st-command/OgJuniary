@@ -1,5 +1,5 @@
-.admin{
-  &__users-top{
+.admin {
+  &__users-top {
     width: 95vw;
     display: flex;
     justify-content: space-between;
@@ -8,12 +8,10 @@
     margin-top: 26px;
     margin-bottom: 30px;
   }
-
-  &__logout{
-
+  &__logout {
   }
 
-  &__add-users{
+  &__add-users {
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -31,12 +29,11 @@
       background-color: #f3c53f;
     }
   }
-
-  &__users-content{
+  &__users-content {
     position: relative;
   }
 
-  &__users-info{
+  &__users-info {
     display: flex;
     flex-direction: column;
     align-items: center;
