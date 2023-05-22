@@ -18,7 +18,6 @@ export const axiosBookById = createAsyncThunk(
     }
   }
 );
-
 const bookSlice = createSlice({
   name: "book",
   initialState: {

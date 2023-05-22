@@ -42,6 +42,30 @@ export const AdminAddBook = () => {
   defaultLanguage.value = book.languagle;
   defaultLanguage.label = book.languagle;
 
+  genres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    genresForSelect.push(obj);
+  });
+
+  languagles.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    languagesForSelect.push(obj);
+  });
+
+  book.genres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    defaultGenre.push(obj);
+  });
+
+  defaultLanguage.value = book.languagle;
+  defaultLanguage.label = book.languagle;
+
   useEffect(() => {
     const getGenre = async () => {
       const genna = await axios.get("http://localhost:8000/genre/");
@@ -114,6 +138,7 @@ export const AdminAddBook = () => {
       patchBook();
     }
   };
+
   return (
     <div className="add__wrap">
       <div className="add__download">
