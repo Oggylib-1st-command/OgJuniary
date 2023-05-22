@@ -14,19 +14,19 @@ export const AdminUsersCard = ({
   const [edit, setEdit] = useState(false);
   const [newInfo, setNewInfo] = useState({ name: "", surname: "", email: "" });
   const handleEdit = async () => {
-    const info = await axios.get(`http://localhost:8000/api/users/${id}`);
-    console.log(info.data[""]);
+    const info = await axios.get(`http://localhost:8000/users/${id}/`);
+    console.log(info.data);
     setNewInfo({
       ...newInfo,
-      name: info.data[""].name,
-      surname: info.data[""].surname,
-      email: info.data[""].email,
+      name: info.data.name,
+      surname: info.data.surname,
+      email: info.data.email,
     });
     setEdit(!edit);
   };
   const chooseName = async () => {
     console.log(id);
-    await axios.patch(`http://localhost:8000/api/users/${id}`, newInfo);
+    await axios.patch(`http://localhost:8000/users/${id}/`, newInfo);
     console.log(newInfo);
     setEdit(!edit);
     window.location.reload();
@@ -94,26 +94,28 @@ export const AdminUsersCard = ({
               <span>{mail}</span>
             </div>
           </div>
-          <div className="users__choosen">
-            <span>
-              <Link className="users__choosen-text" to="#">
-                Перейти в “Взятые книги”
-              </Link>
-            </span>
-          </div>
           <div className="users__options">
-            <img
-              className="users__options-edit"
-              src={getImageKey("IconEdit")}
-              alt="edit icon"
-              onClick={handleEdit}
-            ></img>
-            <img
-              className="users__options-delete"
-              src={getImageKey("IconTrash")}
-              alt="delete icon"
-              onClick={() => handleDelete(id)}
-            />
+            <div className="users__choosen">
+              <span>
+                <Link className="users__choosen-text" to="#">
+                  Перейти в “Взятые книги”
+                </Link>
+              </span>
+            </div>
+            <div className="users__options-img">
+              <img
+                className="users__options-edit"
+                src={getImageKey("IconEdit")}
+                alt="edit icon"
+                onClick={handleEdit}
+              ></img>
+              <img
+                className="users__options-delete"
+                src={getImageKey("IconTrash")}
+                alt="delete icon"
+                onClick={() => handleDelete(id)}
+              />
+            </div>
           </div>
         </>
       )}

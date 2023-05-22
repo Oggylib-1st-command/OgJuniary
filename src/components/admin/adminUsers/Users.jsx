@@ -15,9 +15,8 @@ function Users() {
   const [userId, setUserId] = useState();
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("http://localhost:8000/api/users/");
-      console.log(res);
-      setUser(res.data.users);
+      const res = await axios.get("http://localhost:8000/users/");
+      setUser(res.data);
     };
     getUser();
   }, []);

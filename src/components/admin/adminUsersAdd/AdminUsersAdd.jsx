@@ -11,7 +11,7 @@ export const AdminUsersAdd = ({ handleAdd }) => {
     if (user.email && user.name && user.surname) {
       console.log(user);
       const addUserInfo = await axios.post(
-        "http://localhost:8000/api/users/",
+        "http://localhost:8000/users/",
         user
       );
       console.log(addUserInfo);
