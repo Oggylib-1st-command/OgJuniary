@@ -79,8 +79,11 @@ export const AdminAddBook = () => {
     getLanguagle();
   }, []);
 
-  const handleCancel = () => {
-    navigate(`/admin/catalog/${book.id}`);
+  const handleCancel = (props) => {
+    if(props.id!==0)
+    {navigate(`/admin/catalog/${props.id}`)}
+    else
+    {navigate(`/admin/catalog`)}
   };
 
   const loadImg = (e) => {
@@ -251,7 +254,7 @@ export const AdminAddBook = () => {
             <button className="add__save" onClick={(e) => handleSaveForm(e)}>
               Сохранить
             </button>
-            <button className="add__cancel" onClick={handleCancel}>
+            <button className="add__cancel" onClick={handleCancel(options)}>
               Отменить
             </button>
           </div>
