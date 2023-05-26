@@ -33,17 +33,19 @@ function Catalog() {
 
   return (
     <div>
-      <div className="admin-catalog__inner">
-        {book.slice(firstBookOnPage, lastBookOnPage).map((target) => (
-          <BookCardCatalog
-            key={target.id}
-            id={target.id}
-            title={target.title}
-            author={target.author}
-            image={target.image}
-            holder={target.holder}
-          />
-        ))}
+      <div className="admin-catalog__wrapper">
+        <div className="admin-catalog__inner">
+          {book.slice(firstBookOnPage, lastBookOnPage).map((target) => (
+            <BookCardCatalog
+              key={target.id}
+              id={target.id}
+              title={target.title}
+              author={target.author}
+              image={target.image}
+              holder={target.holder}
+            />
+          ))}
+        </div>
       </div>
       <ThemeProvider theme={theme}>
         <Pagination
