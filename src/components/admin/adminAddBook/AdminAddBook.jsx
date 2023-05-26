@@ -21,8 +21,30 @@ export const AdminAddBook = () => {
   const [allGenres, setGenre] = useState([]);
   const [languagles, setLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
-  const navigate = useNavigate(); // попробовать Link to=".."
-  const { id } = useParams();
+  const navigate = useNavigate();
+  allGenres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    genresForSelect.push(obj);
+  });
+
+  languagles.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el.name;
+    obj.label = el.name;
+    languagesForSelect.push(obj);
+  });
+
+  book.genres.map((el, index) => {
+    const obj = { value: "", label: "" };
+    obj.value = el;
+    obj.label = el;
+    defaultGenre.push(obj);
+  });
+
+  defaultLanguage.value = book.languagle;
+  defaultLanguage.label = book.languagle;
 
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
@@ -67,12 +89,12 @@ export const AdminAddBook = () => {
   }, []);
 
   const handleCancel = (props) => {
+    
     if (props === 0) {
       navigate(`/admin/catalog`);
     } else {
       navigate(`/admin/catalog/${props}`);
     }
-  };
 
   const loadImg = (e) => {
     const selectImg = e.target.files[0];
@@ -108,7 +130,7 @@ export const AdminAddBook = () => {
     if (options.id === 0) {
       const postBook = async () => {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/books/",
+          "http://127.0.0.1:8000/books/",
           options
         );
         console.log(response);
@@ -116,13 +138,14 @@ export const AdminAddBook = () => {
       };
       postBook();
     } else {
+      console.log(options);
       const patchBook = async () => {
-        const response = await axios.post(
-          "http://127.0.0.1:8000/api/books/",
+        const response = await axios.patch(
+          `http://127.0.0.1:8000/books/${book.id}/`,
           options
         );
         console.log(response);
-        navigate(-1);
+        navigate(`/admin/catalog/${book.id}`);
       };
       patchBook();
     }

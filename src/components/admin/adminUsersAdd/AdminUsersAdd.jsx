@@ -1,18 +1,22 @@
 import axios from "axios";
 import "./adminUsersAdd.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 export const AdminUsersAdd = ({ handleAdd }) => {
   const [user, setUser] = useState({
-    mail: "",
+    email: "",
     name: "",
     surname: "",
   });
   const addUser = async () => {
-    if (user.mail && user.name && user.surname) {
+    if (user.email && user.name && user.surname) {
       console.log(user);
-      const addUserInfo = await axios.post("", user);
+      const addUserInfo = await axios.post(
+        "http://localhost:8000/users/",
+        user
+      );
       console.log(addUserInfo);
       handleAdd();
+      window.location.reload();
     }
   };
   return (
@@ -24,11 +28,11 @@ export const AdminUsersAdd = ({ handleAdd }) => {
             Почта:
             <input
               className="users-add__input"
-              value={user.mail}
+              value={user.email}
               onChange={(e) =>
-                setUser(() => ({ ...user, mail: e.target.value }))
+                setUser(() => ({ ...user, email: e.target.value }))
               }
-              type="text"
+              type="email"
               required
             />
           </label>

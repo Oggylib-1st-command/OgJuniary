@@ -1,8 +1,8 @@
-import { configureStore, applyMiddleware, compose } from "@reduxjs/toolkit";
-import bookReduser from "./books/Slice"
+import { configureStore } from "@reduxjs/toolkit";
+import bookReduser from "./books/Slice";
 
 export default configureStore({
-  reducer:{
+  reducer: {
     books: bookReduser,
   },
-})
+});
