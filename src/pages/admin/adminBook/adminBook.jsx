@@ -100,13 +100,13 @@ function AdminBook() {
                   readOnly
                 />
               </div>
-              <div className="book__text-language">Язык: {book.language}</div>
               <div className="book__text-genre">
                 Жанры:
                 <p>{book.genres + " "}</p>
               </div>
-              <div className="book__text-description">
-                Описание книги: {book.description}
+              <div className="book__text-description">Описание книги:</div>
+              <div className="book__text-description__text">
+                {book.description}
               </div>
             </div>
           </div>
