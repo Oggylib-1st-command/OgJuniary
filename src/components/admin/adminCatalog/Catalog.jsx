@@ -10,7 +10,7 @@ import MuiColor from "../../../pages/MuiColor";
 function Catalog() {
   const theme = MuiColor();
   const { book } = useInfoBook();
-  const NumberPage = localStorage.getItem("Page") || 1;
+  const NumberPage = parseInt(localStorage.getItem("page")) || 1;
   const [currentPage, setCurrentPage] = useState(NumberPage);
   const [bookOnPage] = useState(20);
   const countPage = Math.ceil(book.length / bookOnPage);
@@ -19,7 +19,7 @@ function Catalog() {
 
   const handleChange = (prev, next) => {
     setCurrentPage(next);
-    localStorage.setItem("page", prev);
+    localStorage.setItem("page", next);
     window.scrollTo({
       top: 0,
       left: 0,
