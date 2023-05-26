@@ -8,13 +8,13 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../../store/books/Slice";
 import { useParams } from "react-router-dom";
-import { Button } from "bootstrap";
 
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
   const genresForSelect = [];
   const languagesForSelect = [];
+  const { id } = useParams();
   const defaultGenre = [];
   const defaultLanguage = { value: "", label: "" };
   const [options, setOptions] = useState(book);
@@ -22,6 +22,7 @@ export const AdminAddBook = () => {
   const [languagles, setLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
+
   allGenres.map((el, index) => {
     const obj = { value: "", label: "" };
     obj.value = el.name;
@@ -42,34 +43,10 @@ export const AdminAddBook = () => {
     obj.label = el;
     defaultGenre.push(obj);
   });
-
-  defaultLanguage.value = book.languagle;
-  defaultLanguage.label = book.languagle;
 
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
-
-  allGenres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    genresForSelect.push(obj);
-  });
-
-  languagles.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    languagesForSelect.push(obj);
-  });
-
-  book.genres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el;
-    obj.label = el;
-    defaultGenre.push(obj);
-  });
 
   defaultLanguage.value = book.languagle;
   defaultLanguage.label = book.languagle;
@@ -89,12 +66,12 @@ export const AdminAddBook = () => {
   }, []);
 
   const handleCancel = (props) => {
-    
     if (props === 0) {
       navigate(`/admin/catalog`);
     } else {
       navigate(`/admin/catalog/${props}`);
     }
+  };
 
   const loadImg = (e) => {
     const selectImg = e.target.files[0];
@@ -138,7 +115,6 @@ export const AdminAddBook = () => {
       };
       postBook();
     } else {
-      console.log(options);
       const patchBook = async () => {
         const response = await axios.patch(
           `http://127.0.0.1:8000/books/${book.id}/`,
