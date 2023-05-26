@@ -1,13 +1,17 @@
 import getImageKey from "./../../../components/getImageKey";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./adminAddBook.scss";
-import { useSelector } from "react-redux";
 import { getCurrentBook } from "../../../store/books/selectors";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosBookById } from "../../../store/books/Slice";
+import { useParams } from "react-router-dom";
+import { Button } from "bootstrap";
 
 export const AdminAddBook = () => {
+  const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
   const genresForSelect = [];
   const languagesForSelect = [];
@@ -42,7 +46,11 @@ export const AdminAddBook = () => {
   defaultLanguage.value = book.languagle;
   defaultLanguage.label = book.languagle;
 
-  genres.map((el, index) => {
+  if (book.id !== 0 && options.id === 0) {
+    setOptions(book);
+  }
+
+  allGenres.map((el, index) => {
     const obj = { value: "", label: "" };
     obj.value = el.name;
     obj.label = el.name;
@@ -58,8 +66,8 @@ export const AdminAddBook = () => {
 
   book.genres.map((el, index) => {
     const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
+    obj.value = el;
+    obj.label = el;
     defaultGenre.push(obj);
   });
 
@@ -77,14 +85,16 @@ export const AdminAddBook = () => {
     };
     getGenre();
     getLanguagle();
+    if (id !== undefined && book.id === 0) dispatch(axiosBookById(id));
   }, []);
 
   const handleCancel = (props) => {
-    if(props.id!==0)
-    {navigate(`/admin/catalog/${props.id}`)}
-    else
-    {navigate(`/admin/catalog`)}
-  };
+    
+    if (props === 0) {
+      navigate(`/admin/catalog`);
+    } else {
+      navigate(`/admin/catalog/${props}`);
+    }
 
   const loadImg = (e) => {
     const selectImg = e.target.files[0];
@@ -118,7 +128,6 @@ export const AdminAddBook = () => {
   const handleSaveForm = (e) => {
     e.preventDefault();
     if (options.id === 0) {
-      console.log(options);
       const postBook = async () => {
         const response = await axios.post(
           "http://127.0.0.1:8000/books/",
@@ -254,7 +263,10 @@ export const AdminAddBook = () => {
             <button className="add__save" onClick={(e) => handleSaveForm(e)}>
               Сохранить
             </button>
-            <button className="add__cancel" onClick={handleCancel(options)}>
+            <button
+              className="add__cancel"
+              onClick={() => handleCancel(book.id)}
+            >
               Отменить
             </button>
           </div>
