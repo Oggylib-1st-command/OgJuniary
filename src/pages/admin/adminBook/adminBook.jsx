@@ -24,7 +24,7 @@ function AdminBook() {
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
-
+  console.log(book);
   const comment = book.comment || [];
   const [currentCommentPage, setCurrentCommentpage] = useState(numberPage);
   const [commentPerPage] = useState(4);
