@@ -12,71 +12,66 @@ import { useParams } from "react-router-dom";
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
-  const genresForSelect = [];
-  const languagesForSelect = [];
+  const [genresForSelect, setGenresForSelect] = useState([]);
+  const [languagesForSelect, setLanguagesForSelect] = useState([]);
   const { id } = useParams();
-  const defaultGenre = [];
-  const defaultLanguage = { value: "", label: "" };
+  const [defaultGenre, setDefaultGenre] = useState([]);
+  const [defaultLanguage, setDefaultLanguage] = useState({});
   const [options, setOptions] = useState(book);
-  const [allGenres, setGenre] = useState([]);
-  const [languagles, setLanguagles] = useState([]);
+  const [allGenres, setAllGenre] = useState([]);
+  const [allLanguagles, setAllLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
-
-  allGenres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    genresForSelect.push(obj);
-  });
-
-  languagles.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    languagesForSelect.push(obj);
-  });
-
-  book.genres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el;
-    obj.label = el;
-    defaultGenre.push(obj);
-  });
 
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
 
-  defaultLanguage.value = book.languagle;
-  defaultLanguage.label = book.languagle;
+  useEffect(() => {
+    const dGen = book.genres.map((el, index) => {
+      const obj = { value: "", label: "" };
+      obj.value = el;
+      obj.label = el;
+      return obj;
+    });
+    
+    const dLan = {value: book.languagle, label: book.languagle }
+
+    setDefaultLanguage(dLan)
+    setDefaultGenre(dGen);
+  }, [book.genres, book.languagle]);
+
+  useEffect(() => {
+    const gen = allGenres.map((el, index) => {
+      const obj = { value: "", label: "" };
+      obj.value = el.name;
+      obj.label = el.name;
+      return obj;
+    });
+
+    const lan = allLanguagles.map((el, index) => {
+      const obj = { value: "", label: "" };
+      obj.value = el.name;
+      obj.label = el.name;
+      return obj;
+    });
+    setGenresForSelect(gen);
+    setLanguagesForSelect(lan);
+  }, [allLanguagles, allGenres]);
 
   useEffect(() => {
     const getGenre = async () => {
       const genna = await axios.get("http://localhost:8000/genre/");
-      setGenre(genna.data);
+      setAllGenre(genna.data);
     };
     const getLanguagle = async () => {
       const lang = await axios.get("http://localhost:8000/language/");
-      setLanguagles(lang.data);
+      setAllLanguagles(lang.data);
     };
     getGenre();
     getLanguagle();
     if (id !== undefined && book.id === 0) dispatch(axiosBookById(id));
   }, []);
-
-  const handleCancel = (props) => {
-    if (props === 0) {
-      navigate(`/admin/catalog`);
-    } else {
-      navigate(`/admin/catalog/${props}`);
-    }
-  };
-
-  const loadImg = (e) => {
-    const selectImg = e.target.files[0];
-    setSelectImg(selectImg);
-  };
 
   useEffect(() => {
     let fileReader,
@@ -101,6 +96,19 @@ export const AdminAddBook = () => {
       }
     };
   }, [selectImg]);
+
+  const handleCancel = (props) => {
+    if (props === 0) {
+      navigate(`/admin/catalog`);
+    } else {
+      navigate(`/admin/catalog/${props}`);
+    }
+  };
+
+  const loadImg = (e) => {
+    const selectImg = e.target.files[0];
+    setSelectImg(selectImg);
+  };
 
   const handleSaveForm = (e) => {
     e.preventDefault();
@@ -206,7 +214,8 @@ export const AdminAddBook = () => {
             Жанры:
             <Select
               closeMenuOnSelect={false}
-              defaultValue={defaultGenre}
+              // defaultValue={defaultGenre}
+              value={defaultGenre}
               isMulti
               placeholder="Выберите жанры"
               options={genresForSelect}

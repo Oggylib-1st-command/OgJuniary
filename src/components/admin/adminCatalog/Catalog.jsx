@@ -3,7 +3,7 @@ import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
 import { Pagination } from "@mui/material";
 import { useInfoBook } from "./../../../api/api";
 import { useState, useEffect } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 import MuiColor from "../../../pages/MuiColor";
 

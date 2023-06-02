@@ -9,13 +9,17 @@ import CommentCard from "../../../components/admin/commentcard/commentcard";
 import { Pagination } from "@mui/material";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById, removeBook } from "../../../store/books/Slice";
+import { axiosBookById } from "../../../store/books/Slice";
 import { getCurrentBook, getStatusError } from "../../../store/books/selectors";
+import { ThemeProvider } from "@mui/material/styles";
+
+import MuiColor from "../../MuiColor";
 
 function AdminBook() {
+  const theme = MuiColor();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
-  const numberPage = localStorage.getItem("page") || 1;
+  const numberPage = parseInt(localStorage.getItem("page")) || 1;
   const { id } = useParams();
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -131,12 +135,14 @@ function AdminBook() {
                   />
                 ))}
                 <div className="book__comment__pagination">
-                  <Pagination
-                    count={countPage}
-                    color="primary"
-                    page={currentCommentPage}
-                    onChange={handleChange}
-                  />
+                  <ThemeProvider theme={theme}>
+                    <Pagination
+                      count={countPage}
+                      color="orange"
+                      page={currentCommentPage}
+                      onChange={handleChange}
+                    />
+                  </ThemeProvider>
                 </div>
               </>
             )}
