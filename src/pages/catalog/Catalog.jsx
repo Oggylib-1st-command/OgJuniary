@@ -3,6 +3,8 @@ import Card from "../../components/Card/Card";
 import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
 import { useInfoBook } from "./../../api/api";
+import EmptyList from "./../../components/EmptyList/EmptyList";
+import getImageKey from "../../components/getImageKey";
 
 const genreMain = [
   {
@@ -10,8 +12,9 @@ const genreMain = [
     viewTitle: "Все книги",
   },
 ];
-function Catalog() {
+const Catalog = () => {
   const { book } = useInfoBook();
+  console.log("----------->book", book);
   return (
     <div className="catalog__inner">
       <div className="catalog__content">
@@ -61,19 +64,29 @@ function Catalog() {
             <option>По алфавиту</option>
           </select>
         </div>
-        {book.map((obj) => (
-          <Card
-            key={obj.id}
-            id={obj.id}
-            image={obj.image}
-            author={obj.author}
-            title={obj.title}
-            genre={obj.genres.join(", ")}
+        {book.length === 0 ? (
+          <EmptyList
+            title={undefined}
+            img={"EmptyCatalog"}
+            text={"В библиотеке нет книг"}
           />
-        ))}
+        ) : (
+          <>
+            {book.map((obj) => (
+              <Card
+                key={obj.id}
+                id={obj.id}
+                image={obj.image}
+                author={obj.author}
+                title={obj.title}
+                genre={obj.genres.join(", ")}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Catalog;
