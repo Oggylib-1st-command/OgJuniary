@@ -1,6 +1,6 @@
 import getImageKey from "./../../../components/getImageKey";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./adminAddBook.scss";
 import { getCurrentBook } from "../../../store/books/selectors";
@@ -34,10 +34,10 @@ export const AdminAddBook = () => {
       obj.label = el;
       return obj;
     });
-    
-    const dLan = {value: book.languagle, label: book.languagle }
 
-    setDefaultLanguage(dLan)
+    const dLan = { value: book.languagle, label: book.languagle };
+
+    setDefaultLanguage(dLan);
     setDefaultGenre(dGen);
   }, [book.genres, book.languagle]);
 
@@ -135,6 +135,18 @@ export const AdminAddBook = () => {
     }
   };
 
+  const getValue = () => {
+    if (book.genres)
+      return genresForSelect.filter((c) => book.genres.indexOf(c.value) >= 0);
+  };
+
+  const onChange = (newValue) => {
+    setOptions({
+      ...options,
+      genres: newValue.map((elem) => elem.value),
+    });
+  };
+
   return (
     <div className="add__wrap">
       <div className="add__download">
@@ -207,26 +219,28 @@ export const AdminAddBook = () => {
               placeholder="Выберите язык"
               options={languagesForSelect}
               className="w-180 md:w-31rem multiselect"
-              onChange={(e) => setOptions({ ...options, languagle: e.value })}
+              onChange={(e) => {
+                setDefaultLanguage(e);
+                setOptions({ ...options, languagle: e.value });
+              }}
             />
           </label>
           <label className="label__genre">
             Жанры:
             <Select
-              closeMenuOnSelect={false}
-              // defaultValue={defaultGenre}
-              value={defaultGenre}
-              isMulti
-              placeholder="Выберите жанры"
-              options={genresForSelect}
-              className="w-full md:w-31rem multiselect"
               onChange={(e) => {
-                console.log(e);
+                setDefaultGenre(e);
                 setOptions({
                   ...options,
                   genres: e.map((elem) => elem.value),
                 });
               }}
+              closeMenuOnSelect={false}
+              value={defaultGenre}
+              isMulti
+              placeholder="Выберите жанры"
+              options={genresForSelect}
+              className="w-full md:w-31rem"
             />
           </label>
           <label htmlFor="add__creation-description">
