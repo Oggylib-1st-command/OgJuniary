@@ -4,7 +4,6 @@ import { Filter } from "../../components/Filtration/Filtration";
 import { Link } from "react-router-dom";
 import { useInfoBook } from "./../../api/api";
 import EmptyList from "./../../components/EmptyList/EmptyList";
-import getImageKey from "../../components/getImageKey";
 
 const genreMain = [
   {
@@ -14,7 +13,6 @@ const genreMain = [
 ];
 const Catalog = () => {
   const { book } = useInfoBook();
-  console.log("----------->book", book);
   return (
     <div className="catalog__inner">
       <div className="catalog__content">

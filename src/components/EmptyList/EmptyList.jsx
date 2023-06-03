@@ -1,7 +1,9 @@
 import "./EmptyList.scss";
 import getImageKey from "../getImageKey";
+import { useNavigate } from "react-router-dom";
 
 const EmptyList = (props) => {
+  const navigate = useNavigate();
   return (
     <div className="wrapper">
       <div className="empty">
@@ -10,11 +12,9 @@ const EmptyList = (props) => {
         ) : (
           <>
             <div className="empty__title">
-              <img
-                className="empty__title__back"
-                src={getImageKey("ArrowBack")}
-                alt="#"
-              ></img>
+              <button className="empty__title__back" onClick={navigate(-1)}>
+                <img src={getImageKey("ArrowBack")} alt="#"></img>
+              </button>
               <p className="empty__title__text"> {props.title} </p>
             </div>
           </>

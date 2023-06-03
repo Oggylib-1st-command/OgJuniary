@@ -14,7 +14,7 @@ import { AuthProvider } from "./hoc/AuthProvider";
 import { Suspense, lazy } from "react";
 
 const Catalog = lazy(() => import("./pages/catalog/Catalog"));
-const Book = lazy(() => import("./pages/book/book"));
+const Book = lazy(() => import("./pages/Book/Book"));
 const CatalogAdmin = lazy(() =>
   import("./pages/admin/adminCatalog/adminCatalog")
 );

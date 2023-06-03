@@ -47,15 +47,19 @@ function Catalog() {
           ))}
         </div>
       </div>
-      <ThemeProvider theme={theme}>
-        <Pagination
-          className="paggination"
-          count={countPage}
-          color="orange"
-          page={currentPage}
-          onChange={handleChange}
-        />
-      </ThemeProvider>
+      {book.length === 0 ? (
+        <></>
+      ) : (
+        <ThemeProvider theme={theme}>
+          <Pagination
+            className="paggination"
+            count={countPage}
+            color="orange"
+            page={currentPage}
+            onChange={handleChange}
+          />
+        </ThemeProvider>
+      )}
     </div>
   );
 }

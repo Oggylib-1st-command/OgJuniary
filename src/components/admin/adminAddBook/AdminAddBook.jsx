@@ -135,18 +135,6 @@ export const AdminAddBook = () => {
     }
   };
 
-  const getValue = () => {
-    if (book.genres)
-      return genresForSelect.filter((c) => book.genres.indexOf(c.value) >= 0);
-  };
-
-  const onChange = (newValue) => {
-    setOptions({
-      ...options,
-      genres: newValue.map((elem) => elem.value),
-    });
-  };
-
   return (
     <div className="add__wrap">
       <div className="add__download">

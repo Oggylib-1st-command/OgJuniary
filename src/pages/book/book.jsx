@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { Rating } from "@mui/material";
-import { useInfoBookId } from "./../../api/api";
 import { useParams } from "react-router-dom";
-import { ReviewsCard } from "./../../components/ReviewsCard/ReviewsCard";
-import { Reviews } from "./../../components/Reviews/Reviews";
+import { ReviewsCard } from "../../components/ReviewsCard/ReviewsCard";
+import { Reviews } from "../../components/Reviews/Reviews";
 
-import "./book.scss";
+import "./Book.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosBookById } from "../../store/books/Slice";
 
 function Book() {
+  const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const [comment, setComment] = useState({
     value: 0,
     text: "",
   });
   const { id } = useParams();
-  const { book } = useInfoBookId(id);
+  const { book } = useSelector((state) => state.books.book);
+
+  useEffect(() => {
+    dispatch(axiosBookById(id));
+  }, [id]);
 
   useEffect(() => {
     if (comment.text && !active) {
