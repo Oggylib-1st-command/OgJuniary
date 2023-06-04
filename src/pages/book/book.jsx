@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ReviewsCard } from "../../components/ReviewsCard/ReviewsCard";
 import { Reviews } from "../../components/Reviews/Reviews";
 
-import "./Book.scss";
+import "./book.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../store/books/Slice";
 
