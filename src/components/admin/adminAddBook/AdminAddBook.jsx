@@ -9,6 +9,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../../store/books/Slice";
 import { useParams } from "react-router-dom";
 
+const lang = {
+  fir: "Русский",
+  sec: "English",
+  null: "",
+  get(lanId) {
+    if (lanId === 1) return this.fir;
+    else if (lanId === 2) return this.sec;
+    else return this.null;
+  },
+};
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
@@ -25,8 +35,6 @@ export const AdminAddBook = () => {
 
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
-  }
-
   useEffect(() => {
     const dGen = book.genres.map((el, index) => {
       const obj = { value: "", label: "" };
@@ -35,9 +43,8 @@ export const AdminAddBook = () => {
       return obj;
     });
 
-    const dLan = { value: book.languagle, label: book.languagle };
-
-    setDefaultLanguage(dLan);
+    const dLan = { value: book.languages, label: book.languages };
+    setDefaultLanguage(lang.get(dLan.label));
     setDefaultGenre(dGen);
   }, [book.genres, book.languagle]);
 
@@ -50,8 +57,8 @@ export const AdminAddBook = () => {
     });
 
     const lan = allLanguagles.map((el, index) => {
-      const obj = { value: "", label: "" };
-      obj.value = el.name;
+      const obj = { value: 0, label: "" };
+      obj.value = el.id;
       obj.label = el.name;
       return obj;
     });
@@ -159,7 +166,7 @@ export const AdminAddBook = () => {
           <input
             type="file"
             onChange={(e) => loadImg(e)}
-            accept=".png, .jpg, jpeg*"
+            accept=".png, .jpg,.webp, jpeg*"
             className="input__file"
           />
           Загрузить фото
@@ -209,7 +216,7 @@ export const AdminAddBook = () => {
               className="w-180 md:w-31rem multiselect"
               onChange={(e) => {
                 setDefaultLanguage(e);
-                setOptions({ ...options, languagle: e.value });
+                setOptions({ ...options, languages: e.value });
               }}
             />
           </label>

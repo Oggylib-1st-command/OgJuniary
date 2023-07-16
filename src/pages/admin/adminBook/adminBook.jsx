@@ -15,6 +15,16 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import MuiColor from "../../MuiColor";
 
+const lang = {
+  fir: "Русский",
+  sec: "English",
+  null: "",
+  get(lanId) {
+    if (lanId === 1) return this.fir;
+    else if (lanId === 2) return this.sec;
+    else return this.null;
+  },
+};
 function AdminBook() {
   const theme = MuiColor();
   const dispatch = useDispatch();
@@ -94,7 +104,9 @@ function AdminBook() {
               <div className="book__text-title">{book.title} </div>
               <div className="book__text-author">Автор: {book.author}</div>
               <div className="book__text-year">Год издания: {book.year}</div>
-              <div className="book__text-year">Язык: {book.language}</div>
+              <div className="book__text-year">
+                Язык: {lang.get(book.languages)}
+              </div>
               <div className="book__text-rating">
                 <Rating
                   name="half-rating-read"
