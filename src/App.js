@@ -65,7 +65,14 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="admin/catalog/add" element={<AdminAdd />} />
+          <Route
+            path="admin/catalog/add"
+            element={
+              <Suspense fallback={<p>...Loading</p>}>
+                <AdminAdd />
+              </Suspense>
+            } 
+          />
           <Route
             path="admin/catalog/:id"
             element={
@@ -74,19 +81,27 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="admin/catalog/allgenres"
+          <Route 
+            path="admin/catalog/allgenres" 
             element={
               <Suspense fallback={<p>...Loading</p>}>
                 <AllGenres />
               </Suspense>
-            }
-          />
+              }
+            />
           <Route
             path="admin/catalog/:id/edit"
             element={
               <Suspense fallback={<p>...Loading</p>}>
                 <AdminEdit />
+              </Suspense>
+            }
+          />
+          <Route
+            path="admin/catalog/allgenres"
+            element={
+              <Suspense fallback={<p>...Loading</p>}>
+                <AllGenres />
               </Suspense>
             }
           />

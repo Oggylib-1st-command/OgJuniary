@@ -3,66 +3,84 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./adminAddBook.scss";
-import { useSelector } from "react-redux";
 import { getCurrentBook } from "../../../store/books/selectors";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosBookById } from "../../../store/books/Slice";
+import { useParams } from "react-router-dom";
 
+const lang = {
+  fir: "Русский",
+  sec: "English",
+  null: "",
+  get(lanId) {
+    if (lanId === 1) return this.fir;
+    else if (lanId === 2) return this.sec;
+    else return this.null;
+  },
+};
 export const AdminAddBook = () => {
+  const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
-  const genresForSelect = [];
-  const languagesForSelect = [];
-  const defaultGenre = [];
-  const defaultLanguage = { value: "", label: "" };
+  const [genresForSelect, setGenresForSelect] = useState([]);
+  const [languagesForSelect, setLanguagesForSelect] = useState([]);
+  const { id } = useParams();
+  const [defaultGenre, setDefaultGenre] = useState([]);
+  const [defaultLanguage, setDefaultLanguage] = useState({});
   const [options, setOptions] = useState(book);
-  const [allGenres, setGenre] = useState([]);
-  const [languagles, setLanguagles] = useState([]);
+  const [allGenres, setAllGenre] = useState([]);
+  const [allLanguagles, setAllLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
-  allGenres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    genresForSelect.push(obj);
-  });
 
-  languagles.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el.name;
-    obj.label = el.name;
-    languagesForSelect.push(obj);
-  });
+  if (book.id !== 0 && options.id === 0) {
+    setOptions(book);
+  }
 
-  book.genres.map((el, index) => {
-    const obj = { value: "", label: "" };
-    obj.value = el;
-    obj.label = el;
-    defaultGenre.push(obj);
-  });
+  useEffect(() => {
+    const dGen = book.genres.map((el, index) => {
+      const obj = { value: "", label: "" };
+      obj.value = el;
+      obj.label = el;
+      return obj;
+    });
 
-  defaultLanguage.value = book.languagle;
-  defaultLanguage.label = book.languagle;
+    const dLan = { value: book.languages, label: book.languages };
+    setDefaultLanguage(lang.get(dLan.label));
+    setDefaultGenre(dGen);
+  }, [book.genres, book.languagle]);
+
+  useEffect(() => {
+    const gen = allGenres.map((el, index) => {
+      const obj = { value: "", label: "" };
+      obj.value = el.name;
+      obj.label = el.name;
+      return obj;
+    });
+
+    const lan = allLanguagles.map((el, index) => {
+      const obj = { value: 0, label: "" };
+      obj.value = el.id;
+      obj.label = el.name;
+      return obj;
+    });
+    setGenresForSelect(gen);
+    setLanguagesForSelect(lan);
+  }, [allLanguagles, allGenres]);
 
   useEffect(() => {
     const getGenre = async () => {
       const genna = await axios.get("http://localhost:8000/genre/");
-      setGenre(genna.data);
+      setAllGenre(genna.data);
     };
     const getLanguagle = async () => {
       const lang = await axios.get("http://localhost:8000/language/");
-      setLanguagles(lang.data);
+      setAllLanguagles(lang.data);
     };
     getGenre();
     getLanguagle();
+    if (id !== undefined && book.id === 0) dispatch(axiosBookById(id));
   }, []);
-
-  const handleCancel = () => {
-    navigate(`/admin/catalog/${book.id}`);
-  };
-
-  const loadImg = (e) => {
-    const selectImg = e.target.files[0];
-    setSelectImg(selectImg);
-  };
 
   useEffect(() => {
     let fileReader,
@@ -88,10 +106,22 @@ export const AdminAddBook = () => {
     };
   }, [selectImg]);
 
+  const handleCancel = (props) => {
+    if (props === 0) {
+      navigate(`/admin/catalog`);
+    } else {
+      navigate(`/admin/catalog/${props}`);
+    }
+  };
+
+  const loadImg = (e) => {
+    const selectImg = e.target.files[0];
+    setSelectImg(selectImg);
+  };
+
   const handleSaveForm = (e) => {
     e.preventDefault();
     if (options.id === 0) {
-      console.log(options);
       const postBook = async () => {
         const response = await axios.post(
           "http://127.0.0.1:8000/books/",
@@ -102,7 +132,6 @@ export const AdminAddBook = () => {
       };
       postBook();
     } else {
-      console.log(options);
       const patchBook = async () => {
         const response = await axios.patch(
           `http://127.0.0.1:8000/books/${book.id}/`,
@@ -114,6 +143,7 @@ export const AdminAddBook = () => {
       patchBook();
     }
   };
+
   return (
     <div className="add__wrap">
       <div className="add__download">
@@ -138,7 +168,7 @@ export const AdminAddBook = () => {
           <input
             type="file"
             onChange={(e) => loadImg(e)}
-            accept=".png, .jpg, jpeg*"
+            accept=".png, .jpg,.webp, jpeg*"
             className="input__file"
           />
           Загрузить фото
@@ -186,25 +216,28 @@ export const AdminAddBook = () => {
               placeholder="Выберите язык"
               options={languagesForSelect}
               className="w-180 md:w-31rem multiselect"
-              onChange={(e) => setOptions({ ...options, languagle: e.value })}
+              onChange={(e) => {
+                setDefaultLanguage(e);
+                setOptions({ ...options, languages: e.value });
+              }}
             />
           </label>
           <label className="label__genre">
             Жанры:
             <Select
-              closeMenuOnSelect={false}
-              defaultValue={defaultGenre}
-              isMulti
-              placeholder="Выберите жанры"
-              options={genresForSelect}
-              className="w-full md:w-31rem multiselect"
               onChange={(e) => {
-                console.log(e);
+                setDefaultGenre(e);
                 setOptions({
                   ...options,
                   genres: e.map((elem) => elem.value),
                 });
               }}
+              closeMenuOnSelect={false}
+              value={defaultGenre}
+              isMulti
+              placeholder="Выберите жанры"
+              options={genresForSelect}
+              className="w-full md:w-31rem"
             />
           </label>
           <label htmlFor="add__creation-description">
@@ -226,7 +259,10 @@ export const AdminAddBook = () => {
             <button className="add__save" onClick={(e) => handleSaveForm(e)}>
               Сохранить
             </button>
-            <button className="add__cancel" onClick={handleCancel}>
+            <button
+              className="add__cancel"
+              onClick={() => handleCancel(book.id)}
+            >
               Отменить
             </button>
           </div>

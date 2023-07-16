@@ -45,13 +45,8 @@ export const useInfoBookId = (id) => {
 
   useEffect(() => {
     const getBook = async () => {
-      if (id) {
-        const bookInfo = await axios.get(`http://localhost:8000/book/${id}/`);
-        setBook(bookInfo.data);
-      } else {
-        const res = await axios.get("http://localhost:8000/book/");
-        setBook(res.data);
-      }
+      const bookInfo = await axios.get(`http://localhost:8000/books/${id}/`);
+      setBook(bookInfo.data);
     };
     getBook();
   }, []);
@@ -63,7 +58,7 @@ export const useInfoBook = () => {
 
   useEffect(() => {
     const getBook = async () => {
-      const res = await axios.get("http://localhost:8000/book/");
+      const res = await axios.get("http://localhost:8000/books/");
       setBook(res.data);
     };
 
@@ -86,4 +81,17 @@ export const useInfoUser = () => {
   }, []);
 
   return { infoUser };
+};
+
+export const useInfoUserId = (id) => {
+  const [infoUserId, setInfoUserId] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axios.get(`http://localhost:8000/users/${id}/`);
+      setInfoUserId(res.data);
+    };
+    getUser();
+  }, []);
+  return { infoUserId };
 };

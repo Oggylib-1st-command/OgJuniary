@@ -1,7 +1,6 @@
 import "./adminBook.scss";
 import { useState, useEffect } from "react";
 import Header from "../../../components/admin/adminHeader/Header";
-import Search from "../../../components/admin/adminSearch/Search";
 import getImageKey from "../../../components/getImageKey";
 import { Link, useParams } from "react-router-dom";
 import QrPop from "../../../components/admin/QrPopUp/QrPopUp";
@@ -10,13 +9,27 @@ import CommentCard from "../../../components/admin/commentcard/commentcard";
 import { Pagination } from "@mui/material";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById, removeBook } from "../../../store/books/Slice";
+import { axiosBookById } from "../../../store/books/Slice";
 import { getCurrentBook, getStatusError } from "../../../store/books/selectors";
+import { ThemeProvider } from "@mui/material/styles";
 
+import MuiColor from "../../MuiColor";
+
+const lang = {
+  fir: "Русский",
+  sec: "English",
+  null: "",
+  get(lanId) {
+    if (lanId === 1) return this.fir;
+    else if (lanId === 2) return this.sec;
+    else return this.null;
+  },
+};
 function AdminBook() {
+  const theme = MuiColor();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.book);
-  const numberPage = localStorage.getItem("page") || 1;
+  const numberPage = parseInt(localStorage.getItem("page")) || 1;
   const { id } = useParams();
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -24,10 +37,10 @@ function AdminBook() {
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
-  console.log(book);
+
   const comment = book.comment || [];
   const [currentCommentPage, setCurrentCommentpage] = useState(numberPage);
-  const [commentPerPage] = useState(4);
+  const commentPerPage = 4;
 
   const lastCommentIndex = currentCommentPage * commentPerPage;
   const firstCommentIndex = lastCommentIndex - commentPerPage;
@@ -91,7 +104,9 @@ function AdminBook() {
               <div className="book__text-title">{book.title} </div>
               <div className="book__text-author">Автор: {book.author}</div>
               <div className="book__text-year">Год издания: {book.year}</div>
-              <div className="book__text-year">Язык: {book.language}</div>
+              <div className="book__text-year">
+                Язык: {lang.get(book.languages)}
+              </div>
               <div className="book__text-rating">
                 <Rating
                   name="half-rating-read"
@@ -101,13 +116,13 @@ function AdminBook() {
                   readOnly
                 />
               </div>
-              <div className="book__text-language">Язык: {book.language}</div>
               <div className="book__text-genre">
                 Жанры:
                 <p>{book.genres + " "}</p>
               </div>
-              <div className="book__text-description">
-                Описание книги: {book.description}
+              <div className="book__text-description">Описание книги:</div>
+              <div className="book__text-description__text">
+                {book.description}
               </div>
             </div>
           </div>
@@ -132,12 +147,14 @@ function AdminBook() {
                   />
                 ))}
                 <div className="book__comment__pagination">
-                  <Pagination
-                    count={countPage}
-                    color="primary"
-                    page={currentCommentPage}
-                    onChange={handleChange}
-                  />
+                  <ThemeProvider theme={theme}>
+                    <Pagination
+                      count={countPage}
+                      color="orange"
+                      page={currentCommentPage}
+                      onChange={handleChange}
+                    />
+                  </ThemeProvider>
                 </div>
               </>
             )}

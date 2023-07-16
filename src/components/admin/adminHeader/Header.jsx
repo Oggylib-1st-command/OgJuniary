@@ -1,16 +1,34 @@
 import "./Header.scss";
 
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "./../../useAuth";
 import getImageKey from "../../getImageKey";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   const navigate = useNavigate();
   const { signout } = useAuth();
+  const [field, setField] = useState("");
   const logout = () => {
     Cookies.remove("admin");
     signout(() => navigate("/login", { replace: true }));
+  };
+  const postForm = () => {
+    const postSearch = async () => {
+      const search = await axios.get(
+        `http://127.0.0.1:8000/search/?q=${field}`
+      );
+      navigate(`/admin/catalog/${search.data[0]?.id || ""}`);
+    };
+    if (field) postSearch();
+    else console.log("Field is empty");
+  };
+  const handleEnter = (key) => {
+    if (key.code === "Enter") {
+      postForm();
+    }
   };
   return (
     <div className="admin-header__inner">
@@ -21,19 +39,25 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
             src={getImageKey("Logo")}
             alt="logo icons"
           />
+          <p className="admin-header__logo-text">Oggylib</p>
         </Link>
-        <p className="admin-header__logo-text">Oggylib</p>
       </div>
       <label className="admin-header__search-position">
         <img
           className="admin-header__search-logo"
           src={getImageKey("searchIcon")}
           alt=""
+          onClick={postForm}
         />
         <input
           className="admin-header__search-input"
           type="text"
           placeholder="Поиск"
+          value={field}
+          onKeyDown={handleEnter}
+          onChange={(e) => {
+            setField(e.target.value);
+          }}
         />
       </label>
 
