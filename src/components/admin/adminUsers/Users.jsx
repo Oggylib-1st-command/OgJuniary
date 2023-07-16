@@ -33,12 +33,14 @@ function Users() {
   const handleDelete = (id) => {
     setUserId(id);
     setUserDelete(!userDelete);
+    console.log("delet");
   };
   const handleTaken = (id) => {
     setUserId(id);
     setUserTaken(!userTaken);
   };
   const handleAdd = (e) => {
+    e.stopPropagation();
     setUserAdd(!userAdd);
   };
   const navigate = useNavigate();
