@@ -9,7 +9,7 @@ import CommentCard from "../../../components/admin/commentcard/commentcard";
 import { Pagination } from "@mui/material";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById } from "../../../store/books/Slice";
+import { axiosBookById, removeBook } from "../../../store/books/Slice";
 import { getCurrentBook, getStatusError } from "../../../store/books/selectors";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -59,10 +59,6 @@ function AdminBook() {
     setCurrentCommentpage(p);
     localStorage.setItem("page", p);
   };
-
-  useEffect(() => {
-    return localStorage.removeItem("page");
-  }, []);
 
   return (
     <div>

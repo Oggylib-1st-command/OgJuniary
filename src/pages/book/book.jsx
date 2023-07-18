@@ -35,6 +35,11 @@ function Book() {
     owner: local.id,
   });
   const book = useSelector((state) => state.books.book);
+
+  useEffect(() => {
+    dispatch(axiosBookById(id));
+  }, [id]);
+
   useEffect(() => {
     if (book.id === 0) dispatch(axiosBookById(id));
     else if (comment.text && !active) {
