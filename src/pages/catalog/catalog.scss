@@ -84,11 +84,11 @@
 .filter {
   &__list-item {
     display: grid;
-    align-items: start;
+    align-self: start;
   }
   &__checkbox {
     display: grid;
-    align-items: start;
+    align-self: start;
     width: 100%;
   }
 }

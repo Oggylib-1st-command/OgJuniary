@@ -1,7 +1,6 @@
 import "./commentcard.scss";
 import { Rating } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
 import cn from "classnames";
 
 function CommentCard(props) {
