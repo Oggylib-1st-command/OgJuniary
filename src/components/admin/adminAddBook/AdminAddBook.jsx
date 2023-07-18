@@ -3,11 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./adminAddBook.scss";
-import { getCurrentBook } from "../../../store/books/selectors";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../../store/books/Slice";
 import { useParams } from "react-router-dom";
+import { getCurrentBook } from "../../../store/books/selectors";
 
 const lang = {
   fir: "Русский",

@@ -10,7 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useInfoGenre } from "../api";
+import { useInfoGenre } from "./../../api/api.jsx";
 import { Check } from "./../../components/Check/Check";
 const names = [
   "По новизне",

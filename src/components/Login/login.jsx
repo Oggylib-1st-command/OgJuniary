@@ -27,7 +27,6 @@ function Login() {
       });
       signin(user, () => navigate(fromPage, { replace: true }));
     } else if (profile.length !== 0 && tempUser.length === 0) {
-      console.log(profile);
       const stack = document.querySelector(".stack");
       stack.style.visibility = "visible";
       stack.style.opacity = "1";

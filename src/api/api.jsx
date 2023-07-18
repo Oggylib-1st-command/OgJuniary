@@ -93,5 +93,21 @@ export const useInfoUserId = (id) => {
     };
     getUser();
   }, []);
+  console.log(infoUserId);
   return { infoUserId };
+};
+
+export const useInfoGenre = () => {
+  const [genre, setGenre] = useState([]);
+
+  useEffect(() => {
+    const getGenre = async () => {
+      const resGenre = await axios.get("http://localhost:8000/genre/");
+      setGenre(resGenre.data);
+    };
+
+    getGenre();
+  }, []);
+
+  return { genre };
 };

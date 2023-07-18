@@ -2,7 +2,7 @@ import React from "react";
 import "./GenresCatalog.scss";
 import { Link } from "react-router-dom";
 import getImageKey from "../../getImageKey";
-import { useInfoGenre } from "./../../../pages/api.jsx";
+import { useInfoGenre } from "./../../../api/api.jsx";
 import BlockGenres from "../adminBlockGenres/BlockGenres";
 
 const GenresCatalog = ({ active, setActive }) => {
