@@ -33,13 +33,13 @@ function Book() {
     value: 0,
     book: id,
     owner: local.id,
+    image: local.picture,
   });
   const book = useSelector((state) => state.books.book);
-
+  const [name, setName] = useState("");
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
-
   useEffect(() => {
     if (book.id === 0) dispatch(axiosBookById(id));
     else if (comment.text && !active) {
@@ -57,17 +57,21 @@ function Book() {
     };
     getReviews();
   }, [id, active]);
-  const [isBookings] = useState(book.owner === local.id);
-  const [activeBtn] = useState(book.owner ? true : false);
-  const chooseName = () => {
-    if (activeBtn && isBookings) {
-      return "ВАШЕ";
-    } else if (activeBtn) {
-      return "ЗАНЯТО";
-    } else if (!activeBtn) {
-      return "ВЗЯТЬ";
+  useEffect(() => {
+    setStateBtn(book.bookings ? true : false);
+    setBookings(book.owner === local.id);
+  }, [stateBtn, book]);
+  const [stateBtn, setStateBtn] = useState(book.bookings ? true : false);
+  const [isBookings, setBookings] = useState(book.owner === local.id);
+  useEffect(() => {
+    if (stateBtn && isBookings) {
+      setName("ВАШЕ");
+    } else if (stateBtn) {
+      setName("ЗАНЯТО");
+    } else if (!stateBtn) {
+      setName("ВЗЯТЬ");
     }
-  };
+  }, [stateBtn, isBookings]);
   return (
     <div className="user-book">
       <div className="user-book__card">
@@ -78,18 +82,24 @@ function Book() {
           <div className="book__heart"></div>
           <div
             className={cn({
-              active__block: !activeBtn && isBookings,
-              active__block_booking: activeBtn && !isBookings,
+              active__block: !stateBtn && isBookings,
+              active__block_booking: stateBtn && !isBookings,
             })}
           >
-            <button className="book__btn" type="submit">
-              {chooseName()}
+            <button
+              className={cn({
+                book__btn: !stateBtn,
+                book__btn_active: stateBtn,
+              })}
+              type="submit"
+            >
+              {name}
             </button>
           </div>
         </div>
         <p className="table__list-info">
           <span>Жанры:</span>
-          {book.genres}
+          {book.genres.join("  ").split("  ").join(" / ")}
         </p>
         <p className="table__list-info">
           <span>Язык:</span>
@@ -145,7 +155,7 @@ function Book() {
             surname={el.surname}
             date={el.created_at}
             rating={el.value}
-            image={local.picture}
+            image={el.image}
             text={el.text}
             setEdit={setEdit}
             edit={edit}

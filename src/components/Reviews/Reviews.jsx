@@ -11,7 +11,7 @@ export const Reviews = ({ setComment, comment }) => {
           onChange={(newValue) =>
             setComment({ ...comment, value: +newValue.target.value })
           }
-          precision={0.5}
+          precision={1}
           size="large"
         />
       </div>

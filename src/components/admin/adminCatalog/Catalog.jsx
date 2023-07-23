@@ -13,7 +13,10 @@ function Catalog({ sortBook }) {
   const NumberPage = parseInt(localStorage.getItem("page")) || 1;
   const [currentPage, setCurrentPage] = useState(NumberPage);
   const bookOnPage = 20;
-  const countPage = Math.ceil(book.length / bookOnPage);
+  const countPage =
+    sortBook.length !== 0
+      ? Math.ceil(sortBook.length / bookOnPage)
+      : Math.ceil(book.length / bookOnPage);
   const lastBookOnPage = currentPage * bookOnPage;
   const firstBookOnPage = lastBookOnPage - bookOnPage;
 
