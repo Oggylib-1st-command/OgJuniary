@@ -36,7 +36,6 @@ export const AdminAddBook = () => {
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
-
   useEffect(() => {
     const dGen = book.genres.map((el, index) => {
       const obj = { value: "", label: "" };

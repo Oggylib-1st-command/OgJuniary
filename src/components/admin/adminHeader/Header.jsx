@@ -20,6 +20,7 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
       const search = await axios.get(
         `http://127.0.0.1:8000/search/?q=${field}`
       );
+
       navigate(`/admin/catalog/${search.data[0]?.id || ""}`);
     };
     if (field) postSearch();

@@ -111,3 +111,18 @@ export const useInfoGenre = () => {
 
   return { genre };
 };
+
+export const useGenres = () => {
+  const [genre, setGenre] = useState([]);
+
+  useEffect(() => {
+    const getGenre = async () => {
+      const resGenre = await axios.get("http://localhost:8000/maingenre/");
+      setGenre(resGenre.data);
+    };
+
+    getGenre();
+  }, []);
+
+  return { genre };
+};

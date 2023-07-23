@@ -6,7 +6,7 @@ import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 import cn from "classnames";
 import { useDispatch } from "react-redux";
 import { removeBook } from "../../../store/books/Slice";
-import axios from "axios";
+import { takenSortAdmin } from "../../../utils/takenSort";
 import Catalog from "../adminCatalog/Catalog";
 function Search({ sort, catalog, button }) {
   const dispatch = useDispatch();
@@ -14,31 +14,18 @@ function Search({ sort, catalog, button }) {
   const [activeSortMenu, setActiveSortMenu] = useState(false);
   const [sortBook, setSortBook] = useState([]);
   const [typeSort, setTypeSort] = useState("От А до Я");
-  const getSort = (value) => {
-    switch (value) {
-      case "По алфавиту: От Я до А":
-        axios
-          .get("http://127.0.0.1:8000/sorted/book/?sort=desc")
-          .then((response) => setSortBook(response.data));
-        break;
-      case "По алфавиту: От А до Я":
-        axios
-          .get("http://127.0.0.1:8000/sorted/book/?sort=")
-          .then((response) => setSortBook(response.data));
-        break;
-      default:
-        break;
-    }
-  };
   const handleChange = (event) => {
-    getSort(event.target.textContent);
-    console.log(event.target.textContent);
+    takenSortAdmin(event.target.textContent).then((data) => setSortBook(data));
   };
   return (
     <>
       <div className="search__container">
         <div className="search__inner">
-          <GenresCatalog active={genresActive} setActive={setGenresActive} />
+          <GenresCatalog
+            active={genresActive}
+            setActive={setGenresActive}
+            setSortBook={setSortBook}
+          />
           <div>
             <div className="sort__inner">
               <div
@@ -114,7 +101,7 @@ function Search({ sort, catalog, button }) {
             >
               <Link
                 to="/admin/catalog/add"
-                onClick={dispatch(removeBook)}
+                //onClick={dispatch(removeBook)}
                 className="search__add-link"
               >
                 Добавить книгу
