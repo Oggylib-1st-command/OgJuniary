@@ -68,7 +68,7 @@ function AdminBook() {
     setCurrentCommentpage(p);
     localStorage.setItem("page", p);
   };
-  console.log(book.genres.join("  ").split("  ").join(" / "));
+
   return (
     <div>
       <Header />
