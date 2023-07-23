@@ -46,19 +46,21 @@ const GenresCatalog = ({ active, setActive, setSortBook }) => {
                       clas={"genres__block"}
                     />
                   ))
-              : genre.map((target) => (
-                  <BlockGenres
-                    key={target.id}
-                    id={target.id}
-                    genre={target.main}
-                    subGenres={target.name}
-                    setSortBook={setSortBook}
-                    setActive={setActive}
-                    setShowMore={setShowMore}
-                    showMore={showMore}
-                    clas={"genres__block"}
-                  />
-                ))}
+              : genre
+                  .slice(0, 8)
+                  .map((target) => (
+                    <BlockGenres
+                      key={target.id}
+                      id={target.id}
+                      genre={target.main}
+                      subGenres={target.name}
+                      setSortBook={setSortBook}
+                      setActive={setActive}
+                      setShowMore={setShowMore}
+                      showMore={showMore}
+                      clas={"genres__block"}
+                    />
+                  ))}
           </div>
         </div>
         <Link className="genres__all-genres" to="/admin/catalog/allgenres">

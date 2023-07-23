@@ -39,7 +39,7 @@ export default function BlockGenres({
               {genre.name}
             </p>
           ))
-        : subGenres.slice(0, 5).map((genre) => (
+        : subGenres.slice(0, 4).map((genre) => (
             <p
               key={genre.id}
               id={genre.id}

@@ -1,16 +1,23 @@
 import Header from "../../../components/admin/adminHeader/Header";
 import "./AllGenres.scss";
-import { useInfoGenre } from "./../../../api/api.jsx";
-import BlockGenres from "../../../components/admin/adminBlockGenres/BlockGenres";
+import { useGenres } from "./../../../api/api.jsx";
+import { AdminAllGenres } from "../../../components/admin/adminAllGenres/AdminAllGenres";
 
 const AllGenres = () => {
-  const { genre } = useInfoGenre();
+  const { genre } = useGenres();
   return (
     <div>
       <Header />
-      {genre.map((target) => (
-        <BlockGenres id={target.id} genre={target.name} clas="block__inner" />
-      ))}
+      <div className="allgenres__wrap">
+        {genre.map((target) => (
+          <AdminAllGenres
+            key={target.id}
+            id={target.id}
+            genre={target.main}
+            names={target.name}
+          />
+        ))}
+      </div>
     </div>
   );
 };

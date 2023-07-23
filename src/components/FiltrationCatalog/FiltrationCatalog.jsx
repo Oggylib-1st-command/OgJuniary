@@ -52,6 +52,7 @@ export const FiltrationCatalog = ({ setState, setSort, state }) => {
                   genre={target.main}
                   names={target.name}
                   setSort={setSort}
+                  setState={setState}
                 />
               ))
             : genre
@@ -62,6 +63,7 @@ export const FiltrationCatalog = ({ setState, setSort, state }) => {
                     genre={target.main}
                     names={target.name}
                     setSort={setSort}
+                    setState={setState}
                   />
                 ))}
         </div>

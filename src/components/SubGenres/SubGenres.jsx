@@ -1,11 +1,12 @@
 import axios from "axios";
 import "./subgenres.scss";
 
-export const SubGenres = ({ subGenres, setSort }) => {
+export const SubGenres = ({ subGenres, setSort, setState }) => {
   const handleGenre = (event) => {
     const getGenre = axios
       .get(`http://127.0.0.1:8000/filter/${event.target.id}/`)
       .then((data) => setSort(data.data));
+    setState(false);
   };
   return (
     <div className="subgenres__info">

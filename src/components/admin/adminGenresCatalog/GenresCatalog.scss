@@ -51,7 +51,7 @@
     background-color: white;
     max-width: 1920px;
     width: 95%;
-    min-height: 600px;
+    min-height: 530px;
   }
 
   &__all-genres {
@@ -59,7 +59,7 @@
       width: 100px;
     }
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     display: flex;
     justify-content: center;
     width: 100px;
@@ -78,7 +78,6 @@
     display: flex;
     width: 100%;
     align-items: center;
-    //justify-content: center;
   }
 
   &__list {
@@ -86,7 +85,7 @@
     grid-template-columns: repeat(5, 1fr);
     flex-wrap: wrap;
 
-    grid-gap: 10px 20px;
+    grid-gap: 20px 20px;
   }
 }
 
