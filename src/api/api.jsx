@@ -40,18 +40,20 @@ export const useLogin = () => {
   };
 };
 
-export const useInfoBookId = (id) => {
-  const [book, setBook] = useState("");
+//Перенесенно в Redux
 
-  useEffect(() => {
-    const getBook = async () => {
-      const bookInfo = await axios.get(`http://localhost:8000/books/${id}/`);
-      setBook(bookInfo.data);
-    };
-    getBook();
-  }, []);
-  return { book };
-};
+// export const useInfoBookId = (id) => {
+//   const [book, setBook] = useState("");
+
+//   useEffect(() => {
+//     const getBook = async () => {
+//       const bookInfo = await axios.get(`http://localhost:8000/books/${id}/`);
+//       setBook(bookInfo.data);
+//     };
+//     getBook();
+//   }, []);
+//   return { book };
+// };
 
 export const useInfoBook = () => {
   const [book, setBook] = useState([]);

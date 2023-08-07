@@ -5,32 +5,41 @@ import Cookies from "js-cookie";
 import { useAuth } from "./../../useAuth";
 import getImageKey from "../../getImageKey";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosSearchCatalogeBook } from "../../../store/books/Slice";
+import { useEffect } from "react";
 
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const searchBook = useSelector(
+    (state) => state.books.searchCatalogeBook.allSearchBooks
+  );
   const { signout } = useAuth();
   const [field, setField] = useState("");
+
   const logout = () => {
     Cookies.remove("admin");
     signout(() => navigate("/login", { replace: true }));
   };
-  const postForm = () => {
-    const postSearch = async () => {
-      const search = await axios.get(
-        `http://127.0.0.1:8000/search/?q=${field}`
-      );
 
-      navigate(`/admin/catalog/${search.data[0]?.id || ""}`);
-    };
-    if (field) postSearch();
-    else console.log("Field is empty");
+  const postForm = () => {
+    if (field) {
+      dispatch(axiosSearchCatalogeBook(field));
+    } else navigate("/admin/catalog");
   };
+
   const handleEnter = (key) => {
     if (key.code === "Enter") {
       postForm();
     }
   };
+
+  useEffect(() => {
+    console.log("----------->searchBook.length", searchBook.length);
+    if (searchBook.length !== 0) navigate(`/admin/catalog?S.${field}`);
+  }, [searchBook]);
+
   return (
     <div className="admin-header__inner">
       <div className="admin-header__logo-text-container">

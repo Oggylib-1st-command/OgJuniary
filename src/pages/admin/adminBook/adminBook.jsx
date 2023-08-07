@@ -9,9 +9,8 @@ import CommentCard from "../../../components/admin/commentcard/commentcard";
 import { Pagination } from "@mui/material";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById, removeBook } from "../../../store/books/Slice";
-import { getCurrentBook, getStatusError } from "../../../store/books/selectors";
 import axios from "axios";
+import { axiosBookById, removeSearchBooks } from "../../../store/books/Slice";
 import { ThemeProvider } from "@mui/material/styles";
 import MuiColor from "../../MuiColor";
 
@@ -28,7 +27,7 @@ const lang = {
 function AdminBook() {
   const theme = MuiColor();
   const dispatch = useDispatch();
-  const book = useSelector((state) => state.books.book);
+  const book = useSelector((state) => state.books.currentBook.book);
   const numberPage = parseInt(localStorage.getItem("page")) || 1;
   const { id } = useParams();
   const [reviews, setReviews] = useState([]);
@@ -37,6 +36,13 @@ function AdminBook() {
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("page");
+      dispatch(removeSearchBooks(() => {}));
+    };
+  }, []);
 
   const comment = reviews || [];
   const [currentCommentPage, setCurrentCommentpage] = useState(numberPage);
