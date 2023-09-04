@@ -1,0 +1,28 @@
+.admin-catalog {
+  &__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  &__inner {
+    max-width: 2000px;
+    display: flex;
+    flex-direction: grid;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 40px 40px;
+  }
+}
+
+
+.paggination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}

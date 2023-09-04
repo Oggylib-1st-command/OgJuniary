@@ -1,11 +1,41 @@
 .filter__label {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+  overflow: hidden;
   & span {
-    color: #acabae;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #ffffff;
+    margin-right: 20px;
+    margin-left: 10px;
   }
 }
 .filter__genre-link {
-  margin-right: 10px;
-  font-size: 1rem;
-  color: #000000;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 18px;
+  color: #ffffff;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    color: #fff343;
+  }
+}
+.filter__animate {
+  height: 100%;
+  transform: translateY(-25px);
+  transition: all 0.3s;
+}
+.filter__animate_active {
+  transition: all 0.3s;
+  transform: translateY(0);
+  margin-bottom: 10px;
 }

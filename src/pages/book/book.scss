@@ -1,0 +1,188 @@
+.user-book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 31px 12px 22px 12px;
+  &__card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__reviews {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 360px;
+    & hr {
+      border: 1px solid #ffffff;
+      width: 100%;
+    }
+  }
+}
+
+.book {
+  &__img {
+    max-width: 310px;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 6px;
+  }
+  &__title {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    max-width: 324px;
+    width: 100%;
+    text-align: center;
+  }
+  &__author {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #646464;
+    margin-top: 4px;
+    margin-bottom: 17px;
+    max-width: 316px;
+    width: 100%;
+    text-align: center;
+  }
+  &__response {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 335px;
+    width: 100%;
+    margin-bottom: 22px;
+  }
+  &__heart {
+    background-image: url("./../../assets/icons/main/Card/Heart-Card.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50px;
+    height: 50px;
+    margin-right: 18px;
+    transition: all 0.3s;
+  }
+  &__btn,
+  &__btn_active {
+    padding: 11px 0;
+    width: 260px;
+    background: #fff343;
+    border-radius: 5px;
+    border-color: transparent;
+    outline: none;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    cursor: pointer;
+  }
+  &__btn_active {
+    background: #646464;
+    color: #000000;
+    cursor: pointer;
+  }
+  &__description {
+    max-width: 385px;
+    width: 100%;
+    text-align: start;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    & span {
+      display: block;
+      font-weight: 700;
+    }
+  }
+}
+
+.book__rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 14px 0;
+  &-title {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+  }
+}
+
+.reviews {
+  &__btn {
+    padding: 6px 69px;
+    max-width: 360px;
+    width: 100%;
+    background: #fff343;
+    border-radius: 5px;
+    border-color: transparent;
+    outline: none;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      transition: all 0.3s;
+      opacity: 0.8;
+    }
+  }
+  &__info {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+table,
+th,
+td {
+  border: 1px solid #d9d9d9;
+  border-collapse: collapse;
+}
+
+.table {
+  &__list-info {
+    max-width: 385px;
+    width: 100%;
+    text-align: start;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    margin-bottom: 20px;
+    & span {
+      font-weight: 700;
+      padding-right: 10px;
+    }
+  }
+}

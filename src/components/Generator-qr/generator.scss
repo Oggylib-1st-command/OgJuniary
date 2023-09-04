@@ -1,24 +1,27 @@
-.container__generator{
+.container__generator {
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   max-width: 300px;
+  min-height: 50vh;
   margin: 0 auto;
-  margin-top: 10%;
 }
-.form{
-  &__qr{
-    margin-top: 15px;
+.form {
+  &__qr {
+    margin-top: 35px;
   }
-  &__input-qr{
-    width: 100%;
-    max-width: 250px;
-    outline: none;
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #ffdd00;
+  &__download-qr {
+    padding: 5px;
+    width: 203px;
+    height: 36px;
+    background-color: #D9D9D9;
+    border: none;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
     font-size: 18px;
-    line-height: 28px;
-    color: #ffa200;
+    line-height: 22px;
+    cursor: pointer;
   }
 }

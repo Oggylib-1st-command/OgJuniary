@@ -1,0 +1,262 @@
+@mixin three {
+  @media (min-width: 890px) {
+    @content;
+  }
+}
+
+@mixin four {
+  @media (min-width: 1170px) {
+    @content;
+  }
+}
+
+@mixin five {
+  @media (min-width: 1450px) {
+    @content;
+  }
+}
+
+@mixin six {
+  @media (min-width: 1730px) {
+    @content;
+  }
+}
+
+@mixin seven {
+  @media (min-width: 2010px) {
+    @content;
+  }
+}
+
+.search {
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__inner {
+    @include three() {
+      width: 810px;
+    }
+
+    @include four() {
+      width: 1090px;
+    }
+
+    @include five() {
+      width: 1370px;
+    }
+
+    @include six() {
+      width: 1650px;
+    }
+
+    @include seven() {
+      width: 1930px;
+    }
+    max-height: 1080px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #d9d9d9;
+    margin-top: 26px;
+  }
+  &__add-link {
+    color: #000000;
+  }
+}
+
+.admin {
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__add-link {
+    color: #000000;
+  }
+
+  &__logout-disable {
+    display: none;
+  }
+
+  &__add-books {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    background-color: #fff343;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 9px 5px 9px;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.6s;
+    margin-bottom: 5px;
+    &:hover {
+      background-color: #f3c53f;
+    }
+  }
+
+  &__add-books-disable {
+    display: none;
+  }
+}
+
+.sort {
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__menu {
+    &__active {
+      bottom: -85px;
+      padding: 11px 0 11px 0;
+      position: absolute;
+      width: 253px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.25);
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+      transform: scale(100%);
+      transition: 0.3s;
+    }
+
+    &__disable {
+      bottom: -85px;
+      padding: 11px 0 11px 0;
+      position: absolute;
+      width: 253px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.25);
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+      transform: scale(0%);
+      transition: 0.3s;
+    }
+  }
+
+  &__catalog-text {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  &__sort-text {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  &__catalog-active {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2px 5px 2px 2px;
+    cursor: pointer;
+    p {
+      margin-left: 3px;
+    }
+  }
+
+  &__catalog-disable {
+    display: none;
+  }
+
+  &__catalog-logo {
+    max-width: 25px;
+    max-height: 25px;
+  }
+
+  &__sort-block-active {
+    display: flex;
+    margin-right: 44px;
+
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__sort-block-disable {
+    display: none;
+  }
+
+  &__sort-logo {
+    max-height: 25px;
+    max-width: 25px;
+    position: absolute;
+    align-items: center;
+    top: 1px;
+    left: 1px;
+  }
+
+  &__sort-more {
+    margin-left: 3px;
+    margin-top: 5px;
+    display: flex;
+  }
+
+  &__sorter {
+    width: 24px;
+    border-color: transparent;
+    height: 24px;
+    margin-right: 5px;
+    background-color: transparent;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    appearance: none;
+    color: #000000;
+  }
+
+  &__sort-block-menu {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  &__sort-menu-inner {
+    li {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    li:hover {
+      color: #f3c53f;
+    }
+
+    li:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+}

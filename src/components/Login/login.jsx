@@ -1,76 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../useAuth";
-import "./login.scss";
 import getImageKey from "../getImageKey";
 import Cookies from "js-cookie";
-import axios from "axios";
+import { useLogin, useInfoUser } from "./../../api/api";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
-import './login.scss'
-import Header from './../Header/Header.jsx'
+import "./login.scss";
 
-import userIcon from './../../assets/icons/user-icon.svg'
-import passwordIcon from './../../assets/icons/password-icon.svg'
-import googleIcon from './../../assets/icons/icon-google.svg'
-import Logo from './../../assets/icons/Logo.png'
-import { useAuth } from '../useAuth';
-
-
-function Login(){
-  const [ user, setUser ] = useState([]);
-  const [ profile, setProfile ] = useState([]);
-  const [ form, setForm ] = useState({password:'',email:''})
-
+function Login() {
+  const [form, setForm] = useState({ password: "", email: "" });
+  const [error, setError] = useState(true);
   const navigate = useNavigate();
-  const { signin } = useAuth();
-  const { fromPage } = useAuth();
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
-  });
-
+  const { login, user, profile } = useLogin();
+  const { signin, fromPage } = useAuth();
+  const { infoUser } = useInfoUser();
   useEffect(() => {
-    const getInfo = async () => {
-      try {
-        if (user.length !== 0) {
-          const request = await axios.get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-            {
-              headers: {
-                Authorization: `Bearer ${user.access_token}`,
-                Accept: "application/json",
-              },
-            }
-          );
-          setProfile(request.data);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getInfo();
-  }, [user]);
-
-  useEffect(() => {
-    if (profile.length !== 0) {
-      Cookies.set("profile", JSON.stringify(profile), {
+    const tempUser =
+      infoUser.find((elem) => elem.email === profile.email) || [];
+    if (profile.length !== 0 && tempUser.length !== 0) {
+      tempUser.picture = profile.picture;
+      Cookies.set("profile", JSON.stringify(tempUser), {
         expires: 7,
       });
       signin(user, () => navigate(fromPage, { replace: true }));
+    } else if (profile.length !== 0 && tempUser.length === 0) {
+      const stack = document.querySelector(".stack");
+      stack.style.visibility = "visible";
+      stack.style.opacity = "1";
+      setTimeout(() => {
+        stack.style.visibility = "hidden";
+        stack.style.opacity = "0";
+      }, 2000);
     }
   }, [profile]);
 
   const handleForm = (elem) => {
-    elem.preventDefault();
     if (form.email === "1" && form.password === "1") {
-      signin(user, () => navigate("/admin", { replace: true }));
+      signin(user, () => navigate("/admin/catalog", { replace: true }));
       Cookies.set("admin", true, {
-        expires: -1,
+        expires: 7,
       });
     } else {
-      alert("Ошибка логина или пароля");
+      elem.preventDefault();
+      setForm((prevState) => ({ email: "", password: "" }));
+      setError((current) => !current);
+      const stack = document.querySelector(".stack");
+      stack.style.visibility = "visible";
+      stack.style.opacity = "1";
+      setTimeout(() => {
+        stack.style.visibility = "hidden";
+        stack.style.opacity = "0";
+      }, 2000);
     }
   };
 
@@ -86,14 +69,32 @@ function Login(){
         </Link>
         <p className="header__logo-text">Oggylib</p>
       </div>
+      <Stack
+        sx={{
+          width: "100%",
+          maxWidth: "300px",
+          position: "absolute",
+          top: "15%",
+          visibility: "hidden",
+          transition: "opacity 0.3s, visibility 0s linear 0.3s",
+          opacity: "0",
+        }}
+        className="stack"
+        spacing={2}
+      >
+        <Alert variant="filled" severity="error">
+          Ошибка при авторизации!
+        </Alert>
+      </Stack>
       <div className="form__inner">
-        <form className="form__signin" action="">
+        <form className="form__signin">
           <h2 className="form__title">АВТОРИЗАЦИЯ</h2>
           <label className="form__label">
             <img className="form__icon" src={getImageKey("userIcon")} alt="" />
             <input
-              className="form__input"
+              className={error ? "form__input" : "form__input form--active"}
               type="text"
+              value={form.email}
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, email: e.target.value }))
               }
@@ -102,13 +103,14 @@ function Login(){
           </label>
           <label className="form__label">
             <img
-              className="form__icon"
+              className={"form__icon"}
               src={getImageKey("passwordIcon")}
               alt=""
             />
             <input
-              className="form__input"
+              className={error ? "form__input" : "form__input form--active"}
               type="password"
+              value={form.password}
               onChange={(e) =>
                 setForm((prevState) => ({ ...form, password: e.target.value }))
               }
