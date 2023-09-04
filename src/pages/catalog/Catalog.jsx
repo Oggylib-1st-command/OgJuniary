@@ -1,168 +1,115 @@
 import "./catalog.scss";
-import { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import Card from "../../components/Card/Card";
-import Paggination from "../Paggination";
-import { Filter } from "../../components/Filtration/Filtration";
-import { Link } from "react-router-dom";
-
-const genreMain = [
-  {
-    id: "1",
-    viewTitle: "aaaaa",
-  },
-  {
-    id: "2",
-    viewTitle: "bbbbbb",
-  },
-  {
-    id: "3",
-    viewTitle: "cccccc",
-  },
-  {
-    id: "4",
-    viewTitle: "ddddddd",
-  },
-  {
-    id: "5",
-    viewTitle: "eeeeeee",
-  },
-  {
-    id: "6",
-    viewTitle: "fffffff",
-  },
-];
-function Catalog() {
-  const [book, setBook] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentpage, setCurrentpage] = useState(1);
-  const [bookperpage] = useState(10);
-
-  useEffect(() => {
-    const getBook = async () => {
-      setLoading(true);
-      const res = await axios.get("http://localhost:8000/book/");
-      setBook(res.data);
-      setLoading(false);
-    };
-
-    getBook();
-  }, []);
-
-  const lastBookIndex = currentpage * bookperpage; //последний индекс страницы
-  const firstbookIndex = lastBookIndex - bookperpage; //первый индекс страницы
-  const currentBook = book.slice(firstbookIndex, lastBookIndex); //текущий индекс страницы
-
-  const paginate = (pageNumber) => setCurrentpage(pageNumber);
-  const nextPage = () => setCurrentpage((prev) => prev + 1);
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
-  const prevPage = () => setCurrentpage((prev) => prev - 1);
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
-
-  if (loading) {
-    return (
-      <div className="catalog__inner">
-        <div className="catalog__content">
-          <h2>Loading...</h2>
-        </div>
-      </div>
-    );
-  }
+import { useInfoBook, useInfoUser } from "./../../api/api";
+import EmptyList from "./../../components/EmptyList/EmptyList";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import cn from "classnames";
+import { takenSort } from "../../utils/takenSort";
+import { names } from "../../utils/takenSort";
+import { FiltrationCatalog } from "../../components/FiltrationCatalog/FiltrationCatalog";
+const Catalog = () => {
+  const { book } = useInfoBook();
+  const { infoUser } = useInfoUser();
+  const [sort, setSort] = useState([]);
+  const [name, setName] = useState("");
+  const [state, setState] = useState(false);
+  const handleChange = (event) => {
+    setName(event.target.value);
+    takenSort(event.target.value).then((data) => setSort(data));
+  };
   return (
     <div className="catalog__inner">
       <div className="catalog__content">
         <div className="catalog__search">
-          <button className="catalog__filtration" type="submit">
-            <p className="filter__text">Каталог</p>
-            <div className="filter__info">
-              <h3 className="filter__genre">Жанры</h3>
-              <Link to="#" className="filter__link">
-                <svg
-                  width="26px"
-                  height="26px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></g>
-                  <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <g id="Menu / Close_LG">
-                      {" "}
-                      <path
-                        id="Vector"
-                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
-                        stroke="#000000"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>{" "}
-                    </g>{" "}
-                  </g>
-                </svg>
-              </Link>
-              <ul className="filter__list">
-                {genreMain.map((target) => (
-                  <Filter key={target.id} title={target.viewTitle} />
-                ))}
-              </ul>
-            </div>
+          <button
+            className={cn({
+              catalog__filtration: !state,
+              catalog__filtration_active: state,
+            })}
+            type="submit"
+            onClick={() => setState((state) => !state)}
+          >
+            <p className="filter__text">Фильтрация</p>
           </button>
-          <select className="catalog__sort">
-            <option>По новизне</option>
-            <option>По популярности</option>
-            <option>По алфавиту</option>
-          </select>
+          <div
+            className={cn({
+              filter__info: !state,
+              filter__info_active: state,
+            })}
+          >
+            {state ? (
+              <FiltrationCatalog
+                setState={setState}
+                setSort={setSort}
+                state={state}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+          <Box sx={{ minWidth: 100 }}>
+            <FormControl fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={name}
+                onChange={handleChange}
+                onClick={() => setState(false)}
+                displayEmpty
+                renderValue={name !== "" ? undefined : () => "Каталог"}
+              >
+                {names.map((elem) => (
+                  <MenuItem key={elem.id} value={elem.id} id="menu-item-select">
+                    {elem.state}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
         </div>
-        {currentBook.map((obj) => (
-          <Card
-            key={obj.id}
-            titleLink={obj.title.split(" ").join("")}
-            image={obj.image}
-            author={obj.author}
-            title={obj.title}
-            genre={obj.genres.join(", ")}
+        {book.length === 0 ? (
+          <EmptyList
+            title={undefined}
+            img={"EmptyCatalog"}
+            text={"В библиотеке нет книг"}
           />
-        ))}
-        <Paggination
-          bookPerPage={bookperpage}
-          totalBook={book.length}
-          paginate={paginate}
-        />
-
-        <button
-          className="btn btn-primaryprev"
-          onClick={prevPage}
-          disabled={currentpage === 1 || book.length === 0}
-        >
-          Prev Page
-        </button>
-        <button
-          className="btn btn-primarynext"
-          onClick={nextPage}
-          disabled={
-            currentpage === Math.ceil(book.length / bookperpage) ||
-            book.length === 0
-          }
-        >
-          Next Page
-        </button>
+        ) : (
+          <>
+            {sort.length !== 0
+              ? sort.map((obj) => (
+                  <Card
+                    key={obj.id}
+                    id={obj.id}
+                    image={obj.image}
+                    author={obj.author}
+                    title={obj.title}
+                    genre={obj.genres.join(", ")}
+                    bookings={obj.bookings}
+                    infoUser={infoUser}
+                  />
+                ))
+              : book.map((obj) => (
+                  <Card
+                    key={obj.id}
+                    id={obj.id}
+                    image={obj.image}
+                    author={obj.author}
+                    title={obj.title}
+                    genre={obj.genres.join(", ")}
+                    bookings={obj.bookings}
+                    owner={obj.owner}
+                    infoUser={infoUser}
+                  />
+                ))}
+          </>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Catalog;

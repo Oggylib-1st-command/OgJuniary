@@ -1,4 +1,8 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
   &__inner {
     display: flex;
     justify-content: space-between;
@@ -17,7 +21,7 @@
     min-width: 303px;
     max-width: 412px;
     width: 90%;
-    margin: 100px 0 50px;
+    margin: 90px 0 50px;
     background: rgba(106, 106, 106, 0.8);
     border-radius: 10px;
     padding: 25px 20px;
@@ -37,7 +41,7 @@
     color: #ffffff;
   }
   &__text {
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -51,7 +55,7 @@
     flex-direction: column;
     justify-content: flex-start;
     margin-bottom: 20px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -67,6 +71,18 @@
       height: 25px;
     }
   }
+  &__error {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #ffffff;
+    margin: -15px auto 20px;
+    display: none;
+    &--active {
+      display: block;
+    }
+  }
   &__input {
     background: #d9d9d9;
     border-radius: 10px;
@@ -74,12 +90,13 @@
     outline: none;
     padding: 10px 20px 10px 48px;
     border-color: transparent;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
     color: #3c3c3c;
+    border: 2px solid transparent;
     &::placeholder {
       color: #3c3c3c;
     }
@@ -92,7 +109,7 @@
     margin-right: 0;
     margin-left: auto;
     margin-bottom: 24px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -113,13 +130,17 @@
       width: 110px;
     }
   }
+  &--active {
+    animation: border-pulsate 4s ease-in-out;
+  }
+
   &__singin-btn {
     background: #fff343;
     border-radius: 15px;
     outline: none;
     border-color: transparent;
     padding: 7px 0;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 19px;
@@ -132,9 +153,8 @@
   }
   &__subtext {
     max-width: 303px;
-    margin: 10px auto;
-    margin-bottom: 18px;
-    font-family: "Poppins", sans-serif;
+    margin: 15px auto;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -145,7 +165,7 @@
     margin: 0 auto;
     outline: none;
     padding: 9px 0 9px 30px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -178,4 +198,16 @@
 .btn__container {
   display: flex;
   justify-content: center;
+}
+
+@keyframes border-pulsate {
+  0% {
+    border: 2px solid #ed3737;
+  }
+  50% {
+    border: 2px solid #e35555;
+  }
+  100% {
+    border: 2px solid #df3f3f;
+  }
 }
