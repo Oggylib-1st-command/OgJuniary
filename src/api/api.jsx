@@ -95,7 +95,6 @@ export const useInfoUserId = (id) => {
     };
     getUser();
   }, []);
-  console.log(infoUserId);
   return { infoUserId };
 };
 

@@ -39,7 +39,9 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
   "books/axiosSearchCatalogeBook",
   async function (field, { rejectWithValue }) {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/search/?q=${field}`); // проверить почему отваливаются CORS, если убрать слеш
+      const response = await axios.get(
+        `http://127.0.0.1:8000/search/?q=${field}`
+      ); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -68,7 +70,7 @@ const bookSlice = createSlice({
         year: "",
         languages: "",
         description: "",
-      }
+      },
     },
 
     allCatalogeBook: {
@@ -81,7 +83,6 @@ const bookSlice = createSlice({
       error: null,
       allSearchBooks: [],
     },
-
   },
   reducers: {
     removeBook(state, action) {
@@ -101,7 +102,7 @@ const bookSlice = createSlice({
       state.searchCatalogeBook = {
         status: null,
         error: null,
-        allSearchBooks: []
+        allSearchBooks: [],
       };
     },
   },
@@ -138,7 +139,8 @@ const bookSlice = createSlice({
     },
     [axiosSearchCatalogeBook.fulfilled]: (state, { type, payload }) => {
       state.searchCatalogeBook.status = "resolved";
-      if(payload.length === 0) state.searchCatalogeBook.allSearchBooks = ["NotFound"]
+      if (payload.length === 0)
+        state.searchCatalogeBook.allSearchBooks = ["NotFound"];
       else state.searchCatalogeBook.allSearchBooks = [...payload];
     },
     [axiosSearchCatalogeBook.rejected]: (state, action) => {

@@ -57,7 +57,6 @@ function AdminBook() {
     const getReviews = async () => {
       const getRevie = await axios.get("http://127.0.0.1:8000/reviews/");
       const filt = getRevie.data.filter((el) => +el.book === +id);
-      console.log(filt);
       setReviews(filt);
     };
     getReviews();
@@ -74,7 +73,6 @@ function AdminBook() {
     setCurrentCommentpage(p);
     localStorage.setItem("page", p);
   };
-
   return (
     <div>
       <Header />

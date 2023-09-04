@@ -1,6 +1,6 @@
 import "./AdminAllGenres.scss";
-
-export const AdminAllGenres = (props) => {
+import { memo } from "react";
+export const AdminAllGenres = memo((props) => {
   return (
     <div className="allgenres__info">
       <h3 className="allgenres__title">{props.genre}</h3>
@@ -13,4 +13,4 @@ export const AdminAllGenres = (props) => {
       </div>
     </div>
   );
-};
+});
