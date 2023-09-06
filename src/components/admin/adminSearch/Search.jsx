@@ -101,7 +101,7 @@ function Search({ sort, catalog, button }) {
             >
               <Link
                 to="/admin/catalog/add"
-                //onClick={dispatch(removeBook)}
+                // onClick={dispatch(removeBook)}
                 className="search__add-link"
               >
                 Добавить книгу

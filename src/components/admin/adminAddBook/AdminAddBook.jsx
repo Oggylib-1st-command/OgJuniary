@@ -10,16 +10,6 @@ import { useParams } from "react-router-dom";
 import { getCurrentBook } from "../../../store/books/selectors";
 import { log } from "mathjs";
 
-const lang = {
-  fir: "Русский",
-  sec: "English",
-  null: "",
-  get(lanId) {
-    if (lanId === 1) return this.fir;
-    else if (lanId === 2) return this.sec;
-    else return this.null;
-  },
-};
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.currentBook.book);
@@ -33,7 +23,6 @@ export const AdminAddBook = () => {
   const [allLanguagles, setAllLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
-
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
@@ -46,7 +35,7 @@ export const AdminAddBook = () => {
     });
 
     const dLan = { value: book.languages, label: book.languages };
-    setDefaultLanguage(lang.get(dLan.label));
+    setDefaultLanguage(dLan.label);
     setDefaultGenre(dGen);
   }, [book.genres, book.languagle]);
 

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import Card from "../../components/Card/Card";
 import { useInfoUser } from "./../../api/api";
 import { Link, useNavigate } from "react-router-dom";
-export const TakenBook = () => {
+function TakenBook() {
   const { infoUser } = useInfoUser();
   const [booking, setBooking] = useState([]);
   const navigate = useNavigate();
@@ -47,21 +47,26 @@ export const TakenBook = () => {
           </h2>
         </div>
         <div className="taken__list">
-          {booking.map((card) => (
-            <Card
-              key={card.id}
-              id={card.id}
-              image={card.image}
-              author={card.author}
-              title={card.title}
-              genre={card.genres.join(", ")}
-              bookings={card.bookings}
-              infoUser={infoUser}
-              owner={card.owner}
-            />
-          ))}
+          {booking.length > 0 ? (
+            booking.map((card) => (
+              <Card
+                key={card.id}
+                id={card.id}
+                image={card.image}
+                author={card.author}
+                title={card.title}
+                genre={card.genres.join(", ")}
+                bookings={card.bookings}
+                infoUser={infoUser}
+                owner={card.owner}
+              />
+            ))
+          ) : (
+            <p className="taken__loading">у вас не взятых книг</p>
+          )}
         </div>
       </div>
     </div>
   );
-};
+}
+export default TakenBook;
