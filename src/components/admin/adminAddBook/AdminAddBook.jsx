@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../../store/books/Slice";
 import { useParams } from "react-router-dom";
 import { getCurrentBook } from "../../../store/books/selectors";
+import { log } from "mathjs";
 
 const lang = {
   fir: "Русский",
@@ -21,7 +22,7 @@ const lang = {
 };
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
-  const book = useSelector((state) => state.books.book);
+  const book = useSelector((state) => state.books.currentBook.book);
   const [genresForSelect, setGenresForSelect] = useState([]);
   const [languagesForSelect, setLanguagesForSelect] = useState([]);
   const { id } = useParams();
