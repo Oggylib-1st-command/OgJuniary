@@ -31,6 +31,9 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
       postForm();
     }
   };
+  useEffect(() => {
+    if (searchBook.length !== 0) navigate(`/admin/catalog?S.${field}`);
+  }, [searchBook]);
   return (
     <div className="admin-header__inner">
       <div className="admin-header__logo-text-container">
