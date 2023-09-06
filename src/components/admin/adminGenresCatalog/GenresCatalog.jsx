@@ -9,9 +9,7 @@ import BlockGenres from "../adminBlockGenres/BlockGenres";
 const GenresCatalog = ({ active, setActive, setSortBook }) => {
   const { genre } = useGenres();
   const [showMore, setShowMore] = useState();
-  useEffect(() => {
-    console.log(showMore);
-  }, [showMore]);
+
   return (
     <div
       className={
@@ -43,7 +41,7 @@ const GenresCatalog = ({ active, setActive, setSortBook }) => {
                       setActive={setActive}
                       setShowMore={setShowMore}
                       showMore={showMore}
-                      clas={"genres__block"}
+                      clas={"genres__block-open"}
                     />
                   ))
               : genre

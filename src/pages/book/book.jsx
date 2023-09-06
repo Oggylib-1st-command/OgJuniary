@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Rating } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { ReviewsCard } from "../../components/ReviewsCard/ReviewsCard";
@@ -10,24 +10,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosBookById } from "../../store/books/Slice";
 import Cookies from "js-cookie";
 import { EditReviewsCard } from "../../components/EditReviewsCard/EditReviewsCard";
-const lang = {
-  fir: "Русский",
-  sec: "English",
-  null: "",
-  get(lanId) {
-    if (lanId === 1) return this.fir;
-    else if (lanId === 2) return this.sec;
-    else return this.null;
-  },
-};
+import { useInfoUser } from "./../../api/api";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 function Book() {
   const local = JSON.parse(Cookies.get("profile"));
   const dispatch = useDispatch();
+  const ref = useRef();
   const [active, setActive] = useState(false);
   const { id } = useParams();
   const [edit, setEdit] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState();
+  const { infoUser } = useInfoUser();
+  const [heart, setHeart] = useState();
   const [comment, setComment] = useState({
     text: "",
     value: 0,
@@ -35,14 +32,42 @@ function Book() {
     owner: local.id,
     image: local.picture,
   });
-  const book = useSelector((state) => state.books.book);
+  useEffect(() => {
+    if (infoUser.length > 0) {
+      setHeart(
+        infoUser
+          .find((el) => el.id === local.id)
+          .bookid_favorites?.includes(+id) || false
+      );
+    }
+  }, [infoUser]);
+  const book = useSelector((state) => state.books.currentBook.book);
   const [name, setName] = useState("");
+  const favorites = () => {
+    setHeart((heart) => !heart);
+    const postFavorites = async () => {
+      const favorite = await axios.patch(`http://localhost:8000/books/${id}/`, {
+        bookmarker: local.id,
+      });
+    };
+    const deleteFavorites = async () => {
+      const favorite = await axios.patch(`http://localhost:8000/books/${id}/`, {
+        bookmarker: "",
+      });
+    };
+    if (!heart) {
+      postFavorites();
+    } else {
+      console.log("KKKK");
+      deleteFavorites();
+    }
+  };
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
   useEffect(() => {
     if (book.id === 0) dispatch(axiosBookById(id));
-    else if (comment.text && !active) {
+    else if (comment.text && !active && comment.value > 0) {
       const postReviews = async () => {
         await axios.post("http://127.0.0.1:8000/reviews/", comment);
       };
@@ -53,6 +78,7 @@ function Book() {
     const getReviews = async () => {
       const getRevie = await axios.get("http://127.0.0.1:8000/reviews/");
       const filt = getRevie.data.filter((el) => +el.book === +id);
+      filt.length > 0 ? setError(true) : setError(false);
       setReviews(filt);
     };
     getReviews();
@@ -74,12 +100,36 @@ function Book() {
   }, [stateBtn, isBookings]);
   return (
     <div className="user-book">
+      <Stack
+        sx={{
+          width: "100%",
+          maxWidth: "300px",
+          position: "absolute",
+          top: "15%",
+          visibility: "hidden",
+          transition: "opacity 0.3s, visibility 0s linear 0.3s",
+          opacity: "0",
+        }}
+        className="stack"
+        ref={ref}
+        spacing={2}
+      >
+        <Alert variant="filled" severity="error">
+          Вы уже оставили комментарий к данной книге
+        </Alert>
+      </Stack>
       <div className="user-book__card">
         <img className="book__img" src={book.image} alt="book images" />
         <h3 className="book__title">{book.title}</h3>
         <h5 className="book__author">{book.author}</h5>
         <div className="book__response">
-          <div className="book__heart"></div>
+          <div
+            className={cn({
+              card__heart: !heart,
+              card__heart_active: heart,
+            })}
+            onClick={favorites}
+          ></div>
           <div
             className={cn({
               active__block: !stateBtn && isBookings,
@@ -103,7 +153,7 @@ function Book() {
         </p>
         <p className="table__list-info">
           <span>Язык:</span>
-          {lang.get(book.languages)}
+          {book.languages}
         </p>
         <p className="table__list-info">
           <span>Год издания:</span>
@@ -134,7 +184,13 @@ function Book() {
           />
         ) : (
           <>
-            <button className="reviews__btn" onClick={() => setActive(!active)}>
+            <button
+              className={cn({
+                reviews__btn: !error,
+                "reviews__btn--disabled": error,
+              })}
+              onClick={() => setActive(!active)}
+            >
               {active ? "ОПУБЛИКОВАТЬ ОТЗЫВ" : "ОСТАВИТЬ ОТЗЫВ"}
             </button>
             <hr />

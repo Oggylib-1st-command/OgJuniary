@@ -72,16 +72,16 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    width: 36px;
-    height: 36px;
+    width: 43px;
+    height: 43px;
     margin-right: 10px;
     transition: all 0.3s;
   }
   &__heart_active {
     background-image: url("./../../assets/icons/main/Card/Heart-Card-active.svg");
     background-size: cover;
-    width: 36px;
-    height: 36px;
+    width: 43px;
+    height: 43px;
   }
   &__btn,
   &__btn_active {

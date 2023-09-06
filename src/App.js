@@ -1,11 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
 import Main from "./pages/main/Main";
-import History from "./pages/history/History";
-import Favorites from "./pages/favorites/Favorites";
 import Authorization from "./pages/authorization/Auth";
 import { AdminAdd } from "./pages/admin/adminAdd/AdminAdd";
-import { TakenBook } from "./pages/takenBook/TakenBook";
 import { AdminEdit } from "./pages/admin/adminEdit/AdminEdit";
 import NotFound from "./pages/notfound/notfound";
 import { Layout } from "./components/Layout/Layout";
@@ -15,6 +12,9 @@ import { Suspense, lazy } from "react";
 
 const Catalog = lazy(() => import("./pages/catalog/Catalog"));
 const Book = lazy(() => import("./pages/book/book"));
+const TakenBook = lazy(() => import("./pages/takenBook/TakenBook"));
+const History = lazy(() => import("./pages/history/History"));
+const Favorites = lazy(() => import("./pages/favorites/Favorites"));
 const CatalogAdmin = lazy(() =>
   import("./pages/admin/adminCatalog/adminCatalog")
 );
@@ -52,9 +52,30 @@ function App() {
                 </Suspense>
               }
             />
-            <Route path="history" element={<History />} />
-            <Route path="favorites" element={<Favorites />} />
-            <Route path="takenbook" element={<TakenBook />} />
+            <Route
+              path="history"
+              element={
+                <Suspense>
+                  <History />
+                </Suspense>
+              }
+            />
+            <Route
+              path="favorites"
+              element={
+                <Suspense>
+                  <Favorites />
+                </Suspense>
+              }
+            />
+            <Route
+              path="takenbook"
+              element={
+                <Suspense>
+                  <TakenBook />
+                </Suspense>
+              }
+            />
           </Route>
           <Route path="*" element={<NotFound />} />
           <Route

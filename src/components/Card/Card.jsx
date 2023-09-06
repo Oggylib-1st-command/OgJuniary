@@ -4,7 +4,6 @@ import cn from "classnames";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-//import { useInfoUser } from "../../api/api";
 function Card(props) {
   const local = JSON.parse(Cookies.get("profile"));
   const [name, setName] = useState("ВЗЯТЬ");
@@ -52,16 +51,14 @@ function Card(props) {
           bookmarker: local.id,
         }
       );
-      console.log(favorite);
     };
     const deleteFavorites = async () => {
       const favorite = await axios.patch(
         `http://localhost:8000/books/${props.id}/`,
         {
-          bookmarker: local.id,
+          bookmarker: "",
         }
       );
-      console.log(favorite);
     };
     if (!heart) {
       postFavorites();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../useAuth";
 import getImageKey from "../getImageKey";
@@ -13,7 +13,7 @@ function Login() {
   const [form, setForm] = useState({ password: "", email: "" });
   const [error, setError] = useState(true);
   const navigate = useNavigate();
-
+  const ref = useRef();
   const { login, user, profile } = useLogin();
   const { signin, fromPage } = useAuth();
   const { infoUser } = useInfoUser();
@@ -47,12 +47,11 @@ function Login() {
       elem.preventDefault();
       setForm((prevState) => ({ email: "", password: "" }));
       setError((current) => !current);
-      const stack = document.querySelector(".stack");
-      stack.style.visibility = "visible";
-      stack.style.opacity = "1";
+      ref.current.style.visibility = "visible";
+      ref.current.style.opacity = "1";
       setTimeout(() => {
-        stack.style.visibility = "hidden";
-        stack.style.opacity = "0";
+        ref.current.style.visibility = "hidden";
+        ref.current.style.opacity = "0";
       }, 2000);
     }
   };
@@ -80,6 +79,7 @@ function Login() {
           opacity: "0",
         }}
         className="stack"
+        ref={ref}
         spacing={2}
       >
         <Alert variant="filled" severity="error">

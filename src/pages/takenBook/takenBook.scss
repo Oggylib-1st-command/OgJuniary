@@ -16,4 +16,16 @@
   &__arrow {
     padding-right: 21px;
   }
+  &__loading {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 37px;
+    color: #000000;
+    margin: 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 3rem;
+  }
 }
