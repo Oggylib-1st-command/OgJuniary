@@ -7,11 +7,11 @@ export const AdminUsersAdd = ({ handleAdd }) => {
     name: "",
     surname: "",
   });
-  const addUser = async () => {
+  const addUser = async (e) => {
+    console.log(e);
     if (user.email && user.name && user.surname) {
       await axios.post("http://localhost:8000/users/", user);
-      handleAdd();
-      window.location.reload();
+      handleAdd(e);
     }
   };
   return (
@@ -57,7 +57,7 @@ export const AdminUsersAdd = ({ handleAdd }) => {
           </label>
         </form>
         <div className="users-add__btns">
-          <button className="users-add__yes-btn" onClick={addUser}>
+          <button className="users-add__yes-btn" onClick={(e) => addUser(e)}>
             Сохранить{" "}
           </button>
           <button className="users-add__no-btn" onClick={handleAdd}>

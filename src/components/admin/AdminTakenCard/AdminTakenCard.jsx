@@ -1,18 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById } from "../../../store/books/Slice";
-import { useInfoBookId } from "../../../api/api";
-import { useEffect } from "react";
-
 import "./TakenCard.scss";
-
+import { useInfoBookId } from "../../../api/api";
 export const AdminTakenCard = ({ id, index }) => {
-  const dispatch = useDispatch();
-  const book = useSelector((state) => state.books.book);
-
-  useEffect(() => {
-    dispatch(axiosBookById(id));
-  });
-
+  const { book } = useInfoBookId(id);
   return !book ? (
     <h4>loading...</h4>
   ) : (

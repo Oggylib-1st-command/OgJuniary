@@ -28,12 +28,11 @@ function Users() {
       setUser(res.data);
     };
     getUser();
-  }, []);
+  }, [userAdd, userDelete]);
 
   const handleDelete = (id) => {
     setUserId(id);
     setUserDelete(!userDelete);
-    console.log("delet");
   };
   const handleTaken = (id) => {
     setUserId(id);
@@ -43,12 +42,12 @@ function Users() {
     e.stopPropagation();
     setUserAdd(!userAdd);
   };
-  const navigate = useNavigate();
-  const { signout } = useAuth();
-  const logout = () => {
-    Cookies.remove("admin");
-    signout(() => navigate("/login", { replace: true }));
-  };
+  //const navigate = useNavigate();
+  // const { signout } = useAuth();
+  // const logout = () => {
+  //   Cookies.remove("admin");
+  //   signout(() => navigate("/login", { replace: true }));
+  // };
   const getSort = (value) => {
     switch (value) {
       case "По алфавиту(убывание)":

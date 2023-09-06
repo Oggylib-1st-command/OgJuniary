@@ -12,9 +12,9 @@ const EmptyList = (props) => {
         ) : (
           <>
             <div className="empty__title">
-              {/* <button className="empty__title__back" onClick={navigate(-1)}>
+              <button className="empty__title__back" onClick={navigate(-1)}>
                 <img src={getImageKey("ArrowBack")} alt="#"></img>
-              </button> */}
+              </button>
               <p className="empty__title__text"> {props.title} </p>
             </div>
           </>
