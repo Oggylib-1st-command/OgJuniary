@@ -1,8 +1,9 @@
 import "./adminUsersCard.scss";
 import getImageKey from "./../../../components/getImageKey";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { AdminUsersEdit } from "./AdminUsersEdit";
+import { log } from "mathjs";
 export const AdminUsersCard = ({
   handleDelete,
   handleTaken,
@@ -10,9 +11,11 @@ export const AdminUsersCard = ({
   surname,
   mail,
   id,
+  control
 }) => {
   const [edit, setEdit] = useState(false);
   const [newInfo, setNewInfo] = useState({ name: "", surname: "", email: "" });
+  const [temp,setTemp]=useState(false)
   const handleEdit = async () => {
     const info = await axios.get(`http://localhost:8000/users/${id}/`);
     setNewInfo({
@@ -28,8 +31,13 @@ export const AdminUsersCard = ({
     setEdit(!edit);
     window.location.reload();
   };
+  useEffect(()=>{
+    if(control){
+      setTemp(control.filter((book) => book.owner === id))
+    }
+  },[control])
   return (
-    <div className="users__content-card">
+    <div className={temp.length > 0 ? 'users__content-card--control' : 'users__content-card'}>
       {edit ? (
         <>
           <div className="users__info">
