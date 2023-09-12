@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Rating } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { ReviewsCard } from "../../components/ReviewsCard/ReviewsCard";
@@ -11,10 +11,13 @@ import { axiosBookById } from "../../store/books/Slice";
 import Cookies from "js-cookie";
 import { EditReviewsCard } from "../../components/EditReviewsCard/EditReviewsCard";
 import { useInfoUser } from "./../../api/api";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 function Book() {
   const local = JSON.parse(Cookies.get("profile"));
   const dispatch = useDispatch();
+  const ref = useRef();
   const [active, setActive] = useState(false);
   const { id } = useParams();
   const [edit, setEdit] = useState(false);
@@ -59,34 +62,6 @@ function Book() {
       deleteFavorites();
     }
   };
-  const booking = () => {
-    if (!stateBtn && local) {
-      const postBook = async () => {
-        const bookings = await axios.patch(
-          `http://localhost:8000/books/${book.id}/`,
-          {
-            owner: local.id,
-            bookings: book.id,
-          }
-        );
-      };
-      postBook();
-      setBookings(true);
-      setStateBtn(true);
-    } else {
-      const postBook = async () => {
-        const bookings = await axios.patch(
-          `http://localhost:8000/books/${book.id}/`,
-          {
-            bookings: "",
-          }
-        );
-      };
-      postBook();
-      setBookings(false);
-      setStateBtn(false);
-    }
-  };
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
@@ -125,6 +100,24 @@ function Book() {
   }, [stateBtn, isBookings]);
   return (
     <div className="user-book">
+      <Stack
+        sx={{
+          width: "100%",
+          maxWidth: "300px",
+          position: "absolute",
+          top: "15%",
+          visibility: "hidden",
+          transition: "opacity 0.3s, visibility 0s linear 0.3s",
+          opacity: "0",
+        }}
+        className="stack"
+        ref={ref}
+        spacing={2}
+      >
+        <Alert variant="filled" severity="error">
+          Вы уже оставили комментарий к данной книге
+        </Alert>
+      </Stack>
       <div className="user-book__card">
         <img className="book__img" src={book.image} alt="book images" />
         <h3 className="book__title">{book.title}</h3>
@@ -132,8 +125,8 @@ function Book() {
         <div className="book__response">
           <div
             className={cn({
-              book__heart: !heart,
-              book__heart_active: heart,
+              card__heart: !heart,
+              card__heart_active: heart,
             })}
             onClick={favorites}
           ></div>
@@ -149,7 +142,6 @@ function Book() {
                 book__btn_active: stateBtn,
               })}
               type="submit"
-              onClick={booking}
             >
               {name}
             </button>

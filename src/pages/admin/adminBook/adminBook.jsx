@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { axiosBookById, removeSearchBooks } from "../../../store/books/Slice";
 import { ThemeProvider } from "@mui/material/styles";
-import MuiColor from "./../../MuiColor";
+import MuiColor from "../../MuiColor";
 
 function AdminBook() {
   const theme = MuiColor();
