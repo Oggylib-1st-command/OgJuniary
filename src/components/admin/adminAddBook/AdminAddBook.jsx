@@ -13,6 +13,7 @@ import { log } from "mathjs";
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.currentBook.book);
+  console.log(book);
   const [genresForSelect, setGenresForSelect] = useState([]);
   const [languagesForSelect, setLanguagesForSelect] = useState([]);
   const { id } = useParams();
