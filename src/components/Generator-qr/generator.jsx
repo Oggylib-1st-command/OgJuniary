@@ -5,9 +5,7 @@ import toImg from "react-svg-to-image";
 import "./generator.scss";
 
 function GeneratorQr({ path, id }) {
-  const [textQr, setTextQr] = useState(
-    `http://192.168.0.108:3000${path.split("/admin")[1]}`
-  );
+  const [textQr, setTextQr] = useState(`localhost:3000${path}`);
   const saveQr = (e) => {
     toImg(".GeneratorQr", "name", {
       scale: 1.3,
