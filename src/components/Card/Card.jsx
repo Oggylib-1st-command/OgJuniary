@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 function Card(props) {
   const local = JSON.parse(Cookies.get("profile"));
   const [name, setName] = useState("ВЗЯТЬ");
-  const [active, setActive] = useState(props.bookings ? true : false);
+  const [active, setActive] = useState(props.owner ? true : false);
   const [isBookings, setIsBookings] = useState(props.owner === local.id);
   const [heart, setHeart] = useState(
     props.infoUser
@@ -33,7 +33,7 @@ function Card(props) {
         const bookings = await axios.patch(
           `http://localhost:8000/books/${props.id}/`,
           {
-            bookings: "",
+            owner: null,
           }
         );
       };
