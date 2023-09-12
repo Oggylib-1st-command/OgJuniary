@@ -4,12 +4,13 @@ import { axiosBookById } from "../../../store/books/Slice";
 import { useInfoBookId } from "../../../api/api";
 import { useEffect } from "react";
 export const AdminTakenCard = ({ id, index }) => {
-  const dispatch = useDispatch();
-  const book = useSelector((state) => state.books.book);
-
-  useEffect(() => {
-    dispatch(axiosBookById(id));
-  });
+  // const dispatch = useDispatch();
+  //const book = useSelector((state) => state.books.currentBook.book);
+  const { book } = useInfoBookId(id);
+  // console.log(book);
+  // useEffect(() => {
+  //   dispatch(axiosBookById(id));
+  // }, []);
   return !book ? (
     <h4>loading...</h4>
   ) : (
