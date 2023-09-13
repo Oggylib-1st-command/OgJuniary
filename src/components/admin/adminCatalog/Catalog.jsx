@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   axiosAllCatalogeBook,
   removeSearchBooks,
+  removeAllBooks,
+  removeSortBooks,
 } from "../../../store/books/Slice";
 
 const Catalog = () => {
@@ -30,7 +32,8 @@ const Catalog = () => {
   const lastBookOnPage = currentPage * bookOnPage;
   const firstBookOnPage = lastBookOnPage - bookOnPage;
   useEffect(() => {
-    dispatch(axiosAllCatalogeBook());
+    if (sortBook.length === 0 && searchBook.length === 0)
+      dispatch(axiosAllCatalogeBook());
   }, []);
   useEffect(() => {
     if (sortBook.length !== 0) setCurrentPage(1);
@@ -53,6 +56,8 @@ const Catalog = () => {
     return () => {
       localStorage.removeItem("page");
       dispatch(removeSearchBooks());
+      dispatch(removeAllBooks());
+      dispatch(removeSortBooks());
     };
   }, []);
   const handleChange = (prev, next) => {

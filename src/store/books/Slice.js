@@ -203,16 +203,19 @@ const bookSlice = createSlice({
   },
   reducers: {
     removeBook(state, action) {
-      state.currentBook.book = {
-        id: 0,
-        genres: [],
-        comment: [],
-        image: "",
-        title: "",
-        author: "",
-        year: "",
-        languages: "",
-        description: "",
+      state.currentBook = {
+        status: null,
+        book: {
+          id: 0,
+          genres: [],
+          comment: [],
+          image: "",
+          title: "",
+          author: "",
+          year: "",
+          languages: "",
+          description: "",
+        },
       };
     },
     removeSearchBooks(state, action) {
@@ -220,6 +223,20 @@ const bookSlice = createSlice({
         status: null,
         error: null,
         allSearchBooks: [],
+      };
+    },
+    removeAllBooks(state, action) {
+      state.allCatalogeBook = {
+        status: null,
+        error: null,
+        allBooks: [],
+      };
+    },
+    removeSortBooks(state, action) {
+      state.sortCatalogeBook = {
+        status: null,
+        error: null,
+        sortBook: [],
       };
     },
   },
@@ -294,6 +311,12 @@ const bookSlice = createSlice({
   },
 });
 
-export const { addBook, removeBook, removeSearchBooks } = bookSlice.actions;
+export const {
+  addBook,
+  removeBook,
+  removeSearchBooks,
+  removeAllBooks,
+  removeSortBooks,
+} = bookSlice.actions;
 
 export default bookSlice.reducer;

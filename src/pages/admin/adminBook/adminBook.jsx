@@ -10,7 +10,7 @@ import { Pagination } from "@mui/material";
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { axiosBookById, removeSearchBooks } from "../../../store/books/Slice";
+import { axiosBookById, removeBook } from "../../../store/books/Slice";
 import { ThemeProvider } from "@mui/material/styles";
 import MuiColor from "../../MuiColor";
 
@@ -52,7 +52,7 @@ function AdminBook() {
   useEffect(() => {
     return () => {
       localStorage.removeItem("page");
-      dispatch(removeSearchBooks());
+      dispatch(removeBook());
     };
   }, []);
 

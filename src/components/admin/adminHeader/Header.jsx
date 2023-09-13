@@ -21,19 +21,20 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
     Cookies.remove("admin");
     signout(() => navigate("/login", { replace: true }));
   };
+
   const postForm = () => {
     if (field) {
       dispatch(axiosSearchCatalogeBook(field));
+      navigate(`/admin/catalog?${field}`);
     } else navigate("/admin/catalog");
-    const handleEnter = (key) => {
-      if (key.code === "Enter") {
-        postForm();
-      }
-    };
   };
-  useEffect(() => {
-    if (searchBook.length !== 0) navigate(`/admin/catalog?S.${field}`);
-  }, [searchBook]);
+
+  const handleEnter = (event) => {
+    if (event.code === "Enter") {
+      postForm();
+    }
+  };
+
   return (
     <div className="admin-header__inner">
       <div className="admin-header__logo-text-container">
@@ -58,9 +59,11 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
           type="text"
           placeholder="Поиск"
           value={field}
-          onKeyDown={postForm}
           onChange={(e) => {
             setField(e.target.value);
+          }}
+          onKeyDown={(event) => {
+            handleEnter(event);
           }}
         />
       </label>
