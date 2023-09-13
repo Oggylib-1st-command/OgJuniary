@@ -36,7 +36,6 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   };
 
   useEffect(() => {
-    console.log("----------->searchBook.length", searchBook.length);
     if (searchBook.length !== 0) navigate(`/admin/catalog?S.${field}`);
   }, [searchBook]);
 

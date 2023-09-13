@@ -8,18 +8,24 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import cn from "classnames";
-import { takenSort } from "../../utils/takenSort";
 import { names } from "../../utils/takenSort";
 import { FiltrationCatalog } from "../../components/FiltrationCatalog/FiltrationCatalog";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosSortCatalogeBook } from "../../store/books/Slice";
 const Catalog = () => {
+  const dispatch = useDispatch();
   const { book } = useInfoBook();
   const { infoUser } = useInfoUser();
+  const sortBook = useSelector(
+    (state) => state.books.sortCatalogeBook.sortBook
+  );
   const [sort, setSort] = useState([]);
   const [name, setName] = useState("");
   const [state, setState] = useState(false);
   const handleChange = (event) => {
     setName(event.target.value);
-    takenSort(event.target.value).then((data) => setSort(data));
+    const sortType = event.target.value;
+    dispatch(axiosSortCatalogeBook(sortType));
   };
   return (
     <div className="catalog__inner">
@@ -79,8 +85,8 @@ const Catalog = () => {
           />
         ) : (
           <>
-            {sort.length !== 0
-              ? sort.map((obj) => (
+            {sortBook.length !== 0
+              ? sortBook.map((obj) => (
                   <Card
                     key={obj.id}
                     id={obj.id}

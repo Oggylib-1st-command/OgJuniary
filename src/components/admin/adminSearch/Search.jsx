@@ -4,10 +4,8 @@ import getImageKey from "./../../getImageKey";
 import { useState } from "react";
 import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 import cn from "classnames";
+import { axiosSortAdminCatalogeBook } from "../../../store/books/Slice";
 import { useDispatch } from "react-redux";
-import { removeBook } from "../../../store/books/Slice";
-import { takenSortAdmin } from "../../../utils/takenSort";
-import Catalog from "../adminCatalog/Catalog";
 function Search({ sort, catalog, button }) {
   const dispatch = useDispatch();
   const [genresActive, setGenresActive] = useState(false);
@@ -15,7 +13,8 @@ function Search({ sort, catalog, button }) {
   const [sortBook, setSortBook] = useState([]);
   const [typeSort, setTypeSort] = useState("От А до Я");
   const handleChange = (event) => {
-    takenSortAdmin(event.target.textContent).then((data) => setSortBook(data));
+    const sortType = event.target.textContent;
+    dispatch(axiosSortAdminCatalogeBook(sortType));
   };
   return (
     <>
@@ -99,18 +98,13 @@ function Search({ sort, catalog, button }) {
                 button ? "admin__add-books" : "admin__add-books-disable"
               }
             >
-              <Link
-                to="/admin/catalog/add"
-                //onClick={dispatch(removeBook)}
-                className="search__add-link"
-              >
+              <Link to="/admin/catalog/add" className="search__add-link">
                 Добавить книгу
               </Link>
             </button>
           </div>
         </div>
       </div>
-      <Catalog sortBook={sortBook} />
     </>
   );
 }

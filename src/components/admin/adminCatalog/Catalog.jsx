@@ -11,11 +11,14 @@ import {
   removeSearchBooks,
 } from "../../../store/books/Slice";
 
-function Catalog({ sortBook }) {
+const Catalog = () => {
   const dispatch = useDispatch();
   const theme = MuiColor();
   const searchBook = useSelector(
     (state) => state.books.searchCatalogeBook.allSearchBooks
+  );
+  const sortBook = useSelector(
+    (state) => state.books.sortAdminCatalogeBook.sortAdminBook
   );
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
   const [finalSetBook, setFinalSetBook] = useState([]);
@@ -102,6 +105,6 @@ function Catalog({ sortBook }) {
       )}
     </div>
   );
-}
+};
 
 export default Catalog;

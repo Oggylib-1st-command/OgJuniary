@@ -33,17 +33,6 @@ function AdminBook() {
   const [reviews, setReviews] = useState([]);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  useEffect(() => {
-    dispatch(axiosBookById(id));
-  }, [id]);
-
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem("page");
-      dispatch(removeSearchBooks(() => {}));
-    };
-  }, []);
-
   const comment = reviews || [];
   const [currentCommentPage, setCurrentCommentpage] = useState(numberPage);
   const commentPerPage = 4;
@@ -53,15 +42,6 @@ function AdminBook() {
   const currentComment = comment.slice(firstCommentIndex, lastCommentIndex);
   const countPage = Math.ceil(comment.length / commentPerPage);
 
-  useEffect(() => {
-    const getReviews = async () => {
-      const getRevie = await axios.get("http://127.0.0.1:8000/reviews/");
-      const filt = getRevie.data.filter((el) => +el.book === +id);
-      console.log(filt);
-      setReviews(filt);
-    };
-    getReviews();
-  }, []);
   const toggleQrPopup = () => {
     setIsQrOpen(!isQrOpen);
   };
@@ -74,6 +54,27 @@ function AdminBook() {
     setCurrentCommentpage(p);
     localStorage.setItem("page", p);
   };
+
+  useEffect(() => {
+    dispatch(axiosBookById(id));
+  }, [id]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("page");
+      dispatch(removeSearchBooks());
+    };
+  }, []);
+
+  useEffect(() => {
+    const getReviews = async () => {
+      const getRevie = await axios.get("http://127.0.0.1:8000/reviews/");
+      const filt = getRevie.data.filter((el) => +el.book === +id);
+      console.log(filt);
+      setReviews(filt);
+    };
+    getReviews();
+  }, []);
 
   return (
     <div>

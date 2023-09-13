@@ -39,7 +39,9 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
   "books/axiosSearchCatalogeBook",
   async function (field, { rejectWithValue }) {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/search/?q=${field}`); // проверить почему отваливаются CORS, если убрать слеш
+      const response = await axios.get(
+        `http://127.0.0.1:8000/search/?q=${field}`
+      ); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -48,6 +50,110 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const axiosSortAdminCatalogeBook = createAsyncThunk(
+  "books/axiosSortAdminCatalogeBook",
+  async function (typeSort, { rejectWithValue }) {
+    switch (typeSort) {
+      case "По алфавиту: От Я до А":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/book/?sort=desc"
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      case "По алфавиту: От А до Я":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/book/?sort="
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      default:
+        break;
+    }
+  }
+);
+
+export const axiosSortCatalogeBook = createAsyncThunk(
+  "books/axiosSortCatalogeBook",
+  async function (typeSort, { rejectWithValue }) {
+    switch (typeSort) {
+      case "1":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/time/?sort="
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      case "2":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/rating/?sort="
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      case "3":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/book/?sort=desc"
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      case "4":
+        try {
+          const response = await axios.get(
+            "http://127.0.0.1:8000/sorted/book/?sort="
+          );
+
+          if (response.status !== 200) {
+            throw new Error("server Error!");
+          }
+
+          return response.data;
+        } catch (error) {
+          return rejectWithValue(error.message);
+        }
+      default:
+        break;
     }
   }
 );
@@ -68,7 +174,7 @@ const bookSlice = createSlice({
         year: "",
         languages: "",
         description: "",
-      }
+      },
     },
 
     allCatalogeBook: {
@@ -76,12 +182,24 @@ const bookSlice = createSlice({
       error: null,
       allBooks: [],
     },
+
     searchCatalogeBook: {
       status: null,
       error: null,
       allSearchBooks: [],
     },
 
+    sortAdminCatalogeBook: {
+      status: null,
+      error: null,
+      sortAdminBook: [],
+    },
+
+    sortCatalogeBook: {
+      status: null,
+      error: null,
+      sortBook: [],
+    },
   },
   reducers: {
     removeBook(state, action) {
@@ -101,10 +219,11 @@ const bookSlice = createSlice({
       state.searchCatalogeBook = {
         status: null,
         error: null,
-        allSearchBooks: []
+        allSearchBooks: [],
       };
     },
   },
+
   extraReducers: {
     [axiosBookById.pending]: (state) => {
       state.currentBook.status = "loading";
@@ -138,12 +257,39 @@ const bookSlice = createSlice({
     },
     [axiosSearchCatalogeBook.fulfilled]: (state, { type, payload }) => {
       state.searchCatalogeBook.status = "resolved";
-      if(payload.length === 0) state.searchCatalogeBook.allSearchBooks = ["NotFound"]
+      if (payload.length === 0)
+        state.searchCatalogeBook.allSearchBooks = ["NotFound"];
       else state.searchCatalogeBook.allSearchBooks = [...payload];
     },
     [axiosSearchCatalogeBook.rejected]: (state, action) => {
       state.searchCatalogeBook.status = "rejected";
       state.searchCatalogeBook.error = action.payload;
+    },
+
+    [axiosSortAdminCatalogeBook.pending]: (state) => {
+      state.sortAdminCatalogeBook.status = "loading";
+      state.sortAdminCatalogeBook.error = null;
+    },
+    [axiosSortAdminCatalogeBook.fulfilled]: (state, { type, payload }) => {
+      state.sortAdminCatalogeBook.status = "resolved";
+      state.sortAdminCatalogeBook.sortAdminBook = [...payload];
+    },
+    [axiosSortAdminCatalogeBook.rejected]: (state, action) => {
+      state.sortAdminCatalogeBook.status = "rejected";
+      state.sortAdminCatalogeBook.error = action.payload;
+    },
+
+    [axiosSortCatalogeBook.pending]: (state) => {
+      state.sortCatalogeBook.status = "loading";
+      state.sortCatalogeBook.error = null;
+    },
+    [axiosSortCatalogeBook.fulfilled]: (state, { type, payload }) => {
+      state.sortCatalogeBook.status = "resolved";
+      state.sortCatalogeBook.sortBook = [...payload];
+    },
+    [axiosSortCatalogeBook.rejected]: (state, action) => {
+      state.sortCatalogeBook.status = "rejected";
+      state.sortCatalogeBook.error = action.payload;
     },
   },
 });
