@@ -5,40 +5,35 @@ import Cookies from "js-cookie";
 import { useAuth } from "./../../useAuth";
 import getImageKey from "../../getImageKey";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosSearchCatalogeBook } from "../../../store/books/Slice";
 import { useEffect } from "react";
-
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { signout } = useAuth();
   const searchBook = useSelector(
     (state) => state.books.searchCatalogeBook.allSearchBooks
   );
-  const { signout } = useAuth();
   const [field, setField] = useState("");
-
   const logout = () => {
     Cookies.remove("admin");
     signout(() => navigate("/login", { replace: true }));
   };
-
   const postForm = () => {
     if (field) {
       dispatch(axiosSearchCatalogeBook(field));
     } else navigate("/admin/catalog");
+    const handleEnter = (key) => {
+      if (key.code === "Enter") {
+        postForm();
+      }
+    };
   };
-
-  const handleEnter = (key) => {
-    if (key.code === "Enter") {
-      postForm();
-    }
-  };
-
   useEffect(() => {
     if (searchBook.length !== 0) navigate(`/admin/catalog?S.${field}`);
   }, [searchBook]);
-
   return (
     <div className="admin-header__inner">
       <div className="admin-header__logo-text-container">
@@ -63,7 +58,7 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
           type="text"
           placeholder="Поиск"
           value={field}
-          onKeyDown={handleEnter}
+          onKeyDown={postForm}
           onChange={(e) => {
             setField(e.target.value);
           }}

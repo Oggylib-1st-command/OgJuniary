@@ -7,9 +7,13 @@ import Cookies from "js-cookie";
 function Card(props) {
   const local = JSON.parse(Cookies.get("profile"));
   const [name, setName] = useState("ВЗЯТЬ");
-  const [active, setActive] = useState(props.bookings ? true : false);
-  const [isBookings] = useState(props.owner === local.id);
-  const [heart, setHeart] = useState(false);
+  const [active, setActive] = useState(props.owner ? true : false);
+  const [isBookings, setIsBookings] = useState(props.owner === local.id);
+  const [heart, setHeart] = useState(
+    props.infoUser
+      .find((el) => el.id === local.id)
+      .bookid_favorites?.includes(props.id) || false
+  );
   const booking = () => {
     if (!active && local) {
       const postBook = async () => {
@@ -20,36 +24,47 @@ function Card(props) {
             bookings: props.id,
           }
         );
-        window.location.reload();
       };
       postBook();
+      setIsBookings(true);
+      setActive(true);
     } else {
       const postBook = async () => {
         const bookings = await axios.patch(
           `http://localhost:8000/books/${props.id}/`,
           {
-            bookings: "",
+            owner: null,
           }
         );
-        window.location.reload();
       };
       postBook();
+      setIsBookings(false);
+      setActive(false);
     }
-    setActive((state) => !state);
   };
   const favorites = () => {
     setHeart((heart) => !heart);
     const postFavorites = async () => {
       const favorite = await axios.patch(
-        `http://localhost:8000/users/${local.id}/`,
+        `http://localhost:8000/books/${props.id}/`,
         {
-          bookid_favorites: props.id,
+          bookmarker: local.id,
         }
       );
-      console.log(favorite);
+    };
+    const deleteFavorites = async () => {
+      const favorite = await axios.patch(
+        `http://localhost:8000/books/${props.id}/`,
+        {
+          bookmarker: "",
+        }
+      );
     };
     if (!heart) {
       postFavorites();
+    } else {
+      console.log("KKKK");
+      deleteFavorites();
     }
   };
   useEffect(() => {

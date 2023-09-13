@@ -1,38 +1,39 @@
-.empty{
-  &__title{
+.empty {
+  &__title {
     margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    &__back{
+    &__back {
       background: transparent;
       padding: 0;
       border: 0px;
       margin-right: 40px;
     }
-    &__text{
-      font-family: 'Montserrat';
+    &__text {
+      margin-right: 95px;
+      font-family: "Montserrat";
       font-style: normal;
       font-weight: 700;
       font-size: 30px;
       line-height: 37px;
     }
   }
-  &__content{
-    &__img{
-      margin:auto;
+  &__content {
+    &__img {
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-top: 31px;
     }
-    &__text{
+    &__text {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 40px;  
-      font-family: 'Montserrat';
+      margin-top: 40px;
+      font-family: "Montserrat";
       font-style: normal;
       font-weight: 700;
       font-size: 19px;

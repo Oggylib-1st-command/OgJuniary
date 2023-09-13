@@ -1,6 +1,7 @@
 import "./Catalog.scss";
 import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
 import { Pagination } from "@mui/material";
+import { useInfoBook } from "./../../../api/api";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import EmptyList from "../../EmptyList/EmptyList";
@@ -23,16 +24,17 @@ const Catalog = () => {
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
   const [finalSetBook, setFinalSetBook] = useState([]);
   const [countPage, setCountPage] = useState(0);
-  const NumberPage = parseInt(localStorage.getItem("page")) || 1;
-  const [currentPage, setCurrentPage] = useState(NumberPage);
+  const numberPage = parseInt(localStorage.getItem("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(numberPage);
   const bookOnPage = 20;
   const lastBookOnPage = currentPage * bookOnPage;
   const firstBookOnPage = lastBookOnPage - bookOnPage;
-
   useEffect(() => {
     dispatch(axiosAllCatalogeBook());
   }, []);
-
+  useEffect(() => {
+    if (sortBook.length !== 0) setCurrentPage(1);
+  }, [sortBook]);
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
@@ -53,7 +55,6 @@ const Catalog = () => {
       dispatch(removeSearchBooks());
     };
   }, []);
-
   const handleChange = (prev, next) => {
     setCurrentPage(next);
     localStorage.setItem("page", next);

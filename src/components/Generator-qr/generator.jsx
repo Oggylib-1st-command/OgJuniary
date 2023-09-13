@@ -4,16 +4,14 @@ import { saveAs } from "file-saver";
 import toImg from "react-svg-to-image";
 import "./generator.scss";
 
-function GeneratorQr() {
-  const [textQr, setTextQr] = useState(
-    "https://github.com/Oggylib-1st-command/OgJuniary/tree/GeneratorQr"
-  );
+function GeneratorQr({ path, id }) {
+  const [textQr, setTextQr] = useState(`localhost:3000${path}`);
   const saveQr = (e) => {
     toImg(".GeneratorQr", "name", {
       scale: 1.3,
       format: "jpg",
       download: false,
-    }).then((file) => saveAs(file, "image.jpg"));
+    }).then((file) => saveAs(file, `image_${id}.jpg`));
     e.preventDefault();
   };
   return (

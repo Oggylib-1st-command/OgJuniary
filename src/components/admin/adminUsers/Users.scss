@@ -1,12 +1,13 @@
 .admin {
+  &__users {
+    height: 90vh;
+  }
   &__users-top {
     width: 95vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto;
-    margin-top: 26px;
-    margin-bottom: 30px;
+    margin: 30px auto;
   }
   &__add-users {
     font-family: "Montserrat", sans-serif;

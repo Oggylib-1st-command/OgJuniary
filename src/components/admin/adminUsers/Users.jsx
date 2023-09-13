@@ -13,6 +13,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { log } from "mathjs";
+import { useInfoBook } from "../../../api/api";
 const names = ["По алфавиту(убывание)", "По алфавиту(возрастание)"];
 function Users() {
   const [user, setUser] = useState([]);
@@ -22,18 +24,23 @@ function Users() {
   const [name, setName] = useState("");
   const [userTaken, setUserTaken] = useState(false);
   const [sort, setSort] = useState([]);
+  const {book} = useInfoBook();
+  const [control,setControl] = useState(false);
   useEffect(() => {
     const getUser = async () => {
       const res = await axios.get("http://localhost:8000/users/");
       setUser(res.data);
     };
     getUser();
-  }, []);
-
+  }, [userAdd, userDelete]);
+  useEffect(()=>{
+    if(book.length > 0){
+      setControl(book.filter((data)=> data.control === 2))
+    }
+  },[book])
   const handleDelete = (id) => {
     setUserId(id);
     setUserDelete(!userDelete);
-    console.log("delet");
   };
   const handleTaken = (id) => {
     setUserId(id);
@@ -42,12 +49,6 @@ function Users() {
   const handleAdd = (e) => {
     e.stopPropagation();
     setUserAdd(!userAdd);
-  };
-  const navigate = useNavigate();
-  const { signout } = useAuth();
-  const logout = () => {
-    Cookies.remove("admin");
-    signout(() => navigate("/login", { replace: true }));
   };
   const getSort = (value) => {
     switch (value) {
@@ -115,6 +116,7 @@ function Users() {
                 surname={e.surname}
                 mail={e.email}
                 handleTaken={handleTaken}
+                control={control}
               />
             ))
           : user.map((e) => (
@@ -126,6 +128,7 @@ function Users() {
                 surname={e.surname}
                 mail={e.email}
                 handleTaken={handleTaken}
+                control={control}
               />
             ))}
       </div>

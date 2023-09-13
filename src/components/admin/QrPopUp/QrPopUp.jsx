@@ -2,11 +2,13 @@ import React from "react";
 import "./QrPopUp.scss";
 import GeneratorQr from "../../../components/Generator-qr/generator";
 import getImageKey from "../../../components/getImageKey";
-
+import { useLocation, useParams } from "react-router-dom";
 function QrPop(props) {
   const someHandler = (event) => {
     event.stopPropagation();
   };
+  const { pathname } = useLocation();
+  const { id } = useParams();
   return (
     <div
       className={!props.isActive ? "QrPop__bg" : "QrPop__bg QrPop--active"}
@@ -22,7 +24,7 @@ function QrPop(props) {
           alt="close"
           onClick={props.handleClose}
         ></img>
-        <GeneratorQr></GeneratorQr>
+        <GeneratorQr path={pathname} id={id}></GeneratorQr>
       </div>
     </div>
   );
