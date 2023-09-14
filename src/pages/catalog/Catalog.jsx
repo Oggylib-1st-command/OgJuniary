@@ -76,7 +76,7 @@ const Catalog = () => {
             type="submit"
             onClick={() => setState((state) => !state)}
           >
-            <p className="filter__text">Фильтрация</p>
+            <p className="filter__text">Каталог</p>
           </button>
           <div
             className={cn({
@@ -103,7 +103,7 @@ const Catalog = () => {
                 onChange={handleChange}
                 onClick={() => setState(false)}
                 displayEmpty
-                renderValue={name !== "" ? undefined : () => "Каталог"}
+                renderValue={name !== "" ? undefined : () => "Фильтрация"}
               >
                 {names.map((elem) => (
                   <MenuItem key={elem.id} value={elem.id} id="menu-item-select">
