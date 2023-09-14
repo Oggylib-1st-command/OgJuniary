@@ -9,19 +9,6 @@
     background: #ffffff;
     border-radius: 20px;
     margin-bottom: 20px;
-    border: 3px solid transparent;
-    &--control{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 auto;
-      width: 95vw;
-      height: 120px;
-      background: #ffffff;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      border: 3px solid red;
-    }
   }
   &__options-img {
     display: flex;
