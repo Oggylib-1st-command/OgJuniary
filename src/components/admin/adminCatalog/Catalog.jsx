@@ -1,7 +1,6 @@
 import "./Catalog.scss";
 import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
 import { Pagination } from "@mui/material";
-import { useInfoBook } from "./../../../api/api";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import EmptyList from "../../EmptyList/EmptyList";
@@ -31,13 +30,26 @@ const Catalog = () => {
   const bookOnPage = 20;
   const lastBookOnPage = currentPage * bookOnPage;
   const firstBookOnPage = lastBookOnPage - bookOnPage;
+
+  const handleChange = (prev, next) => {
+    setCurrentPage(next);
+    localStorage.setItem("page", next);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    if (sortBook.length !== 0) setCurrentPage(1);
+  }, [sortBook]);
+
   useEffect(() => {
     if (sortBook.length === 0 && searchBook.length === 0)
       dispatch(axiosAllCatalogeBook());
   }, []);
-  useEffect(() => {
-    if (sortBook.length !== 0) setCurrentPage(1);
-  }, [sortBook]);
+
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
@@ -60,15 +72,6 @@ const Catalog = () => {
       dispatch(removeSortBooks());
     };
   }, []);
-  const handleChange = (prev, next) => {
-    setCurrentPage(next);
-    localStorage.setItem("page", next);
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <div>

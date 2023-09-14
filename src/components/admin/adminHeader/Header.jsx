@@ -1,22 +1,21 @@
 import "./Header.scss";
-
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "./../../useAuth";
 import getImageKey from "../../getImageKey";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { axiosSearchCatalogeBook } from "../../../store/books/Slice";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  axiosSearchCatalogeBook,
+  removeSearchBooks,
+} from "../../../store/books/Slice";
+
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signout } = useAuth();
-  const searchBook = useSelector(
-    (state) => state.books.searchCatalogeBook.allSearchBooks
-  );
   const [field, setField] = useState("");
+
   const logout = () => {
     Cookies.remove("admin");
     signout(() => navigate("/login", { replace: true }));
@@ -26,7 +25,10 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
     if (field) {
       dispatch(axiosSearchCatalogeBook(field));
       navigate(`/admin/catalog?${field}`);
-    } else navigate("/admin/catalog");
+    } else {
+      dispatch(removeSearchBooks());
+      navigate("/admin/catalog");
+    }
   };
 
   const handleEnter = (event) => {
