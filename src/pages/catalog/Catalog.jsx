@@ -1,8 +1,8 @@
 import "./catalog.scss";
 import Card from "../../components/Card/Card";
-import { useInfoBook, useInfoUser } from "./../../api/api";
+import { useInfoUser } from "./../../api/api";
 import EmptyList from "./../../components/EmptyList/EmptyList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -11,22 +11,59 @@ import cn from "classnames";
 import { names } from "../../utils/takenSort";
 import { FiltrationCatalog } from "../../components/FiltrationCatalog/FiltrationCatalog";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosSortCatalogeBook } from "../../store/books/Slice";
+import {
+  axiosSortCatalogeBook,
+  axiosAllCatalogeBook,
+  removeAllBooks,
+  removeSortBooks,
+  removeSearchBooks,
+} from "../../store/books/Slice";
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { book } = useInfoBook();
   const { infoUser } = useInfoUser();
+  const searchBook = useSelector(
+    (state) => state.books.searchCatalogeBook.allSearchBooks
+  );
   const sortBook = useSelector(
     (state) => state.books.sortCatalogeBook.sortBook
   );
+  const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
+  const [finalSetBook, setFinalSetBook] = useState([]);
   const [sort, setSort] = useState([]);
   const [name, setName] = useState("");
   const [state, setState] = useState(false);
+
   const handleChange = (event) => {
     setName(event.target.value);
     const sortType = event.target.value;
     dispatch(axiosSortCatalogeBook(sortType));
+    if (searchBook.length === 0) dispatch(removeSearchBooks());
   };
+
+  useEffect(() => {
+    if (sortBook.length === 0 && searchBook.length === 0)
+      dispatch(axiosAllCatalogeBook());
+  }, []);
+
+  useEffect(() => {
+    if (searchBook.length !== 0) {
+      setFinalSetBook(searchBook);
+    } else if (sortBook.length !== 0) {
+      setFinalSetBook(sortBook);
+    } else {
+      setFinalSetBook(allBook);
+    }
+  }, [searchBook, sortBook, allBook]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("page");
+      dispatch(removeSearchBooks());
+      dispatch(removeAllBooks());
+      dispatch(removeSortBooks());
+    };
+  }, []);
+
   return (
     <div className="catalog__inner">
       <div className="catalog__content">
@@ -39,7 +76,7 @@ const Catalog = () => {
             type="submit"
             onClick={() => setState((state) => !state)}
           >
-            <p className="filter__text">Фильтрация</p>
+            <p className="filter__text">Каталог</p>
           </button>
           <div
             className={cn({
@@ -66,7 +103,7 @@ const Catalog = () => {
                 onChange={handleChange}
                 onClick={() => setState(false)}
                 displayEmpty
-                renderValue={name !== "" ? undefined : () => "Каталог"}
+                renderValue={name !== "" ? undefined : () => "Фильтрация"}
               >
                 {names.map((elem) => (
                   <MenuItem key={elem.id} value={elem.id} id="menu-item-select">
@@ -77,7 +114,7 @@ const Catalog = () => {
             </FormControl>
           </Box>
         </div>
-        {book.length === 0 ? (
+        {finalSetBook[0] === "NotFound" ? (
           <EmptyList
             title={undefined}
             img={"EmptyCatalog"}
@@ -85,32 +122,19 @@ const Catalog = () => {
           />
         ) : (
           <>
-            {sortBook.length !== 0
-              ? sortBook.map((obj) => (
-                  <Card
-                    key={obj.id}
-                    id={obj.id}
-                    image={obj.image}
-                    author={obj.author}
-                    title={obj.title}
-                    genre={obj.genres.join(", ")}
-                    bookings={obj.bookings}
-                    infoUser={infoUser}
-                  />
-                ))
-              : book.map((obj) => (
-                  <Card
-                    key={obj.id}
-                    id={obj.id}
-                    image={obj.image}
-                    author={obj.author}
-                    title={obj.title}
-                    genre={obj.genres.join(", ")}
-                    bookings={obj.bookings}
-                    owner={obj.owner}
-                    infoUser={infoUser}
-                  />
-                ))}
+            {finalSetBook.map((obj) => (
+              <Card
+                key={obj.id}
+                id={obj.id}
+                image={obj.image}
+                author={obj.author}
+                title={obj.title}
+                genre={obj.genres.join(", ")}
+                bookings={obj.bookings}
+                owner={obj.owner}
+                infoUser={infoUser}
+              />
+            ))}
           </>
         )}
       </div>

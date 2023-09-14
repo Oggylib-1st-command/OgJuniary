@@ -4,6 +4,7 @@ import { AdminTakenCard } from "../AdminTakenCard/AdminTakenCard";
 import { useInfoUserId } from "./../../../api/api";
 export const TakenBook = ({ handleTaken, id }) => {
   const { infoUserId } = useInfoUserId(id);
+  console.log(infoUserId);
   return (
     <div className="taken-book">
       <div className="taken-book__wrapper">

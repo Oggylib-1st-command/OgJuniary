@@ -4,33 +4,43 @@ import "./header.scss";
 import getImageKey from "../getImageKey";
 import Navbar from "../Navbar/navbar";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import {
+  axiosSearchCatalogeBook,
+  removeSearchBooks,
+} from "../../store/books/Slice";
 
 function Header() {
+  const dispatch = useDispatch();
   const [active, setActive] = useState(true);
-  const [text, setText] = useState("");
+  const [searchField, setSearchField] = useState("");
   const [show, setShow] = useState(true);
   const navigate = useNavigate();
+
   function handleClick(e) {
-    setText("");
-    if (text) {
+    setSearchField("");
+    if (searchField) {
       postForm();
     }
     return setActive(!active);
   }
+
   const postForm = () => {
-    const postSearch = async () => {
-      const search = await axios.get(`http://127.0.0.1:8000/search/?q=${text}`);
-      navigate(`/catalog/${search.data[0]?.id || ""}`);
-    };
-    if (text) postSearch();
-    else console.log("Field is empty");
+    if (searchField) {
+      dispatch(axiosSearchCatalogeBook(searchField));
+      navigate(`/catalog?${searchField}`);
+    } else {
+      dispatch(removeSearchBooks());
+      navigate("/catalog");
+    }
   };
-  const handleEnter = (key) => {
-    if (key.code === "Enter") {
-      setText("");
+
+  const handleEnter = (event) => {
+    if (event.code === "Enter") {
       postForm();
     }
   };
+
   return (
     <div className="header__inner">
       <Link className="header__logo-link" to="/">
@@ -52,9 +62,9 @@ function Header() {
               : "header__form-input header__form-input--active"
           }
           onChange={(e) => {
-            setText(e.target.value);
+            setSearchField(e.target.value);
           }}
-          value={text}
+          value={searchField}
           type="text"
           placeholder="поиск"
           onKeyDown={handleEnter}
