@@ -25,7 +25,7 @@ const Catalog = () => {
     (state) => state.books.searchCatalogeBook.allSearchBooks
   );
   const sortBook = useSelector(
-    (state) => state.books.sortAdminCatalogeBook.sortAdminBook
+    (state) => state.books.sortCatalogeBook.sortBook
   );
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
   const [finalSetBook, setFinalSetBook] = useState([]);
@@ -37,6 +37,7 @@ const Catalog = () => {
     setName(event.target.value);
     const sortType = event.target.value;
     dispatch(axiosSortCatalogeBook(sortType));
+    if (searchBook.length === 0) dispatch(removeSearchBooks());
   };
 
   useEffect(() => {

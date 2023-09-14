@@ -4,7 +4,10 @@ import getImageKey from "./../../getImageKey";
 import { useState } from "react";
 import GenresCatalog from "../adminGenresCatalog/GenresCatalog";
 import cn from "classnames";
-import { axiosSortAdminCatalogeBook } from "../../../store/books/Slice";
+import {
+  axiosSortAdminCatalogeBook,
+  removeSearchBooks,
+} from "../../../store/books/Slice";
 import { useDispatch } from "react-redux";
 function Search({ sort, catalog, button }) {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ function Search({ sort, catalog, button }) {
   const handleChange = (event) => {
     const sortType = event.target.textContent;
     dispatch(axiosSortAdminCatalogeBook(sortType));
+    dispatch(removeSearchBooks());
   };
   return (
     <>

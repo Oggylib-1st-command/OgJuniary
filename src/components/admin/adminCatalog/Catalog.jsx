@@ -99,7 +99,7 @@ const Catalog = () => {
           )}
         </div>
       </div>
-      {finalSetBook.length === 0 ? (
+      {finalSetBook.length === 0 || finalSetBook[0] === "NotFound" ? (
         <></>
       ) : (
         <ThemeProvider theme={theme}>
