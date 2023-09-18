@@ -27,7 +27,7 @@ export const TakenBook = ({ handleTaken, id }) => {
         <hr />
         <div className="taken-book__list">
           {infoUserId.bookid ? (
-            infoUserId.bookid.length > 1 ? (
+            infoUserId.bookid.length > 0 ? (
               infoUserId.bookid.map((book, index) => (
                 <AdminTakenCard key={book} id={book} index={index} />
               ))

@@ -1,7 +1,6 @@
 import "./Catalog.scss";
 import BookCardCatalog from "./../adminBookCardCatalog/BookCardCatalog";
 import { Pagination } from "@mui/material";
-import { useInfoBook } from "./../../../api/api";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import EmptyList from "../../EmptyList/EmptyList";
@@ -10,12 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   axiosAllCatalogeBook,
   removeSearchBooks,
+  removeAllBooks,
+  removeSortBooks,
 } from "../../../store/books/Slice";
-function Catalog({ sortBook }) {
+
+const Catalog = () => {
   const dispatch = useDispatch();
   const theme = MuiColor();
   const searchBook = useSelector(
     (state) => state.books.searchCatalogeBook.allSearchBooks
+  );
+  const sortBook = useSelector(
+    (state) => state.books.sortAdminCatalogeBook.sortAdminBook
   );
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
   const [finalSetBook, setFinalSetBook] = useState([]);
@@ -25,12 +30,26 @@ function Catalog({ sortBook }) {
   const bookOnPage = 20;
   const lastBookOnPage = currentPage * bookOnPage;
   const firstBookOnPage = lastBookOnPage - bookOnPage;
-  useEffect(() => {
-    dispatch(axiosAllCatalogeBook());
-  }, []);
+
+  const handleChange = (prev, next) => {
+    setCurrentPage(next);
+    localStorage.setItem("page", next);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     if (sortBook.length !== 0) setCurrentPage(1);
   }, [sortBook]);
+
+  useEffect(() => {
+    if (sortBook.length === 0 && searchBook.length === 0)
+      dispatch(axiosAllCatalogeBook());
+  }, []);
+
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
@@ -49,17 +68,10 @@ function Catalog({ sortBook }) {
     return () => {
       localStorage.removeItem("page");
       dispatch(removeSearchBooks());
+      dispatch(removeAllBooks());
+      dispatch(removeSortBooks());
     };
   }, []);
-  const handleChange = (prev, next) => {
-    setCurrentPage(next);
-    localStorage.setItem("page", next);
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <div>
@@ -87,7 +99,7 @@ function Catalog({ sortBook }) {
           )}
         </div>
       </div>
-      {finalSetBook.length === 0 ? (
+      {finalSetBook.length === 0 || finalSetBook[0] === "NotFound" ? (
         <></>
       ) : (
         <ThemeProvider theme={theme}>
@@ -102,6 +114,6 @@ function Catalog({ sortBook }) {
       )}
     </div>
   );
-}
+};
 
 export default Catalog;

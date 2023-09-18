@@ -1,6 +1,6 @@
 import "./BlockGenres.scss";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getImageKey from "../../getImageKey";
 export default function BlockGenres({
   id,
@@ -12,10 +12,11 @@ export default function BlockGenres({
   setShowMore,
   showMore,
 }) {
-  const handleGenre = (event) => {
-    const getGenre = axios
-      .get(`http://127.0.0.1:8000/filter/${event.target.id}/`)
-      .then((data) => setSortBook(data.data));
+  const handleGenre = async (event) => {
+    const getGenre = await axios.get(
+      `http://127.0.0.1:8000/filter/${event.target.id}/`
+    );
+    setSortBook(getGenre.data);
     setActive(false);
   };
   return (
