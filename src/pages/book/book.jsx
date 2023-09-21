@@ -66,7 +66,6 @@ function Book() {
           `http://localhost:8000/books/${book.id}/`,
           {
             owner: local.id,
-            bookings: book.id,
           }
         );
       };
@@ -78,7 +77,7 @@ function Book() {
         const bookings = await axios.patch(
           `http://localhost:8000/books/${book.id}/`,
           {
-            bookings: "",
+            owner: null,
           }
         );
       };

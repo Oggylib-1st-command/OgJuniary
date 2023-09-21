@@ -18,6 +18,23 @@ export const axiosBookById = createAsyncThunk(
   }
 );
 
+export const axiosPopularBook = createAsyncThunk(
+  "books/axiosPopularBook",
+  async function (nothing, { rejectWithValue }) {
+    try {
+      const response = await axios.get(`http://localhost:8000/slider/rating/`); // проверить почему отваливаются CORS, если убрать слеш
+
+      if (response.status !== 200) {
+        throw new Error("server Error!");
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const axiosAllCatalogeBook = createAsyncThunk(
   "books/axiosAllCatalogeBook",
   async function (nothing, { rejectWithValue }) {
@@ -59,6 +76,23 @@ export const axiosFilterCatalogeBook = createAsyncThunk(
   async function (id, { rejectWithValue }) {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/filter/${id}/`); // проверить почему отваливаются CORS, если убрать слеш
+
+      if (response.status !== 200) {
+        throw new Error("server Error!");
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const axiosTimeBook = createAsyncThunk(
+  "books/axiosTimeBook",
+  async function (field, { rejectWithValue }) {
+    try {
+      const response = await axios.get(`http://localhost:8000/slider/time/`);
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -223,6 +257,18 @@ const bookSlice = createSlice({
       error: null,
       sortBook: [],
     },
+
+    popularBook: {
+      status: null,
+      error: null,
+      popBook: [],
+    },
+
+    timeBook: {
+      status: null,
+      error: null,
+      timBook: [],
+    },
   },
   reducers: {
     removeBook(state, action) {
@@ -350,6 +396,32 @@ const bookSlice = createSlice({
     [axiosFilterCatalogeBook.rejected]: (state, action) => {
       state.filterCatalogeBook.status = "rejected";
       state.filterCatalogeBook.error = action.payload;
+    },
+
+    [axiosPopularBook.pending]: (state) => {
+      state.popularBook.status = "loading";
+      state.popularBook.error = null;
+    },
+    [axiosPopularBook.fulfilled]: (state, { type, payload }) => {
+      state.popularBook.status = "resolved";
+      state.popularBook.popBook = [...payload];
+    },
+    [axiosPopularBook.rejected]: (state, action) => {
+      state.popularBook.status = "rejected";
+      state.popularBook.error = action.payload;
+    },
+
+    [axiosTimeBook.pending]: (state) => {
+      state.timeBook.status = "loading";
+      state.timeBook.error = null;
+    },
+    [axiosTimeBook.fulfilled]: (state, { type, payload }) => {
+      state.timeBook.status = "resolved";
+      state.timeBook.timBook = [...payload];
+    },
+    [axiosTimeBook.rejected]: (state, action) => {
+      state.timeBook.status = "rejected";
+      state.timeBook.error = action.payload;
     },
   },
 });

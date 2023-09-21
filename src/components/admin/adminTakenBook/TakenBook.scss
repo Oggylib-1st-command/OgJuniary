@@ -10,9 +10,9 @@
     top: 0;
     left: 0;
     width: 500px;
-    height: 600px;
+    height: auto;
     margin-left: calc(50% - 250px);
-    margin-top: calc(50vh - 300px);
+    margin-top: calc(50vh - 250px);
     background: #ffffff;
     border-radius: 5px;
     padding: 5px 0 0 5px;
@@ -61,5 +61,14 @@
   }
   &__list {
     padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-y: scroll;
+    height: 400px;
+    column-gap: 1.7rem;
+    row-gap: 1.7rem;
+    & h3 {
+      width: 300px;
+    }
   }
 }
