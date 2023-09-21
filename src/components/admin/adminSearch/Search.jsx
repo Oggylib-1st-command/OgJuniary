@@ -7,28 +7,25 @@ import cn from "classnames";
 import {
   axiosSortAdminCatalogeBook,
   removeSearchBooks,
-} from "../../../store/books/Slice";
+  removeFilterBooks,
+} from "../../../store/books/BookSlice";
 import { useDispatch } from "react-redux";
 function Search({ sort, catalog, button }) {
   const dispatch = useDispatch();
   const [genresActive, setGenresActive] = useState(false);
   const [activeSortMenu, setActiveSortMenu] = useState(false);
-  const [sortBook, setSortBook] = useState([]);
   const [typeSort, setTypeSort] = useState("От А до Я");
   const handleChange = (event) => {
     const sortType = event.target.textContent;
     dispatch(axiosSortAdminCatalogeBook(sortType));
     dispatch(removeSearchBooks());
+    dispatch(removeFilterBooks());
   };
   return (
     <>
       <div className="search__container">
         <div className="search__inner">
-          <GenresCatalog
-            active={genresActive}
-            setActive={setGenresActive}
-            setSortBook={setSortBook}
-          />
+          <GenresCatalog active={genresActive} setActive={setGenresActive} />
           <div>
             <div className="sort__inner">
               <div

@@ -54,6 +54,23 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
   }
 );
 
+export const axiosFilterCatalogeBook = createAsyncThunk(
+  "books/axiosFilterCatalogeBook",
+  async function (id, { rejectWithValue }) {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/filter/${id}/`); // проверить почему отваливаются CORS, если убрать слеш
+
+      if (response.status !== 200) {
+        throw new Error("server Error!");
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const axiosSortAdminCatalogeBook = createAsyncThunk(
   "books/axiosSortAdminCatalogeBook",
   async function (typeSort, { rejectWithValue }) {
@@ -183,6 +200,12 @@ const bookSlice = createSlice({
       allBooks: [],
     },
 
+    filterCatalogeBook: {
+      status: null,
+      error: null,
+      filterBooks: [],
+    },
+
     searchCatalogeBook: {
       status: null,
       error: null,
@@ -237,6 +260,13 @@ const bookSlice = createSlice({
         status: null,
         error: null,
         sortBook: [],
+      };
+    },
+    removeFilterBooks(state, action) {
+      state.filterCatalogeBook = {
+        status: null,
+        error: null,
+        filterBooks: [],
       };
     },
   },
@@ -308,6 +338,19 @@ const bookSlice = createSlice({
       state.sortCatalogeBook.status = "rejected";
       state.sortCatalogeBook.error = action.payload;
     },
+
+    [axiosFilterCatalogeBook.pending]: (state) => {
+      state.filterCatalogeBook.status = "loading";
+      state.filterCatalogeBook.error = null;
+    },
+    [axiosFilterCatalogeBook.fulfilled]: (state, { type, payload }) => {
+      state.filterCatalogeBook.status = "resolved";
+      state.filterCatalogeBook.filterBooks = [...payload];
+    },
+    [axiosFilterCatalogeBook.rejected]: (state, action) => {
+      state.filterCatalogeBook.status = "rejected";
+      state.filterCatalogeBook.error = action.payload;
+    },
   },
 });
 
@@ -317,6 +360,7 @@ export const {
   removeSearchBooks,
   removeAllBooks,
   removeSortBooks,
+  removeFilterBooks,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

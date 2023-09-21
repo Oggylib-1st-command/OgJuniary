@@ -17,7 +17,7 @@ import {
   removeAllBooks,
   removeSortBooks,
   removeSearchBooks,
-} from "../../store/books/Slice";
+} from "../../store/books/BookSlice";
 const Catalog = () => {
   const dispatch = useDispatch();
   const { infoUser } = useInfoUser();

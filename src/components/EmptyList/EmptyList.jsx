@@ -2,7 +2,7 @@ import "./EmptyList.scss";
 import getImageKey from "../getImageKey";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removeSearchBooks } from "../../store/books/Slice";
+import { removeSearchBooks } from "../../store/books/BookSlice";
 
 const EmptyList = (props) => {
   const navigate = useNavigate();

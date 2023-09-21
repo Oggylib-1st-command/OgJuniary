@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import {
   axiosSearchCatalogeBook,
   removeSearchBooks,
-} from "../../store/books/Slice";
+} from "../../store/books/BookSlice";
 
 function Header() {
   const dispatch = useDispatch();
