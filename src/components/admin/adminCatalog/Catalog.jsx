@@ -58,17 +58,14 @@ const Catalog = () => {
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
-      setCurrentPage(1);
     } else if (filterBook.length !== 0) {
       setFinalSetBook(filterBook);
-      setCurrentPage(1);
     } else if (sortBook.length !== 0) {
       setFinalSetBook(sortBook);
-      setCurrentPage(1);
     } else {
       setFinalSetBook(allBook);
-      setCurrentPage(1);
     }
+    setCurrentPage(1);
   }, [searchBook, sortBook, allBook, filterBook]);
 
   useEffect(() => {

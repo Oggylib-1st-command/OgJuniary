@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./header.scss";
 import getImageKey from "../getImageKey";
 import Navbar from "../Navbar/navbar";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   axiosSearchCatalogeBook,

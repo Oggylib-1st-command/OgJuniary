@@ -17,6 +17,7 @@ import {
   removeAllBooks,
   removeSortBooks,
   removeSearchBooks,
+  removeFilterBooks,
 } from "../../store/books/BookSlice";
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -28,16 +29,18 @@ const Catalog = () => {
     (state) => state.books.sortCatalogeBook.sortBook
   );
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
+  const filterBook = useSelector(
+    (state) => state.books.filterCatalogeBook.filterBooks
+  );
   const [finalSetBook, setFinalSetBook] = useState([]);
-  const [sort, setSort] = useState([]);
   const [name, setName] = useState("");
   const [state, setState] = useState(false);
 
   const handleChange = (event) => {
-    setName(event.target.value);
     const sortType = event.target.value;
     dispatch(axiosSortCatalogeBook(sortType));
-    if (searchBook.length === 0) dispatch(removeSearchBooks());
+    dispatch(removeSearchBooks());
+    dispatch(removeFilterBooks());
   };
 
   useEffect(() => {
@@ -48,12 +51,14 @@ const Catalog = () => {
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
+    } else if (filterBook.length !== 0) {
+      setFinalSetBook(filterBook);
     } else if (sortBook.length !== 0) {
       setFinalSetBook(sortBook);
     } else {
       setFinalSetBook(allBook);
     }
-  }, [searchBook, sortBook, allBook]);
+  }, [searchBook, sortBook, allBook, filterBook]);
 
   useEffect(() => {
     return () => {
@@ -85,11 +90,7 @@ const Catalog = () => {
             })}
           >
             {state ? (
-              <FiltrationCatalog
-                setState={setState}
-                setSort={setSort}
-                state={state}
-              />
+              <FiltrationCatalog setState={setState} state={state} />
             ) : (
               <></>
             )}
@@ -103,7 +104,7 @@ const Catalog = () => {
                 onChange={handleChange}
                 onClick={() => setState(false)}
                 displayEmpty
-                renderValue={name !== "" ? undefined : () => "Фильтрация"}
+                renderValue={name !== "" ? undefined : () => "Сортировка"}
               >
                 {names.map((elem) => (
                   <MenuItem key={elem.id} value={elem.id} id="menu-item-select">

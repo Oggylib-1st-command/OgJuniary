@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   axiosFilterCatalogeBook,
   removeSearchBooks,
+  removeAdminSortBooks,
 } from "../../../store/books/BookSlice";
 
 const BlockGenres = ({
@@ -19,6 +20,7 @@ const BlockGenres = ({
   const handleGenre = (event) => {
     dispatch(axiosFilterCatalogeBook(event.target.id));
     dispatch(removeSearchBooks());
+    dispatch(removeAdminSortBooks());
     setActive(false);
   };
 

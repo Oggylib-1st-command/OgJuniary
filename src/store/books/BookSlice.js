@@ -308,6 +308,13 @@ const bookSlice = createSlice({
         sortBook: [],
       };
     },
+    removeAdminSortBooks(state, action) {
+      state.sortAdminCatalogeBook = {
+        status: null,
+        error: null,
+        sortAdminBook: [],
+      };
+    },
     removeFilterBooks(state, action) {
       state.filterCatalogeBook = {
         status: null,
@@ -433,6 +440,7 @@ export const {
   removeAllBooks,
   removeSortBooks,
   removeFilterBooks,
+  removeAdminSortBooks,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

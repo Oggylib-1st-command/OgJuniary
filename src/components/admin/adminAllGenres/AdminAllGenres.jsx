@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   axiosFilterCatalogeBook,
   removeSearchBooks,
+  removeAdminSortBooks,
 } from "../../../store/books/BookSlice";
 
 export const AdminAllGenres = memo((props) => {
@@ -13,6 +14,7 @@ export const AdminAllGenres = memo((props) => {
   const handleGenre = (event) => {
     dispatch(axiosFilterCatalogeBook(event.target.id));
     dispatch(removeSearchBooks());
+    dispatch(removeAdminSortBooks());
     navigate("/admin/catalog");
   };
   return (
