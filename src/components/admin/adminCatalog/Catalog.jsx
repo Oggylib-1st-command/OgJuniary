@@ -11,7 +11,8 @@ import {
   removeSearchBooks,
   removeAllBooks,
   removeSortBooks,
-} from "../../../store/books/Slice";
+} from "../../../store/books/BookSlice";
+import { axiosAllGenre } from "../../../store/genre/GenreSlice";
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const Catalog = () => {
   );
   const sortBook = useSelector(
     (state) => state.books.sortAdminCatalogeBook.sortAdminBook
+  );
+  const filterBook = useSelector(
+    (state) => state.books.filterCatalogeBook.filterBooks
   );
   const allBook = useSelector((state) => state.books.allCatalogeBook.allBooks);
   const [finalSetBook, setFinalSetBook] = useState([]);
@@ -42,23 +46,27 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    if (sortBook.length !== 0) setCurrentPage(1);
-  }, [sortBook]);
-
-  useEffect(() => {
-    if (sortBook.length === 0 && searchBook.length === 0)
+    dispatch(axiosAllGenre());
+    if (
+      sortBook.length === 0 &&
+      searchBook.length === 0 &&
+      filterBook.length === 0
+    )
       dispatch(axiosAllCatalogeBook());
   }, []);
 
   useEffect(() => {
     if (searchBook.length !== 0) {
       setFinalSetBook(searchBook);
+    } else if (filterBook.length !== 0) {
+      setFinalSetBook(filterBook);
     } else if (sortBook.length !== 0) {
       setFinalSetBook(sortBook);
     } else {
       setFinalSetBook(allBook);
     }
-  }, [searchBook, sortBook, allBook]);
+    setCurrentPage(1);
+  }, [searchBook, sortBook, allBook, filterBook]);
 
   useEffect(() => {
     setCountPage(Math.ceil(finalSetBook.length / bookOnPage));

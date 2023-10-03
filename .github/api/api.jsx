@@ -40,24 +40,6 @@ export const useLogin = () => {
   };
 };
 
-export const useInfoBookId = (id) => {
-  const [book, setBook] = useState("");
-
-  useEffect(() => {
-    const getBook = async () => {
-      if (id) {
-        const bookInfo = await axios.get(`http://localhost:8000/book/${id}/`);
-        setBook(bookInfo.data);
-      } else {
-        const res = await axios.get("http://localhost:8000/book/");
-        setBook(res.data);
-      }
-    };
-    getBook();
-  }, []);
-  return { book };
-};
-
 export const useInfoBook = () => {
   const [book, setBook] = useState([]);
 

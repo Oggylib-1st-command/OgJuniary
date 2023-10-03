@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./header.scss";
 import getImageKey from "../getImageKey";
 import Navbar from "../Navbar/navbar";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   axiosSearchCatalogeBook,
   removeSearchBooks,
-} from "../../store/books/Slice";
+} from "../../store/books/BookSlice";
 
 function Header() {
   const dispatch = useDispatch();

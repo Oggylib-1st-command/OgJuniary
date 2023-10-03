@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Check.scss";
 import cn from "classnames";
 import { SubGenres } from "../SubGenres/SubGenres";
-export const Check = ({ genre, names, setSort, setState }) => {
+export const Check = ({ genre, names, setState }) => {
   const [active, setActive] = useState(false);
   const handleChange = (event) => {
     event.stopPropagation();
@@ -22,11 +22,7 @@ export const Check = ({ genre, names, setSort, setState }) => {
           filter__animate_active: active,
         })}
       >
-        {active ? (
-          <SubGenres setSort={setSort} subGenres={names} setState={setState} />
-        ) : (
-          <></>
-        )}
+        {active ? <SubGenres subGenres={names} setState={setState} /> : <></>}
       </div>
     </>
   );

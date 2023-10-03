@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Check } from "./../../components/Check/Check";
 import { useState } from "react";
 import { useGenres } from "./../../api/api.jsx";
-export const FiltrationCatalog = ({ setState, setSort, state }) => {
+export const FiltrationCatalog = ({ setState, state }) => {
   const [showMore, setShowMore] = useState(false);
   const { genre } = useGenres();
   return (
@@ -51,7 +51,6 @@ export const FiltrationCatalog = ({ setState, setSort, state }) => {
                   key={target.id}
                   genre={target.main}
                   names={target.name}
-                  setSort={setSort}
                   setState={setState}
                 />
               ))
@@ -62,7 +61,6 @@ export const FiltrationCatalog = ({ setState, setSort, state }) => {
                     key={target.id}
                     genre={target.main}
                     names={target.name}
-                    setSort={setSort}
                     setState={setState}
                   />
                 ))}
