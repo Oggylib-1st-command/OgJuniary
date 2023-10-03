@@ -8,6 +8,7 @@ function QrPop(props) {
     event.stopPropagation();
   };
   const { pathname } = useLocation();
+  console.log(pathname);
   const { id } = useParams();
   return (
     <div
@@ -24,7 +25,7 @@ function QrPop(props) {
           alt="close"
           onClick={props.handleClose}
         ></img>
-        <GeneratorQr path={pathname} id={id}></GeneratorQr>
+        <GeneratorQr path={window.location.href} id={id}></GeneratorQr>
       </div>
     </div>
   );

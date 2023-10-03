@@ -8,6 +8,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
 import "./login.scss";
+import axios from "axios";
 
 function Login() {
   const [form, setForm] = useState({ password: "", email: "" });
@@ -16,6 +17,7 @@ function Login() {
   const ref = useRef();
   const { login, user, profile } = useLogin();
   const { signin, fromPage } = useAuth();
+  const [auth, setAuth] = useState();
   const { infoUser } = useInfoUser();
   useEffect(() => {
     const tempUser =
@@ -38,24 +40,35 @@ function Login() {
   }, [profile]);
 
   const handleForm = (elem) => {
-    if (form.email === "1" && form.password === "1") {
-      signin(user, () => navigate("/admin/catalog", { replace: true }));
-      Cookies.set("admin", true, {
-        expires: 7,
-      });
-    } else {
-      elem.preventDefault();
-      setForm((prevState) => ({ email: "", password: "" }));
-      setError((current) => !current);
-      ref.current.style.visibility = "visible";
-      ref.current.style.opacity = "1";
-      setTimeout(() => {
-        ref.current.style.visibility = "hidden";
-        ref.current.style.opacity = "0";
-      }, 2000);
-    }
+    elem.preventDefault();
+    const login = async () => {
+      const adminLogin = await axios
+        .post("http://localhost:8000/check-admin/", form)
+        .then((data) => setAuth(data))
+        .catch((error) => setAuth(error));
+    };
+    login();
   };
-
+  useEffect(() => {
+    if (typeof auth === "object") {
+      console.log(JSON.parse(auth?.request.response).authenticated);
+      if (JSON.parse(auth?.request.response).authenticated === true) {
+        signin(user, () => navigate("/admin/catalog", { replace: true }));
+        Cookies.set("admin", true, {
+          expires: 7,
+        });
+      } else if (JSON.parse(auth?.request.response).authenticated === false) {
+        setForm((prevState) => ({ email: "", password: "" }));
+        setError((current) => !current);
+        ref.current.style.visibility = "visible";
+        ref.current.style.opacity = "1";
+        setTimeout(() => {
+          ref.current.style.visibility = "hidden";
+          ref.current.style.opacity = "0";
+        }, 2000);
+      }
+    }
+  }, [auth]);
   return (
     <div className="container">
       <div className="container__inner">
