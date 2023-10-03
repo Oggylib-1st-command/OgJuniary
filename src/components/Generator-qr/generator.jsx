@@ -6,7 +6,7 @@ import "./generator.scss";
 
 function GeneratorQr({ path, id }) {
   const [textQr, setTextQr] = useState(
-    `http://192.168.0.108:3000${path.split("/admin")[1]}`
+    path.split("admin/")[0].concat(path.split("admin/")[1])
   );
   const saveQr = (e) => {
     toImg(".GeneratorQr", "name", {
