@@ -115,7 +115,7 @@ const Catalog = () => {
             </FormControl>
           </Box>
         </div>
-        {finalSetBook[0] === "NotFound" ? (
+        {finalSetBook[0] === "NotFound" || finalSetBook.length === 0 ? (
           <EmptyList
             title={undefined}
             img={"EmptyCatalog"}

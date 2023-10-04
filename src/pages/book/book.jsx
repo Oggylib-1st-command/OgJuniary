@@ -7,7 +7,7 @@ import cn from "classnames";
 import axios from "axios";
 import "./book.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById } from "../../store/books/BookSlice";
+import { axiosBookById, removeBook } from "../../store/books/BookSlice";
 import Cookies from "js-cookie";
 import { EditReviewsCard } from "../../components/EditReviewsCard/EditReviewsCard";
 import { useInfoUser } from "./../../api/api";
@@ -29,17 +29,11 @@ function Book() {
     owner: local.id,
     image: local.picture,
   });
-  useEffect(() => {
-    if (infoUser.length > 0) {
-      setHeart(
-        infoUser
-          .find((el) => el.id === local.id)
-          .bookid_favorites?.includes(+id) || false
-      );
-    }
-  }, [infoUser]);
   const book = useSelector((state) => state.books.currentBook.book);
   const [name, setName] = useState("");
+  const [stateBtn, setStateBtn] = useState(book.owner ? true : false);
+  const [isBookings, setBookings] = useState(book.owner === local.id);
+
   const favorites = () => {
     setHeart((heart) => !heart);
     const postFavorites = async () => {
@@ -59,6 +53,7 @@ function Book() {
       deleteFavorites();
     }
   };
+
   const booking = () => {
     if (!stateBtn && local) {
       const postBook = async () => {
@@ -86,9 +81,21 @@ function Book() {
       setStateBtn(false);
     }
   };
+
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
+
+  useEffect(() => {
+    if (infoUser.length > 0) {
+      setHeart(
+        infoUser
+          .find((el) => el.id === local.id)
+          .bookid_favorites?.includes(+id) || false
+      );
+    }
+  }, [infoUser]);
+
   useEffect(() => {
     if (book.id === 0) dispatch(axiosBookById(id));
     else if (comment.text && !active && comment.value > 0) {
@@ -107,12 +114,12 @@ function Book() {
     };
     getReviews();
   }, [id, active]);
+
   useEffect(() => {
     setStateBtn(book.owner ? true : false);
     setBookings(book.owner === local.id);
   }, [stateBtn, book]);
-  const [stateBtn, setStateBtn] = useState(book.owner ? true : false);
-  const [isBookings, setBookings] = useState(book.owner === local.id);
+
   useEffect(() => {
     if (stateBtn && isBookings) {
       setName("ВАШЕ");
@@ -122,6 +129,13 @@ function Book() {
       setName("ВЗЯТЬ");
     }
   }, [stateBtn, isBookings]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeBook());
+    };
+  }, []);
+
   return (
     <div className="user-book">
       <div className="user-book__card">

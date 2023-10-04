@@ -11,6 +11,10 @@ export const axiosBookById = createAsyncThunk(
         throw new Error("server Error!");
       }
 
+      response.data.genres = response.data.genres.map((obj) => {
+        return obj.name;
+      });
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -57,7 +61,7 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
   async function (field, { rejectWithValue }) {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/search/?q=${field}`
+        `http://127.0.0.1:8000/search/books/?q=${field}`
       ); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {

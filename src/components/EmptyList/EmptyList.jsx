@@ -3,6 +3,7 @@ import getImageKey from "../getImageKey";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeSearchBooks } from "../../store/books/BookSlice";
+import { removeSearchUsers } from "../../store/users/UserSlice";
 
 const EmptyList = (props) => {
   const navigate = useNavigate();
@@ -10,12 +11,14 @@ const EmptyList = (props) => {
   const urlPath = window.location.pathname;
 
   const backtoMain = () => {
-    console.log("--------->urlPath", urlPath.indexOf("admin"));
     if (urlPath.indexOf("admin") === -1) {
       navigate("/catalog");
-    } else {
+    } else if (urlPath.indexOf("admin/catalog") >= 0) {
       dispatch(removeSearchBooks());
       navigate("/admin/catalog");
+    } else if (urlPath.indexOf("admin/user") >= 0) {
+      dispatch(removeSearchUsers());
+      navigate("/admin/users");
     }
   };
   return (

@@ -1,75 +1,86 @@
 import "./Users.scss";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useAuth } from "./../../useAuth";
 import { AdminUsersCard } from "../adminUsersCard/AdminUsersCard";
-import Cookies from "js-cookie";
 import { AdminUsersDelete } from "../adminUsersDelete/AdminUsersDelete";
 import { AdminUsersAdd } from "../adminUsersAdd/AdminUsersAdd";
-import axios from "axios";
 import { TakenBook } from "../adminTakenBook/TakenBook";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { log } from "mathjs";
 import { useInfoBook } from "../../../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  axiosAllCatalogeUser,
+  axiosSortCatalogeUser,
+  removeSortUsers,
+} from "../../../store/users/UserSlice";
+import EmptyList from "../../EmptyList/EmptyList";
+
 const names = ["По алфавиту(убывание)", "По алфавиту(возрастание)"];
+
 function Users() {
-  const [user, setUser] = useState([]);
+  const dispatch = useDispatch();
+  const allUser = useSelector((state) => state.users.allUsers.user);
+  const searchUser = useSelector((state) => state.users.searchUsers.searchUser);
+  const sortUser = useSelector((state) => state.users.sortUsers.sortUser);
+  const [finalSetUsers, setFinalSetUsers] = useState([]);
   const [userDelete, setUserDelete] = useState(false);
   const [userAdd, setUserAdd] = useState(false);
   const [userId, setUserId] = useState();
   const [name, setName] = useState("");
   const [userTaken, setUserTaken] = useState(false);
   const [sort, setSort] = useState([]);
-  const {book} = useInfoBook();
-  const [control,setControl] = useState(false);
+  const { book } = useInfoBook();
+  const [control, setControl] = useState(false);
+
   useEffect(() => {
-    const getUser = async () => {
-      const res = await axios.get("http://localhost:8000/users/");
-      setUser(res.data);
-    };
-    getUser();
+    dispatch(axiosAllCatalogeUser());
   }, [userAdd, userDelete]);
-  useEffect(()=>{
-    if(book.length > 0){
-      setControl(book.filter((data)=> data.control === 2))
+
+  useEffect(() => {
+    if (book.length > 0) {
+      setControl(book.filter((data) => data.control === 2));
     }
-  },[book])
+  }, [book]);
+
+  useEffect(() => {
+    if (searchUser.length !== 0) {
+      setFinalSetUsers(searchUser);
+    } else if (sortUser.length !== 0) {
+      setFinalSetUsers(sortUser);
+    } else {
+      setFinalSetUsers(allUser);
+    }
+  }, [searchUser, allUser, sortUser]);
+
   const handleDelete = (id) => {
     setUserId(id);
     setUserDelete(!userDelete);
   };
+
   const handleTaken = (id) => {
     setUserId(id);
     setUserTaken(!userTaken);
   };
+
   const handleAdd = (e) => {
     e.stopPropagation();
     setUserAdd(!userAdd);
   };
+
   const getSort = (value) => {
-    switch (value) {
-      case "По алфавиту(убывание)":
-        axios
-          .get("http://127.0.0.1:8000/sorted/user/?sort=desc")
-          .then((response) => setSort(response.data));
-        break;
-      case "По алфавиту(возрастание)":
-        axios
-          .get("http://127.0.0.1:8000/sorted/user/?sort=")
-          .then((response) => setSort(response.data));
-        break;
-      default:
-        break;
-    }
+    dispatch(removeSortUsers());
+    dispatch(axiosSortCatalogeUser(value));
   };
+
   const handleChange = (event) => {
     setName(event.target.value);
     getSort(event.target.value);
   };
+
+  console.log(searchUser);
   return (
     <div
       className={
@@ -106,31 +117,26 @@ function Users() {
         )}
         {userAdd && <AdminUsersAdd handleAdd={handleAdd} />}
         {userTaken && <TakenBook handleTaken={handleTaken} id={userId} />}
-        {sort.length !== 0
-          ? sort.map((e) => (
-              <AdminUsersCard
-                key={e.id}
-                id={e.id}
-                handleDelete={handleDelete}
-                userName={e.name}
-                surname={e.surname}
-                mail={e.email}
-                handleTaken={handleTaken}
-                control={control}
-              />
-            ))
-          : user.map((e) => (
-              <AdminUsersCard
-                key={e.id}
-                id={e.id}
-                handleDelete={handleDelete}
-                userName={e.name}
-                surname={e.surname}
-                mail={e.email}
-                handleTaken={handleTaken}
-                control={control}
-              />
-            ))}
+        {finalSetUsers.length === 0 || finalSetUsers[0] === "NotFound" ? (
+          <EmptyList
+            title={undefined}
+            img={"EmptyCatalog"}
+            text={"В базе нет людей"}
+          />
+        ) : (
+          finalSetUsers.map((e) => (
+            <AdminUsersCard
+              key={e.id}
+              id={e.id}
+              handleDelete={handleDelete}
+              userName={e.name}
+              surname={e.surname}
+              mail={e.email}
+              handleTaken={handleTaken}
+              control={control}
+            />
+          ))
+        )}
       </div>
     </div>
   );

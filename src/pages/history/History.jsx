@@ -9,6 +9,7 @@ function History() {
   const [history] = useState([]);
   const navigate = useNavigate();
   const { infoUser } = useInfoUser();
+
   const { book } = useInfoBook();
   const { infoUserId } = useInfoUserId(local.id);
   useEffect(() => {
