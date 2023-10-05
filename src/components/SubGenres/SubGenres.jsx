@@ -1,11 +1,19 @@
 import axios from "axios";
 import "./subgenres.scss";
+import { useDispatch } from "react-redux";
+import {
+  axiosFilterCatalogeBook,
+  removeSearchBooks,
+  removeSortBooks,
+} from "../../store/books/BookSlice";
 
-export const SubGenres = ({ subGenres, setSort, setState }) => {
+export const SubGenres = ({ subGenres, setState }) => {
+  const dispatch = useDispatch();
   const handleGenre = (event) => {
-    const getGenre = axios
-      .get(`http://127.0.0.1:8000/filter/${event.target.id}/`)
-      .then((data) => setSort(data.data));
+    console.log(event);
+    dispatch(axiosFilterCatalogeBook(event.target.id));
+    dispatch(removeSearchBooks());
+    dispatch(removeSortBooks());
     setState(false);
   };
   return (

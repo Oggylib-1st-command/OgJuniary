@@ -2,13 +2,11 @@ import React from "react";
 import "./QrPopUp.scss";
 import GeneratorQr from "../../../components/Generator-qr/generator";
 import getImageKey from "../../../components/getImageKey";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 function QrPop(props) {
   const someHandler = (event) => {
     event.stopPropagation();
   };
-  const { pathname } = useLocation();
-  console.log(pathname);
   const { id } = useParams();
   return (
     <div

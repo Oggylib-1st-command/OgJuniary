@@ -168,7 +168,33 @@
     }
   }
 }
-
+.admin__book--taken {
+  margin-left: -7px;
+}
+.user__taken-book {
+  background: #fff343;
+  padding: 15px 7px;
+  border-radius: 10px;
+}
+.table {
+  &__list-info {
+    max-width: 385px;
+    width: 100%;
+    text-align: start;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    margin-bottom: 20px;
+    padding-left: 7px;
+    & span {
+      font-weight: 700;
+      padding-right: 10px;
+    }
+  }
+}
 .paggination {
   display: flex;
   justify-content: center;

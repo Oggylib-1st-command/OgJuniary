@@ -6,7 +6,7 @@ import { useGenres } from "./../../../api/api.jsx";
 import { useState } from "react";
 import BlockGenres from "../adminBlockGenres/BlockGenres";
 
-const GenresCatalog = ({ active, setActive, setSortBook }) => {
+const GenresCatalog = ({ active, setActive }) => {
   const { genre } = useGenres();
   const [showMore, setShowMore] = useState();
 
@@ -37,7 +37,6 @@ const GenresCatalog = ({ active, setActive, setSortBook }) => {
                       id={target.id}
                       genre={target.main}
                       subGenres={target.name}
-                      setSortBook={setSortBook}
                       setActive={setActive}
                       setShowMore={setShowMore}
                       showMore={showMore}
@@ -52,7 +51,6 @@ const GenresCatalog = ({ active, setActive, setSortBook }) => {
                       id={target.id}
                       genre={target.main}
                       subGenres={target.name}
-                      setSortBook={setSortBook}
                       setActive={setActive}
                       setShowMore={setShowMore}
                       showMore={showMore}

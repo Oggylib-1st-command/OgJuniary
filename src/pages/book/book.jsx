@@ -7,7 +7,7 @@ import cn from "classnames";
 import axios from "axios";
 import "./book.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById } from "../../store/books/Slice";
+import { axiosBookById, removeBook } from "../../store/books/BookSlice";
 import Cookies from "js-cookie";
 import { EditReviewsCard } from "../../components/EditReviewsCard/EditReviewsCard";
 import { useInfoUser } from "./../../api/api";
@@ -29,17 +29,11 @@ function Book() {
     owner: local.id,
     image: local.picture,
   });
-  useEffect(() => {
-    if (infoUser.length > 0) {
-      setHeart(
-        infoUser
-          .find((el) => el.id === local.id)
-          .bookid_favorites?.includes(+id) || false
-      );
-    }
-  }, [infoUser]);
   const book = useSelector((state) => state.books.currentBook.book);
   const [name, setName] = useState("");
+  const [stateBtn, setStateBtn] = useState(null);
+  const [isBookings, setBookings] = useState(null);
+  const [user, setUser] = useState("");
   const favorites = () => {
     setHeart((heart) => !heart);
     const postFavorites = async () => {
@@ -55,10 +49,10 @@ function Book() {
     if (!heart) {
       postFavorites();
     } else {
-      console.log("KKKK");
       deleteFavorites();
     }
   };
+
   const booking = () => {
     if (!stateBtn && local) {
       const postBook = async () => {
@@ -72,6 +66,7 @@ function Book() {
       postBook();
       setBookings(true);
       setStateBtn(true);
+      window.location.reload();
     } else {
       const postBook = async () => {
         const bookings = await axios.patch(
@@ -84,11 +79,33 @@ function Book() {
       postBook();
       setBookings(false);
       setStateBtn(false);
+      window.location.reload();
     }
   };
+
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
+  useEffect(() => {
+    const takenUser = async () => {
+      await axios
+        .get(`http://localhost:8000/books/${book.id}/owner/`)
+        .then((data) => setUser(`${data.data.name} ${data.data.surname}`));
+    };
+    if (book.id !== 0 && book.owner !== null) {
+      takenUser();
+    }
+  }, [book]);
+  useEffect(() => {
+    if (infoUser.length > 0) {
+      setHeart(
+        infoUser
+          .find((el) => el.id === local.id)
+          .bookid_favorites?.includes(+id) || false
+      );
+    }
+  }, [infoUser]);
+
   useEffect(() => {
     if (book.id === 0) dispatch(axiosBookById(id));
     else if (comment.text && !active && comment.value > 0) {
@@ -107,21 +124,28 @@ function Book() {
     };
     getReviews();
   }, [id, active]);
+
   useEffect(() => {
     setStateBtn(book.owner ? true : false);
     setBookings(book.owner === local.id);
-  }, [stateBtn, book]);
-  const [stateBtn, setStateBtn] = useState(book.owner ? true : false);
-  const [isBookings, setBookings] = useState(book.owner === local.id);
+  }, [book]);
+
   useEffect(() => {
     if (stateBtn && isBookings) {
       setName("ВАШЕ");
-    } else if (stateBtn) {
+    } else if (stateBtn && !isBookings) {
       setName("ЗАНЯТО");
     } else if (!stateBtn) {
       setName("ВЗЯТЬ");
     }
   }, [stateBtn, isBookings]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeBook());
+    };
+  }, []);
+
   return (
     <div className="user-book">
       <div className="user-book__card">
@@ -166,6 +190,16 @@ function Book() {
           <span>Год издания:</span>
           {book.year}
         </p>
+        {user && book.end_at ? (
+          <p className="table__list-info user__taken-book">
+            <span>Книгу взял</span>
+            {user}
+            <span> до</span>
+            {book.end_at.slice(11, -13)}
+          </p>
+        ) : (
+          ""
+        )}
         <p className="book__description">
           <span>Описание: </span>
           {book.description}

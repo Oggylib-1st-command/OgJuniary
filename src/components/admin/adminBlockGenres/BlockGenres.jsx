@@ -1,24 +1,29 @@
 import "./BlockGenres.scss";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import getImageKey from "../../getImageKey";
-export default function BlockGenres({
+import { useDispatch } from "react-redux";
+import {
+  axiosFilterCatalogeBook,
+  removeSearchBooks,
+  removeAdminSortBooks,
+} from "../../../store/books/BookSlice";
+
+const BlockGenres = ({
   id,
   genre,
   clas,
   subGenres,
-  setSortBook,
   setActive,
   setShowMore,
   showMore,
-}) {
-  const handleGenre = async (event) => {
-    const getGenre = await axios.get(
-      `http://127.0.0.1:8000/filter/${event.target.id}/`
-    );
-    setSortBook(getGenre.data);
+}) => {
+  const dispatch = useDispatch();
+  const handleGenre = (event) => {
+    dispatch(axiosFilterCatalogeBook(event.target.id));
+    dispatch(removeSearchBooks());
+    dispatch(removeAdminSortBooks());
     setActive(false);
   };
+
   return (
     <div className={clas}>
       <p className="genres__span">{genre}</p>
@@ -63,4 +68,6 @@ export default function BlockGenres({
       </div>
     </div>
   );
-}
+};
+
+export default BlockGenres;

@@ -5,28 +5,30 @@ import { useState, useEffect } from "react";
 import "./adminAddBook.scss";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosBookById } from "../../../store/books/Slice";
-import { useParams } from "react-router-dom";
-import { getCurrentBook } from "../../../store/books/selectors";
+import { axiosAllGenre } from "../../../store/genre/GenreSlice";
 import { log } from "mathjs";
 
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.currentBook.book);
-  console.log(book);
   const [genresForSelect, setGenresForSelect] = useState([]);
   const [languagesForSelect, setLanguagesForSelect] = useState([]);
-  const { id } = useParams();
   const [defaultGenre, setDefaultGenre] = useState([]);
   const [defaultLanguage, setDefaultLanguage] = useState({});
   const [options, setOptions] = useState(book);
-  const [allGenres, setAllGenre] = useState([]);
+  const allGenres = useSelector((state) => state.genres.allGenres.genre);
   const [allLanguagles, setAllLanguagles] = useState([]);
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
+
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
+
+  useEffect(() => {
+    dispatch(axiosAllGenre());
+  });
+
   useEffect(() => {
     const dGen = book.genres.map((el, index) => {
       const obj = { value: "", label: "" };
@@ -41,11 +43,8 @@ export const AdminAddBook = () => {
   }, [book.genres, book.languagle]);
 
   useEffect(() => {
-    const gen = allGenres.map((el, index) => {
-      const obj = { value: "", label: "" };
-      obj.value = el.name;
-      obj.label = el.name;
-      return obj;
+    const genres = Object.values(allGenres).map(({ id, name }) => {
+      return { value: name, label: name };
     });
 
     const lan = allLanguagles.map((el, index) => {
@@ -54,7 +53,7 @@ export const AdminAddBook = () => {
       obj.label = el.name;
       return obj;
     });
-    setGenresForSelect(gen);
+    setGenresForSelect(genres);
     setLanguagesForSelect(lan);
   }, [allLanguagles, allGenres]);
 

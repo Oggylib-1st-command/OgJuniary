@@ -3,18 +3,24 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "./../../useAuth";
 import getImageKey from "../../getImageKey";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   axiosSearchCatalogeBook,
   removeSearchBooks,
-} from "../../../store/books/Slice";
+} from "../../../store/books/BookSlice";
+import axios from "axios";
+import {
+  axiosSearchCatalogeUser,
+  removeSearchUsers,
+} from "../../../store/users/UserSlice";
 
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signout } = useAuth();
   const [field, setField] = useState("");
+  const pathname = window.location.pathname;
 
   const logout = () => {
     Cookies.remove("admin");
@@ -22,12 +28,22 @@ function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   };
 
   const postForm = () => {
-    if (field) {
-      dispatch(axiosSearchCatalogeBook(field));
-      navigate(`/admin/catalog?${field}`);
+    if (pathname.indexOf("users") >= 0) {
+      if (field) {
+        dispatch(axiosSearchCatalogeUser(field));
+        navigate(`/admin/users?${field}`);
+      } else {
+        dispatch(removeSearchUsers());
+        navigate("/admin/users");
+      }
     } else {
-      dispatch(removeSearchBooks());
-      navigate("/admin/catalog");
+      if (field) {
+        dispatch(axiosSearchCatalogeBook(field));
+        navigate(`/admin/catalog?${field}`);
+      } else {
+        dispatch(removeSearchBooks());
+        navigate("/admin/catalog");
+      }
     }
   };
 
