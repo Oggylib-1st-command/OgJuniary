@@ -9,14 +9,11 @@ import {
   axiosSearchCatalogeBook,
   removeSearchBooks,
 } from "../../../store/books/BookSlice";
-<<<<<<< HEAD
 import axios from "axios";
 import {
   axiosSearchCatalogeUser,
   removeSearchUsers,
 } from "../../../store/users/UserSlice";
-=======
->>>>>>> 8ed44223258e951f755fc351affac364dc13f511
 
 function Header({ HeaderChoiceUser, HeaderChoiceBook }) {
   const dispatch = useDispatch();
