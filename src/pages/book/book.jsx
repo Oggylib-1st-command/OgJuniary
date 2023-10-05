@@ -7,7 +7,11 @@ import cn from "classnames";
 import axios from "axios";
 import "./book.scss";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { axiosBookById, removeBook } from "../../store/books/BookSlice";
+=======
+import { axiosBookById } from "../../store/books/BookSlice";
+>>>>>>> 8ed44223258e951f755fc351affac364dc13f511
 import Cookies from "js-cookie";
 import { EditReviewsCard } from "../../components/EditReviewsCard/EditReviewsCard";
 import { useInfoUser } from "./../../api/api";
