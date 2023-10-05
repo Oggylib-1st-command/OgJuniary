@@ -31,9 +31,9 @@ function Book() {
   });
   const book = useSelector((state) => state.books.currentBook.book);
   const [name, setName] = useState("");
-  const [stateBtn, setStateBtn] = useState(book.owner ? true : false);
-  const [isBookings, setBookings] = useState(book.owner === local.id);
-
+  const [stateBtn, setStateBtn] = useState(null);
+  const [isBookings, setBookings] = useState(null);
+  const [user, setUser] = useState("");
   const favorites = () => {
     setHeart((heart) => !heart);
     const postFavorites = async () => {
@@ -49,7 +49,6 @@ function Book() {
     if (!heart) {
       postFavorites();
     } else {
-      console.log("KKKK");
       deleteFavorites();
     }
   };
@@ -67,6 +66,7 @@ function Book() {
       postBook();
       setBookings(true);
       setStateBtn(true);
+      window.location.reload();
     } else {
       const postBook = async () => {
         const bookings = await axios.patch(
@@ -79,6 +79,7 @@ function Book() {
       postBook();
       setBookings(false);
       setStateBtn(false);
+      window.location.reload();
     }
   };
 
@@ -86,6 +87,26 @@ function Book() {
     dispatch(axiosBookById(id));
   }, [id]);
 
+  useEffect(() => {
+    if (infoUser.length > 0) {
+      setHeart(
+        infoUser
+          .find((el) => el.id === local.id)
+          .bookid_favorites?.includes(+id) || false
+      );
+    }
+  }, [infoUser]);
+
+  useEffect(() => {
+    const takenUser = async () => {
+      await axios
+        .get(`http://localhost:8000/books/${book.id}/owner/`)
+        .then((data) => setUser(`${data.data.name} ${data.data.surname}`));
+    };
+    if (book.id !== 0 && book.owner !== null) {
+      takenUser();
+    }
+  }, [book]);
   useEffect(() => {
     if (infoUser.length > 0) {
       setHeart(
@@ -118,12 +139,12 @@ function Book() {
   useEffect(() => {
     setStateBtn(book.owner ? true : false);
     setBookings(book.owner === local.id);
-  }, [stateBtn, book]);
+  }, [book]);
 
   useEffect(() => {
     if (stateBtn && isBookings) {
       setName("ВАШЕ");
-    } else if (stateBtn) {
+    } else if (stateBtn && !isBookings) {
       setName("ЗАНЯТО");
     } else if (!stateBtn) {
       setName("ВЗЯТЬ");
@@ -180,6 +201,16 @@ function Book() {
           <span>Год издания:</span>
           {book.year}
         </p>
+        {user && book.end_at ? (
+          <p className="table__list-info user__taken-book">
+            <span>Книгу взял</span>
+            {user}
+            <span> до</span>
+            {book.end_at.slice(11, -13)}
+          </p>
+        ) : (
+          ""
+        )}
         <p className="book__description">
           <span>Описание: </span>
           {book.description}

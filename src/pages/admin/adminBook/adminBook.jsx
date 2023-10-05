@@ -23,6 +23,7 @@ function AdminBook() {
   const [reviews, setReviews] = useState([]);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [user, setUser] = useState();
   const comment = reviews || [];
   const [currentCommentPage, setCurrentCommentpage] = useState(numberPage);
   const commentPerPage = 4;
@@ -44,7 +45,16 @@ function AdminBook() {
     setCurrentCommentpage(p);
     localStorage.setItem("page", p);
   };
-
+  useEffect(() => {
+    const takenUser = async () => {
+      await axios
+        .get(`http://localhost:8000/books/${book.id}/owner/`)
+        .then((data) => setUser(`${data.data.name} ${data.data.surname}`));
+    };
+    if (book.id !== 0 && book.owner !== null) {
+      takenUser();
+    }
+  }, [book]);
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
@@ -107,6 +117,16 @@ function AdminBook() {
               <div className="book__text-author">Автор: {book.author}</div>
               <div className="book__text-year">Год издания: {book.year}</div>
               <div className="book__text-year">Язык: {book.languages}</div>
+              {user && book.end_at ? (
+                <p className="table__list-info user__taken-book admin__book--taken">
+                  <span>Книгу взял</span>
+                  {user}
+                  <span> до</span>
+                  {book.end_at.slice(11, -13)}
+                </p>
+              ) : (
+                ""
+              )}
               <div className="book__text-rating">
                 <Rating
                   name="half-rating-read"

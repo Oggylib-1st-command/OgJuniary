@@ -121,6 +121,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+    padding-left: 7px;
     & span {
       display: block;
       font-weight: 700;
@@ -209,9 +210,16 @@ td {
     line-height: 20px;
     color: #000000;
     margin-bottom: 20px;
+    padding-left: 7px;
     & span {
       font-weight: 700;
       padding-right: 10px;
     }
   }
+}
+
+.user__taken-book {
+  background: #fff343;
+  padding: 15px 7px;
+  border-radius: 10px;
 }

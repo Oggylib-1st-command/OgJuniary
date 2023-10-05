@@ -10,11 +10,9 @@ export const axiosBookById = createAsyncThunk(
       if (response.status !== 200) {
         throw new Error("server Error!");
       }
-
       response.data.genres = response.data.genres.map((obj) => {
         return obj.name;
       });
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
