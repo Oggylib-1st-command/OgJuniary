@@ -3,10 +3,7 @@ import getImageKey from "../getImageKey";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeSearchBooks } from "../../store/books/BookSlice";
-<<<<<<< HEAD
 import { removeSearchUsers } from "../../store/users/UserSlice";
-=======
->>>>>>> 8ed44223258e951f755fc351affac364dc13f511
 
 const EmptyList = (props) => {
   const navigate = useNavigate();
