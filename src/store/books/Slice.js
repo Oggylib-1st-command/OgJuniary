@@ -11,10 +11,6 @@ export const axiosBookById = createAsyncThunk(
         throw new Error("server Error!");
       }
 
-      response.data.genres = response.data.genres.map((obj) => {
-        return obj.name;
-      });
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -61,25 +57,8 @@ export const axiosSearchCatalogeBook = createAsyncThunk(
   async function (field, { rejectWithValue }) {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/search/books/?q=${field}`
+        `http://127.0.0.1:8000/search/?q=${field}`
       ); // проверить почему отваливаются CORS, если убрать слеш
-
-      if (response.status !== 200) {
-        throw new Error("server Error!");
-      }
-
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const axiosFilterCatalogeBook = createAsyncThunk(
-  "books/axiosFilterCatalogeBook",
-  async function (id, { rejectWithValue }) {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/filter/${id}/`); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -96,7 +75,9 @@ export const axiosTimeBook = createAsyncThunk(
   "books/axiosTimeBook",
   async function (field, { rejectWithValue }) {
     try {
-      const response = await axios.get(`http://localhost:8000/slider/time/`);
+      const response = await axios.get(
+        `http://localhost:8000/slider/time/`
+      ); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -238,12 +219,6 @@ const bookSlice = createSlice({
       allBooks: [],
     },
 
-    filterCatalogeBook: {
-      status: null,
-      error: null,
-      filterBooks: [],
-    },
-
     searchCatalogeBook: {
       status: null,
       error: null,
@@ -262,13 +237,13 @@ const bookSlice = createSlice({
       sortBook: [],
     },
 
-    popularBook: {
+    popularBook: { 
       status: null,
       error: null,
       popBook: [],
     },
 
-    timeBook: {
+    timeBook: { 
       status: null,
       error: null,
       timBook: [],
@@ -310,20 +285,6 @@ const bookSlice = createSlice({
         status: null,
         error: null,
         sortBook: [],
-      };
-    },
-    removeAdminSortBooks(state, action) {
-      state.sortAdminCatalogeBook = {
-        status: null,
-        error: null,
-        sortAdminBook: [],
-      };
-    },
-    removeFilterBooks(state, action) {
-      state.filterCatalogeBook = {
-        status: null,
-        error: null,
-        filterBooks: [],
       };
     },
   },
@@ -396,19 +357,6 @@ const bookSlice = createSlice({
       state.sortCatalogeBook.error = action.payload;
     },
 
-    [axiosFilterCatalogeBook.pending]: (state) => {
-      state.filterCatalogeBook.status = "loading";
-      state.filterCatalogeBook.error = null;
-    },
-    [axiosFilterCatalogeBook.fulfilled]: (state, { type, payload }) => {
-      state.filterCatalogeBook.status = "resolved";
-      state.filterCatalogeBook.filterBooks = [...payload];
-    },
-    [axiosFilterCatalogeBook.rejected]: (state, action) => {
-      state.filterCatalogeBook.status = "rejected";
-      state.filterCatalogeBook.error = action.payload;
-    },
-
     [axiosPopularBook.pending]: (state) => {
       state.popularBook.status = "loading";
       state.popularBook.error = null;
@@ -443,8 +391,6 @@ export const {
   removeSearchBooks,
   removeAllBooks,
   removeSortBooks,
-  removeFilterBooks,
-  removeAdminSortBooks,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

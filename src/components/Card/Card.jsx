@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 function Card(props) {
+  console.log(props.infoUser);
   const local = JSON.parse(Cookies.get("profile"));
   const [name, setName] = useState("ВЗЯТЬ");
   const [active, setActive] = useState(props.owner ? true : false);

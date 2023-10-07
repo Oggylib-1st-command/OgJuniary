@@ -1,20 +1,20 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-import { useInfoBook } from "./../../api/api";
 import GenreCard from "../../components/GenreCardMainPage/GenreCardMainPage";
 import Card from "../../components/BookCardMainPage/BookCardMainPage";
 import "swiper/css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosPopularBook, axiosTimeBook } from "../../store/books/BookSlice";
-
+import Cookies from "js-cookie";
 import "./main.scss";
-
+import { useInfoUserId } from "./../../api/api";
 function Main() {
+  const local = JSON.parse(Cookies.get("profile"));
   const [width, setWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
   const popularBook = useSelector((state) => state.books.popularBook.popBook);
   const timeBook = useSelector((state) => state.books.timeBook.timBook);
+  const { infoUserId } = useInfoUserId(local.id);
   useEffect(() => {
     dispatch(axiosPopularBook());
     dispatch(axiosTimeBook());
@@ -28,8 +28,7 @@ function Main() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  console.log(popularBook);
-
+  // console.log(popularBook);
   return (
     <div className="main-wrapper">
       <div className="first-slider">
@@ -46,6 +45,7 @@ function Main() {
             {popularBook.map((obj) => (
               <SwiperSlide>
                 <Card
+                  key={obj.id}
                   id={obj.id}
                   title={obj.title}
                   author={obj.author}
@@ -64,6 +64,7 @@ function Main() {
             {timeBook.map((obj) => (
               <SwiperSlide>
                 <Card
+                  key={obj.id}
                   id={obj.id}
                   title={obj.title}
                   author={obj.author}
@@ -79,11 +80,14 @@ function Main() {
           <p>ПОДБОРКА ЖАНРОВ ДЛЯ ВАС</p>
         </div>
         <div className="rec-genre">
-          <GenreCard genre={"Менеджмент"} />
-          <GenreCard genre={"Программирование"} />
-          <GenreCard genre={"Переговоры"} />
-          <GenreCard genre={"Экономика"} />
-          <GenreCard genre={"Маркетинг"} />
+          {infoUserId.selection_genres &&
+            infoUserId.selection_genres.map((genreName) => (
+              <GenreCard
+                key={genreName.id}
+                id={genreName.id}
+                genre={genreName.name}
+              />
+            ))}
         </div>
       </div>
     </div>

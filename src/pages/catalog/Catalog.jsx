@@ -59,7 +59,6 @@ const Catalog = () => {
       setFinalSetBook(allBook);
     }
   }, [searchBook, sortBook, allBook, filterBook]);
-
   useEffect(() => {
     return () => {
       localStorage.removeItem("page");
@@ -115,7 +114,9 @@ const Catalog = () => {
             </FormControl>
           </Box>
         </div>
-        {finalSetBook[0] === "NotFound" || finalSetBook.length === 0 ? (
+        {finalSetBook[0] === "NotFound" ||
+        finalSetBook.length === 0 ||
+        infoUser.length < 1 ? (
           <EmptyList
             title={undefined}
             img={"EmptyCatalog"}
