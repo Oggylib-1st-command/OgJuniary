@@ -86,17 +86,6 @@ function Book() {
   useEffect(() => {
     dispatch(axiosBookById(id));
   }, [id]);
-
-  useEffect(() => {
-    if (infoUser.length > 0) {
-      setHeart(
-        infoUser
-          .find((el) => el.id === local.id)
-          .bookid_favorites?.includes(+id) || false
-      );
-    }
-  }, [infoUser]);
-
   useEffect(() => {
     const takenUser = async () => {
       await axios
@@ -191,7 +180,9 @@ function Book() {
         </div>
         <p className="table__list-info">
           <span>Жанры:</span>
-          {book.genres.join("  ").split("  ").join(" / ")}
+          {book.genres.map((el) => {
+            return " | " + el.name + " | ";
+          })}
         </p>
         <p className="table__list-info">
           <span>Язык:</span>

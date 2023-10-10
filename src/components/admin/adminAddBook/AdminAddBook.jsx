@@ -6,7 +6,7 @@ import "./adminAddBook.scss";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosAllGenre } from "../../../store/genre/GenreSlice";
-import { log } from "mathjs";
+import { axiosAllLanguage } from "../../../store/language/Language";
 
 export const AdminAddBook = () => {
   const dispatch = useDispatch();
@@ -17,45 +17,50 @@ export const AdminAddBook = () => {
   const [defaultLanguage, setDefaultLanguage] = useState({});
   const [options, setOptions] = useState(book);
   const allGenres = useSelector((state) => state.genres.allGenres.genre);
-  const [allLanguagles, setAllLanguagles] = useState([]);
+  const allLanguages = useSelector(
+    (state) => state.languages.allLanguage.language
+  );
   const [selectImg, setSelectImg] = useState(null);
   const navigate = useNavigate();
-
   if (book.id !== 0 && options.id === 0) {
     setOptions(book);
   }
 
   useEffect(() => {
     dispatch(axiosAllGenre());
-  });
+    dispatch(axiosAllLanguage());
+  }, []);
 
   useEffect(() => {
+    console.log(book.genres);
     const dGen = book.genres.map((el, index) => {
-      const obj = { value: "", label: "" };
-      obj.value = el;
-      obj.label = el;
-      return obj;
-    });
-
-    const dLan = { value: book.languages, label: book.languages };
-    setDefaultLanguage(dLan.label);
-    setDefaultGenre(dGen);
-  }, [book.genres, book.languagle]);
-
-  useEffect(() => {
-    const genres = Object.values(allGenres).map(({ id, name }) => {
-      return { value: name, label: name };
-    });
-
-    const lan = allLanguagles.map((el, index) => {
-      const obj = { value: 0, label: "" };
-      obj.value = el.id;
+      const obj = { id: 0, value: "", label: "" };
+      obj.id = el.id;
+      obj.value = el.name;
       obj.label = el.name;
       return obj;
     });
+    console.log(dGen);
+
+    const dLan = { value: book.languages, label: book.languages };
+
+    console.log(dGen, dLan);
+
+    setDefaultLanguage(dLan);
+    setDefaultGenre(dGen);
+  }, []);
+
+  useEffect(() => {
+    const genres = Object.values(allGenres).map(({ id, name }) => {
+      return { id: id, value: name, label: name };
+    });
+    const languages = Object.values(allLanguages).map(({ id, name }) => {
+      return { value: name, label: name };
+    });
+
     setGenresForSelect(genres);
-    setLanguagesForSelect(lan);
-  }, [allLanguagles, allGenres]);
+    setLanguagesForSelect(languages);
+  }, [allLanguages, allGenres]);
 
   useEffect(() => {
     let fileReader,
@@ -102,18 +107,17 @@ export const AdminAddBook = () => {
           "http://127.0.0.1:8000/books/",
           options
         );
-        console.log(response);
         navigate(-1);
       };
       postBook();
     } else {
       const patchBook = async () => {
         const response = await axios.patch(
-          `http://127.0.0.1:8000/books/${book.id}/`,
+          `http://127.0.0.1:8000/books/${options.id}/`,
           options
         );
         console.log(response);
-        navigate(`/admin/catalog/${book.id}`);
+        navigate(`/admin/catalog/${options.id}`);
       };
       patchBook();
     }
@@ -187,7 +191,7 @@ export const AdminAddBook = () => {
           <label className="label__languagle">
             Язык:
             <Select
-              defaultValue={defaultLanguage}
+              value={defaultLanguage}
               placeholder="Выберите язык"
               options={languagesForSelect}
               className="w-180 md:w-31rem multiselect"
@@ -202,9 +206,12 @@ export const AdminAddBook = () => {
             <Select
               onChange={(e) => {
                 setDefaultGenre(e);
+                console.log(e);
                 setOptions({
                   ...options,
-                  genres: e.map((elem) => elem.value),
+                  genres: e.map((elem) => {
+                    return { id: elem.id, name: elem.label };
+                  }),
                 });
               }}
               closeMenuOnSelect={false}

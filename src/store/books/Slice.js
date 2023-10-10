@@ -75,9 +75,7 @@ export const axiosTimeBook = createAsyncThunk(
   "books/axiosTimeBook",
   async function (field, { rejectWithValue }) {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/slider/time/`
-      ); // проверить почему отваливаются CORS, если убрать слеш
+      const response = await axios.get(`http://localhost:8000/slider/time/`); // проверить почему отваливаются CORS, если убрать слеш
 
       if (response.status !== 200) {
         throw new Error("server Error!");
@@ -237,13 +235,13 @@ const bookSlice = createSlice({
       sortBook: [],
     },
 
-    popularBook: { 
+    popularBook: {
       status: null,
       error: null,
       popBook: [],
     },
 
-    timeBook: { 
+    timeBook: {
       status: null,
       error: null,
       timBook: [],
