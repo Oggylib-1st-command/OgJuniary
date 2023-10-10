@@ -70,12 +70,11 @@ function AdminBook() {
     const getReviews = async () => {
       const getRevie = await axios.get("http://127.0.0.1:8000/reviews/");
       const filt = getRevie.data.filter((el) => +el.book === +id);
-      console.log(filt);
       setReviews(filt);
     };
     getReviews();
   }, []);
-
+  book.genres.map((el) => el.name);
   return (
     <div>
       <Header />
@@ -113,7 +112,7 @@ function AdminBook() {
               />
             </div>
             <div className="book__text">
-              <div className="book__text-title">{book.title} </div>
+              <div className="book__text-title">{book.title}</div>
               <div className="book__text-author">Автор: {book.author}</div>
               <div className="book__text-year">Год издания: {book.year}</div>
               <div className="book__text-year">Язык: {book.languages}</div>
@@ -138,7 +137,11 @@ function AdminBook() {
               </div>
               <div className="book__text-genre">
                 Жанры:
-                <p>{book.genres.join("  ").split("  ").join(" / ")}</p>
+                <p>
+                  {book.genres.map((el) => {
+                    return " | " + el.name + " | ";
+                  })}
+                </p>
               </div>
               <div className="book__text-description">Описание книги:</div>
               <div className="book__text-description__text">
