@@ -7,7 +7,7 @@ function DeletePop(props) {
   const navigate = useNavigate();
   const handleDelete = async () => {
     await axios.delete(`http://127.0.0.1:8000/books/${props.id}/`);
-    navigate(-1);
+    navigate('/admin/catalog');
   };
   const someHandler = (event) => {
     event.stopPropagation();

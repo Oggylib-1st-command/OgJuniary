@@ -80,7 +80,7 @@ const Catalog = () => {
             type="submit"
             onClick={() => setState((state) => !state)}
           >
-            <p className="filter__text">Каталог</p>
+            <p className="filter__text">Фильтрация</p>
           </button>
           <div
             className={cn({

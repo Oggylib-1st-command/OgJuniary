@@ -55,6 +55,21 @@ export const useInfoBook = () => {
   return { book };
 };
 
+export const useInfoBookId = (id) => {
+  const [book, setBook] = useState([]);
+
+  useEffect(() => {
+    const getBook = async () => {
+      const res = await axios.get(`http://localhost:8000/books/${id}/`);
+      setBook(res.data);
+    };
+
+    getBook();
+  }, []);
+
+  return { book };
+};
+
 export const useInfoUser = () => {
   const [infoUser, setInfoUser] = useState([]);
 

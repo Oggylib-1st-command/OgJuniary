@@ -1,26 +1,30 @@
-.book-taken__inner {
+.book_taken__inner {
   display: flex;
   align-items: start;
   flex-direction: column;
   border-bottom: 1px solid #8d8d8d;
   height: 210px;
 }
-// .book-taken__image-block {
-//   width: 120px;
-//   height: 150px;
-// }
 
-.book-taken__image {
+.book_taken__image-block {
+  width: 120px;
+  height: 150px;
+}
+
+.book_taken__image {
   object-fit: cover;
   width: 130px;
   height: 160px;
-  &--expired {
+  &_expired {
+    object-fit: cover;
+    width: 130px;
+    height: 160px;
     border: 2px solid red;
   }
 }
 
-.book-taken__title {
-  margin: 4px 5px 0 0;
+.book_taken__title {
+  margin: 18px 5px 0 0;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
@@ -32,7 +36,18 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  &--expired {
+  &_expired {
+    margin: 16px 5px 0 0;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     color: red;
   }
 }

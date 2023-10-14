@@ -90,12 +90,13 @@ function Users() {
       <div className="admin__users-top">
         <Box sx={{ minWidth: 200 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Сортировка</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={name}
               onChange={handleChange}
+              displayEmpty
+              renderValue={name !== "" ? undefined : () => "Сортировка"}
             >
               {names.map((name) => (
                 <MenuItem key={name} value={name} id="menu-item-select">

@@ -1,21 +1,24 @@
 .catalog {
   &__content {
-    padding-top: 6px;
-    background: #dbdbdb;
+    background: #ffffff;
     min-height: 100vh;
   }
+
   &__search {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin: 0 7px 21px 7px;
+    padding: 11px 7px 11px 7px;
+    margin-bottom: 1rem;
     position: relative;
     column-gap: 5px;
+    background: #fff;
   }
+
   &__filtration,
   &__filtration_active {
     height: 52px;
-    background: rgba(106, 106, 106, 0.7);
-    border-radius: 4px;
+    background: #fff343;
+    border-radius: 16px;
     outline: none;
     cursor: pointer;
     transition: all 0.3s;
@@ -24,33 +27,58 @@
     align-items: center;
     border: 1px solid rgb(192, 192, 192);
   }
+
   &__filtration {
     &:hover {
       border-color: black;
     }
   }
+
   &__filtration_active {
     border-color: #1976d2;
     border-width: 2px;
   }
 }
-#demo-simple-select,
-#menu-item-select {
-  background: rgba(106, 106, 106, 0.7);
+
+#demo-simple-select {
+  background: #fff343;
+  border-radius: 16px;
+  border-color: transparent;
+
   &:focus {
     & #place {
       display: none;
     }
   }
 }
+
 #demo-simple-select-label,
 #demo-simple-select,
 #menu-item-select {
-  color: #fff;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.05938em;
+  color: #000;
   text-align: center;
 }
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper {
+  box-shadow: none !important;
+  border: 1px solid #000;
+  top: 142px !important;
+}
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  border-radius: 16px !important;
+  border-color: red;
+  &::after,
+  &::before {
+    background: transparent;
+  }
+}
+
 #demo-simple-select {
-  padding: 14.5px 14px;
+  padding: 12.5px 14px;
 }
 
 .show__btn {
@@ -73,14 +101,17 @@
     top: 105%;
     left: -200%;
     padding: 29px 10px 11px 20px;
-    background: rgba(106, 106, 106, 0.95);
+    background: #ffffff;
+    color: #000;
     border-radius: 10px;
     width: 100%;
     min-height: 330px;
     transition: all 0.3s;
     cursor: auto;
     z-index: 10;
+    border: 1px solid #000;
   }
+
   &__info_active {
     left: 0;
   }
